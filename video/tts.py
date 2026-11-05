@@ -47,12 +47,17 @@ def synth(line, rate):
         return line["silent"]
     with open(txt, "w", encoding="utf-8") as f:
         f.write(line.get("tts", line["text"]))
+    trace = os.path.join(TTS_DIR, line["id"] + ".trace")
     subprocess.run(
         ["open_jtalk", "-x", DIC, "-m", VOICE, "-r", f"{rate:.3f}",
-         "-fm", "0.6", "-ow", wav, txt],
+         "-fm", "0.6", "-ow", wav, "-ot", trace, txt],
         check=True,
     )
-    return trim(wav)
+    dur, lead = trim(wav)
+    # 音素の時刻（trace）は切る前の音声が基準なので、切った量を残しておく（align.py が使う）
+    with open(os.path.join(TTS_DIR, line["id"] + ".meta.json"), "w") as f:
+        json.dump({"lead": lead, "rate": rate}, f)
+    return dur
 
 
 def read_wav(path):
@@ -73,13 +78,14 @@ def trim(path, thresh=400, pad=0.04):
     while j > i and abs(d[j]) < thresh:
         j -= 1
     p = int(pad * sr)
+    lead = max(0, i - p) / sr
     d = d[max(0, i - p): min(len(d), j + p)]
     with wave.open(path, "wb") as w:
         w.setnchannels(1)
         w.setsampwidth(2)
         w.setframerate(sr)
         w.writeframes(d.tobytes())
-    return len(d) / sr
+    return len(d) / sr, lead
 
 
 def main():

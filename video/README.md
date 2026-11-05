@@ -8,7 +8,29 @@ v3 の台本で作った版は git の履歴（コミット 40943ee）に残っ�
 - 字幕ファイル: `build/subtitles.srt`（編集ソフトで使う場合）
 - ナレーションだけ: `build/narration.wav`
 
-## 作り直す
+## Remotion 版（完成度を上げた版）
+
+`remotion/` は同じ台本を Remotion（React で動画を作る仕組み）で作り直したものです。Remotion 公式の Agent Skills（remotion-dev/skills）の書き方に沿っています。
+
+| HTML 版との違い | 中身 |
+| --- | --- |
+| 音 | 効果音（タップ・通知・紙を置く音・スタンプ・できた音。Kenney の CC0 音源）と、仮の BGM（`gen_bgm.py` で合成）。BGM は話しているあいだ自動で下がり、止まる場面では分散和音が消え、動けた場面で一番濃くなる |
+| 字幕 | 音素の時刻から文字ごとの読み上げ時刻を出し（`align.py`）、読まれた文字から白くなる。文節に近いまとまりで改行。データは @remotion/captions の Caption 形式 |
+| 同期 | 画面の動きも同じ文字ごとの時刻に合わせた（これまでは文字数の比で推定） |
+| 動き | Remotion の spring と Easing.bezier で作り直した。場面は TransitionSeries でつなぐ |
+| 強調 | @remotion/rough-notation の手描き風マーカー（2週間／書いただけで終わった／当事者の私／5分以内／名前だけ／もう一度／本人／続きが書ける） |
+
+```sh
+cd remotion
+npm i
+./prepare.sh                         # 素材を用意（ナレーション合成・文字の時刻・BGM・フォント）
+npx remotion studio                  # プレビュー（音つきで再生・コマ送りできる）
+npx remotion render HackathonV4 out/video.mp4 --concurrency=4
+```
+
+この作業環境では Remotion 同梱ブラウザの配布元に届かないため、`remotion.config.ts` で入っている Chrome Headless Shell を指定しています。手元のパソコンで使うときは、その1行（`Config.setBrowserExecutable(...)`）を消してください。
+
+## 作り直す（HTML 版）
 
 ```sh
 ./setup.sh                # フォントと音声モデルを取得（リポジトリには入れていない）
@@ -59,3 +81,5 @@ node render.js video      # 3分の mp4 を書き出し（4並列、数分）
 
 - 音声: HTS voice tohoku-f01（東北大学 伊藤・能勢研究室、CC BY 4.0）`assets/voices/tohoku-f01-COPYRIGHT.txt`。この音声を本番で使う場合はクレジットを入れる
 - フォント: Zen Maru Gothic、Klee One（SIL Open Font License）
+- 効果音: Kenney（www.kenney.nl）の Interface Sounds・Casino Audio・Impact Sounds（CC0）。soundcn 経由で取得。`remotion/public/sfx/`
+- BGM: `gen_bgm.py` で合成した仮の曲（差し替え推奨）
