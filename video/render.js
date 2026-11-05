@@ -70,7 +70,7 @@ async function video() {
   fs.writeFileSync(list, parts.map((p) => `file '${p}'`).join("\n"));
   const silent = path.join(BUILD, "video_silent.mp4");
   await run("ffmpeg", ["-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", list, "-c", "copy", silent]);
-  const out = path.join(BUILD, "hackathon_v3_draft.mp4");
+  const out = path.join(BUILD, "hackathon_v4_draft.mp4");
   await run("ffmpeg", ["-y", "-loglevel", "error", "-i", silent, "-i", path.join(BUILD, "narration.wav"),
     "-filter:a", "loudnorm=I=-16:TP=-1.5:LRA=11,aresample=48000", "-ac", "2",
     "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", out]);

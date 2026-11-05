@@ -2,72 +2,78 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<title>発表動画 v3</title>
+<title>発表動画 v4</title>
 <style>
 @font-face { font-family: "Zen Maru Gothic"; src: url(assets/fonts/ZenMaruGothic-Medium.ttf); font-weight: 500; }
 @font-face { font-family: "Zen Maru Gothic"; src: url(assets/fonts/ZenMaruGothic-Bold.ttf); font-weight: 700; }
 @font-face { font-family: "Klee One"; src: url(assets/fonts/KleeOne-SemiBold.ttf); font-weight: 600; }
 
 :root {
-  --paper: #F4EEE3;
-  --paper-2: #EAE1D1;
-  --sheet: #FFFDF8;
-  --ink: #2B2924;
-  --ink-2: #5E584E;
-  --muted: #988F81;
-  --line: #DDD3C2;
-  --accent: #DE5440;
-  --accent-soft: #F8DCD5;
-  --teal: #2E7672;
-  --teal-2: #3F8F8A;
-  --teal-soft: #D9ECE9;
-  --sky: #DCEBF5;
-  --gold: #F0BE5E;
-  --gold-soft: #FFF4DA;
-  --desk: #D7C4A3;
+  --paper: #F4EEE3; --sheet: #FFFDF8; --ink: #2B2924; --ink-2: #5E584E; --muted: #988F81; --line: #DDD3C2;
+  --accent: #DE5440; --accent-soft: #F8DCD5; --teal: #2E7672; --teal-2: #3F8F8A; --teal-soft: #D9ECE9;
+  --gold: #F0BE5E; --gold-soft: #FFF4DA;
 }
-
 * { box-sizing: border-box; }
 html, body { margin: 0; background: #111; }
 body { overflow: hidden; }
+#stage { word-break: auto-phrase; }
 #stage {
-  position: relative; width: 1920px; height: 1080px; overflow: hidden;
-  background: var(--paper); color: var(--ink);
-  font-family: "Zen Maru Gothic", sans-serif; font-weight: 500;
-  -webkit-font-smoothing: antialiased;
+  position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--paper); color: var(--ink);
+  font-family: "Zen Maru Gothic", sans-serif; font-weight: 500; -webkit-font-smoothing: antialiased;
 }
-#stage::after {           /* 紙のざらつき */
-  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 40;
-  background: url(assets/noise.png); opacity: .07; mix-blend-mode: multiply;
-}
+#stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 40; background: url(assets/noise.png); opacity: .07; mix-blend-mode: multiply; }
 .abs { position: absolute; }
-.scene { position: absolute; inset: 0; opacity: 0; }
+.scene { position: absolute; inset: 0; opacity: 0; display: none; }
 .hand { font-family: "Klee One", serif; font-weight: 600; }
 .b { font-weight: 700; }
 
-/* 字幕と札 */
+/* 字幕・札・見出し */
 #sub { position: absolute; left: 0; right: 0; bottom: 44px; text-align: center; z-index: 60; }
-#sub span {
-  display: inline-block; max-width: 1640px; padding: 12px 34px 15px; border-radius: 18px;
-  background: rgba(34, 31, 27, .86); color: #fff; font-size: 42px; font-weight: 700;
-  letter-spacing: .02em; line-height: 1.38;
-}
-#sub span.note { background: rgba(46, 118, 114, .92); }
-.ph-tag {
-  position: absolute; left: 40px; top: 34px; z-index: 55; padding: 9px 18px 10px;
-  border: 2px dashed #B3A894; border-radius: 12px; background: rgba(255, 253, 248, .9);
-  font-size: 22px; color: #6B6458; opacity: 0;
-}
+#sub span { display: inline-block; max-width: 1640px; padding: 12px 34px 15px; border-radius: 18px; background: rgba(34, 31, 27, .86); color: #fff; font-size: 42px; font-weight: 700; letter-spacing: .02em; line-height: 1.38; }
+#sub.side { left: 1250px; right: 50px; bottom: 64px; text-align: left; }
+#sub.side span { font-size: 38px; padding: 12px 26px 14px; }
+.ph-tag { position: absolute; left: 40px; top: 34px; z-index: 55; padding: 9px 18px 10px; border: 2px dashed #B3A894; border-radius: 12px; background: rgba(255, 253, 248, .9); font-size: 22px; color: #6B6458; opacity: 0; white-space: nowrap; }
 .ph-tag b { color: var(--accent); margin-right: 10px; }
+.ph-tag.r { left: auto; right: 40px; }
+.headline { position: absolute; left: 0; right: 0; top: 104px; text-align: center; opacity: 0; z-index: 30; }
+.headline span { display: inline-block; padding: 16px 40px 20px; background: var(--sheet); border-radius: 20px; box-shadow: 0 10px 30px rgba(60, 40, 10, .2); font-size: 58px; font-weight: 700; letter-spacing: .02em; }
+.headline em { font-style: normal; background: linear-gradient(transparent 62%, var(--accent-soft) 62%); }
 
-/* ===== ① つかみ ===== */
-#sc1 { background: radial-gradient(ellipse at 50% 45%, #E3D3B6 0%, #D3BE9B 60%, #C2AB86 100%); }
-#desk { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 960px 540px; }
-.sheet {
-  position: absolute; width: 250px; height: 354px; background: var(--sheet); border-radius: 4px;
-  box-shadow: 0 2px 3px rgba(60, 40, 10, .18), 0 10px 24px rgba(60, 40, 10, .16);
-  padding: 14px 14px 10px; transform-origin: 50% 50%;
+/* ===== 机の上の書類（①・動けた・締め） ===== */
+#scD { background: radial-gradient(ellipse at 50% 45%, #E3D3B6 0%, #D3BE9B 60%, #C2AB86 100%); }
+#deskD { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 960px 560px; }
+#deskD svg { position: absolute; left: 0; top: 0; overflow: visible; }
+
+/* ===== ② ③ 壁と手順 ===== */
+#world { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+.region { position: absolute; top: -200px; height: 1480px; }
+#w-left { left: -600px; width: 1550px; background: var(--paper); }
+#w-right { left: 950px; width: 1600px; background: #E7EFEC; }
+.region-label { position: absolute; top: 350px; font-size: 44px; font-weight: 700; color: var(--ink-2); white-space: nowrap; transform: translateX(-50%); opacity: 0; }
+#wall {
+  position: absolute; left: 905px; top: 120px; width: 90px; height: 900px; transform-origin: 50% 100%;
+  background-color: #C8B9A1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='60'%3E%3Cg fill='none' stroke='%23A08E73' stroke-width='3'%3E%3Cpath d='M0 1.5H90M0 31.5H90M45 0V30M0 30V60M90 30V60'/%3E%3C/g%3E%3C/svg%3E");
+  box-shadow: inset -8px 0 0 rgba(0, 0, 0, .08), 0 0 0 3px #A08E73; border-radius: 6px 6px 0 0;
 }
+#door { position: absolute; left: 905px; top: 640px; width: 90px; height: 170px; background: #E7EFEC; border-radius: 40px 40px 0 0; box-shadow: inset 0 0 0 3px #A08E73; transform-origin: 50% 100%; opacity: 0; }
+.person { position: absolute; width: 56px; height: 110px; color: #B4AA9A; transform-origin: 50% 100%; }
+.person .hd { position: absolute; left: 13px; top: 0; width: 30px; height: 30px; border-radius: 50%; background: currentColor; }
+.person .bd { position: absolute; left: 3px; top: 36px; width: 50px; height: 74px; border-radius: 25px 25px 8px 8px; background: currentColor; }
+#me, #me2 { color: var(--ink-2); }
+#me-dots { position: absolute; font-size: 44px; font-weight: 700; color: var(--ink-2); opacity: 0; letter-spacing: .1em; }
+#proc { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+#proc-glow { position: absolute; left: 1020px; top: 380px; width: 880px; height: 470px; border-radius: 60px; background: radial-gradient(ellipse at center, rgba(63, 143, 138, .28), rgba(63, 143, 138, 0) 70%); opacity: 0; }
+.step { position: absolute; top: 512px; width: 170px; height: 96px; border-radius: 20px; background: #fff; border: 3px solid var(--teal); color: var(--teal); font-size: 29px; font-weight: 700; display: flex; align-items: center; justify-content: center; opacity: 0; box-shadow: 0 6px 16px rgba(30, 80, 76, .12); }
+.ex { position: absolute; top: 456px; width: 240px; text-align: center; font-size: 18px; white-space: nowrap; font-weight: 700; color: var(--ink-2); opacity: 0; line-height: 1.3; }
+#proc-title { position: absolute; left: 1460px; top: 380px; font-size: 34px; font-weight: 700; color: var(--ink); opacity: 0; white-space: nowrap; }
+#proc svg { position: absolute; left: 0; top: 0; overflow: visible; }
+#loop-label { position: absolute; left: 1460px; top: 718px; font-size: 27px; font-weight: 700; color: var(--teal); white-space: nowrap; opacity: 0; }
+
+/* ===== ③ 10枚 ===== */
+#sc3 { background: radial-gradient(ellipse at 50% 45%, #E3D3B6 0%, #D3BE9B 60%, #C2AB86 100%); }
+#desk3 { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 960px 540px; }
+.sheet { position: absolute; width: 250px; height: 354px; background: var(--sheet); border-radius: 4px; box-shadow: 0 2px 3px rgba(60, 40, 10, .18), 0 10px 24px rgba(60, 40, 10, .16); padding: 14px 14px 10px; transform-origin: 50% 50%; }
 .sheet .sh-head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1.5px solid #CFC6B6; padding-bottom: 5px; margin-bottom: 4px; }
 .sheet .sh-title { font-size: 13px; font-weight: 700; color: #4D483F; }
 .sheet .sh-date { font-size: 13px; color: #3C4A66; }
@@ -75,65 +81,11 @@ body { overflow: hidden; }
 .sheet .sh-row i { font-style: normal; flex: 0 0 15px; height: 15px; border-radius: 50%; border: 1.3px solid #9C9384; font-size: 10px; line-height: 13px; text-align: center; color: #6F685C; margin-top: 2px; }
 .sheet .sh-row div { font-size: 12.5px; line-height: 1.32; color: #33405C; overflow: hidden; }
 .redact { display: inline-block; background: #1F1E1C; height: .95em; vertical-align: -1px; border-radius: 1px; }
-.stamp {
-  position: absolute; right: 12px; bottom: 54px; width: 92px; height: 92px; border-radius: 50%;
-  border: 4px solid var(--teal); color: var(--teal); font-size: 26px; font-weight: 700;
-  display: flex; align-items: center; justify-content: center; transform: rotate(-12deg); opacity: 0;
-  background: rgba(255, 255, 255, .35);
-}
-.sheet .num {
-  position: absolute; left: -14px; top: -14px; width: 40px; height: 40px; border-radius: 50%;
-  background: var(--ink); color: #fff; font-size: 20px; font-weight: 700; display: flex; align-items: center; justify-content: center; opacity: 0;
-}
-.group-label { position: absolute; font-size: 34px; font-weight: 700; opacity: 0; white-space: nowrap; }
-#hook-head {
-  position: absolute; left: 0; right: 0; top: 104px; text-align: center; opacity: 0;
-}
-#hook-head span {
-  display: inline-block; padding: 16px 40px 20px; background: var(--sheet); border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(60, 40, 10, .2); font-size: 58px; font-weight: 700; letter-spacing: .02em;
-}
-#hook-head em { font-style: normal; background: linear-gradient(transparent 62%, var(--accent-soft) 62%); }
+.stamp { position: absolute; right: 12px; bottom: 54px; width: 92px; height: 92px; border-radius: 50%; border: 4px solid var(--teal); color: var(--teal); font-size: 26px; font-weight: 700; display: flex; align-items: center; justify-content: center; transform: rotate(-12deg); opacity: 0; background: rgba(255, 255, 255, .35); }
+.sheet .num { position: absolute; left: -14px; top: -14px; width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 20px; font-weight: 700; display: flex; align-items: center; justify-content: center; opacity: 0; }
+.group-label { position: absolute; font-size: 34px; font-weight: 700; opacity: 0; white-space: nowrap; width: 600px; text-align: center; }
 
-/* ===== ② 壁 ===== */
-#world { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
-.region { position: absolute; top: 0; height: 1080px; }
-#w-left { left: 0; width: 950px; background: var(--paper); }
-#w-right { left: 950px; width: 970px; background: #E7EFEC; }
-.region-label { position: absolute; top: 150px; font-size: 44px; font-weight: 700; color: var(--ink-2); white-space: nowrap; transform: translateX(-50%); }
-#wall {
-  position: absolute; left: 905px; top: 120px; width: 90px; height: 900px; transform-origin: 50% 100%;
-  background-color: #C8B9A1;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='60'%3E%3Cg fill='none' stroke='%23A08E73' stroke-width='3'%3E%3Cpath d='M0 1.5H90M0 31.5H90M45 0V30M0 30V60M90 30V60'/%3E%3C/g%3E%3C/svg%3E");
-  box-shadow: inset -8px 0 0 rgba(0, 0, 0, .08), 0 0 0 3px #A08E73;
-  border-radius: 6px 6px 0 0;
-}
-.person { position: absolute; width: 56px; height: 110px; color: #B4AA9A; transform-origin: 50% 100%; }
-.person .hd { position: absolute; left: 13px; top: 0; width: 30px; height: 30px; border-radius: 50%; background: currentColor; }
-.person .bd { position: absolute; left: 3px; top: 36px; width: 50px; height: 74px; border-radius: 25px 25px 8px 8px; background: currentColor; }
-#me { color: var(--ink-2); }
-#tangle { position: absolute; left: 380px; top: 360px; width: 260px; height: 200px; overflow: visible; }
-.qmark { position: absolute; font-size: 54px; font-weight: 700; color: var(--ink-2); opacity: 0; }
-#me-think { position: absolute; left: 650px; top: 420px; font-size: 34px; color: var(--ink-2); opacity: 0; white-space: nowrap; }
-#proc { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
-.step {
-  position: absolute; top: 512px; width: 170px; height: 96px; border-radius: 20px; background: #fff;
-  border: 3px solid var(--teal); color: var(--teal); font-size: 29px; font-weight: 700;
-  display: flex; align-items: center; justify-content: center; opacity: 0; box-shadow: 0 6px 16px rgba(30, 80, 76, .12);
-}
-#proc-title { position: absolute; left: 1460px; top: 420px; transform: translateX(-50%); font-size: 34px; font-weight: 700; color: var(--ink); opacity: 0; white-space: nowrap; }
-#proc svg { position: absolute; left: 0; top: 0; overflow: visible; }
-#loop-label { position: absolute; left: 1460px; top: 718px; transform: translateX(-50%); font-size: 27px; font-weight: 700; color: var(--teal); white-space: nowrap; opacity: 0; }
-#heavy-label { position: absolute; left: 1460px; top: 770px; transform: translateX(-50%); font-size: 30px; font-weight: 700; color: var(--accent); white-space: nowrap; opacity: 0; }
-.note-card {
-  position: absolute; left: 50%; top: 56px; transform: translateX(-50%); max-width: 1500px; width: max-content;
-  background: var(--sheet); border-radius: 16px; padding: 18px 30px 20px 34px; font-size: 30px; line-height: 1.45;
-  box-shadow: 0 8px 26px rgba(40, 30, 10, .16); border-left: 10px solid var(--teal); opacity: 0; color: var(--ink);
-}
-.note-card small { display: block; font-size: 22px; color: var(--muted); margin-top: 6px; }
-
-/* ===== ③ コンセプト ===== */
-#sc3 { background: var(--paper); }
+/* ===== ④ コンセプト ===== */
 #logo { position: absolute; left: 960px; top: 300px; width: 200px; height: 200px; margin-left: -100px; }
 #app-name { position: absolute; left: 0; right: 0; top: 520px; text-align: center; font-size: 92px; font-weight: 700; letter-spacing: .04em; opacity: 0; }
 .concept-line { position: absolute; left: 0; right: 0; text-align: center; font-size: 60px; font-weight: 700; opacity: 0; letter-spacing: .02em; }
@@ -143,22 +95,20 @@ body { overflow: hidden; }
 .hurdle i:first-child { left: 4px; } .hurdle i:nth-child(2) { right: 4px; }
 .hurdle b { position: absolute; left: 0; right: 0; height: 9px; background: var(--accent); border-radius: 4px; top: 6px; }
 
-/* ===== ④ デモ ===== */
-#sc4 { background: var(--paper); }
-.phone { position: absolute; width: 420px; height: 880px; border-radius: 64px; background: #1E1D1B; box-shadow: 0 30px 60px rgba(40, 30, 10, .28), inset 0 0 0 3px #3A3835; }
+/* ===== ⑤ デモ ===== */
+#cam5 { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+.phone { position: absolute; width: 420px; height: 880px; border-radius: 64px; background: #1E1D1B; box-shadow: 0 30px 60px rgba(40, 30, 10, .28), inset 0 0 0 3px #3A3835; transform-origin: 0 0; }
 .phone .screen { position: absolute; left: 12px; top: 12px; width: 396px; height: 856px; border-radius: 52px; overflow: hidden; background: #FBF8F2; }
 .phone .island { position: absolute; left: 50%; top: 24px; width: 120px; height: 34px; margin-left: -60px; background: #111; border-radius: 20px; z-index: 30; }
 .statusbar { position: absolute; left: 0; right: 0; top: 0; height: 54px; z-index: 25; display: flex; justify-content: space-between; align-items: center; padding: 14px 34px 0 40px; font-size: 18px; font-weight: 700; color: var(--ink); }
 .statusbar .icons { display: flex; gap: 6px; align-items: center; }
 .statusbar .icons i { display: block; background: var(--ink); border-radius: 2px; }
-.scr { position: absolute; inset: 0; opacity: 0; background: #FBF8F2; padding-top: 58px; }
+.scr { position: absolute; inset: 0; opacity: 0; display: none; background: #FBF8F2; padding-top: 58px; }
 .scr-head { display: flex; align-items: center; gap: 10px; padding: 8px 22px 12px; font-size: 22px; font-weight: 700; }
 .scr-head .pill { margin-left: auto; font-size: 15px; padding: 4px 12px; border-radius: 20px; background: var(--teal-soft); color: var(--teal); }
 .scr-head .chev { font-size: 26px; color: var(--muted); font-weight: 500; }
 .ff-chip { position: absolute; z-index: 70; font-size: 22px; font-weight: 700; color: #fff; background: rgba(43, 41, 36, .8); padding: 6px 16px 8px; border-radius: 20px; opacity: 0; }
-
-/* 紙（アプリの中） */
-.apaper { position: absolute; left: 16px; right: 16px; top: 122px; bottom: 22px; background: #fff; border-radius: 22px; box-shadow: 0 6px 20px rgba(60, 40, 10, .12); padding: 8px 16px; }
+.apaper { position: absolute; left: 16px; right: 16px; top: 122px; bottom: 22px; background: #fff; border-radius: 22px; box-shadow: 0 6px 20px rgba(60, 40, 10, .12); padding: 8px 16px; transition: none; }
 .frame { position: relative; height: 94px; border-bottom: 1px solid #EEE7DA; display: flex; gap: 12px; padding-top: 12px; }
 .frame:last-child { border-bottom: 0; }
 .frame .fn { flex: 0 0 30px; height: 30px; border-radius: 50%; border: 2px solid #C9C0B0; color: #8C8476; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
@@ -168,22 +118,13 @@ body { overflow: hidden; }
 .frame.on .fn { background: var(--teal); border-color: var(--teal); color: #fff; }
 .frame.carry .fc::after { content: "前の紙から"; font-size: 12px; color: var(--teal); background: var(--teal-soft); border-radius: 8px; padding: 1px 7px; margin-left: 6px; vertical-align: 2px; }
 .frame.new .fc { color: var(--accent); font-weight: 700; }
-
+.stopped-tag { white-space: nowrap; position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%) rotate(-8deg); font-size: 34px; font-weight: 700; color: #8C8476; border: 4px solid #8C8476; border-radius: 14px; padding: 6px 22px; background: rgba(255, 255, 255, .7); opacity: 0; }
 .card { position: absolute; left: 16px; right: 16px; background: #fff; border-radius: 20px; box-shadow: 0 4px 16px rgba(60, 40, 10, .10); padding: 16px 18px; }
 .card .lbl { font-size: 14px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
 .card .txt { font-size: 19px; line-height: 1.5; }
-.chip { display: inline-block; padding: 8px 14px; border-radius: 16px; border: 2px solid var(--teal); color: var(--teal); font-size: 17px; font-weight: 700; background: #fff; margin: 0 6px 8px 0; }
-.chip.sel { background: var(--teal); color: #fff; }
-.bubble {
-  position: absolute; padding: 14px 18px; border-radius: 26px; background: rgba(220, 235, 245, .95);
-  border: 2px solid #B8D3E6; font-size: 19px; font-weight: 700; color: #2D4B63; max-width: 290px; line-height: 1.4;
-  box-shadow: 0 6px 14px rgba(40, 80, 110, .12); opacity: 0;
-}
+.bubble { position: absolute; padding: 14px 18px; border-radius: 26px; background: rgba(220, 235, 245, .95); border: 2px solid #B8D3E6; font-size: 19px; font-weight: 700; color: #2D4B63; max-width: 300px; line-height: 1.4; box-shadow: 0 6px 14px rgba(40, 80, 110, .12); opacity: 0; }
 .bubble::after { content: ""; position: absolute; left: 18px; bottom: -10px; width: 14px; height: 14px; border-radius: 50%; background: rgba(220, 235, 245, .95); border: 2px solid #B8D3E6; }
-.input {
-  position: absolute; left: 16px; right: 16px; height: 56px; border-radius: 28px; background: #fff;
-  border: 2px solid #E1D9CB; font-size: 18px; padding: 15px 60px 0 20px; color: var(--ink); white-space: nowrap; overflow: hidden;
-}
+.input { position: absolute; left: 16px; right: 16px; height: 56px; border-radius: 28px; background: #fff; border: 2px solid #E1D9CB; font-size: 18px; padding: 15px 60px 0 20px; color: var(--ink); white-space: nowrap; overflow: hidden; }
 .input::after { content: "↑"; position: absolute; right: 8px; top: 7px; width: 38px; height: 38px; border-radius: 50%; background: var(--teal); color: #fff; font-size: 20px; text-align: center; line-height: 38px; font-weight: 700; }
 .btn { position: absolute; left: 16px; right: 16px; height: 62px; border-radius: 31px; background: var(--teal); color: #fff; font-size: 21px; font-weight: 700; display: flex; align-items: center; justify-content: center; opacity: 0; }
 .btn.outline { background: #fff; color: var(--ink); border: 2px solid #D9D0C0; }
@@ -193,8 +134,14 @@ body { overflow: hidden; }
 .li::before { content: ""; position: absolute; left: 16px; top: 17px; width: 14px; height: 14px; border-radius: 50%; background: var(--teal-2); }
 .li.sel { border-color: var(--teal); background: var(--teal-soft); font-weight: 700; }
 .tap { position: absolute; left: 0; top: 0; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: rgba(43, 41, 36, .22); border: 3px solid rgba(255, 255, 255, .85); z-index: 80; opacity: 0; }
-
-/* ロック画面と通知 */
+.sheet-up { position: absolute; left: 0; right: 0; bottom: 0; background: #fff; border-radius: 28px 28px 0 0; box-shadow: 0 -10px 30px rgba(0, 0, 0, .12); padding: 14px 18px; }
+.sheet-up .grab { width: 50px; height: 5px; border-radius: 3px; background: #DDD; margin: 0 auto 14px; }
+.ev { display: flex; align-items: center; gap: 12px; height: 62px; border-bottom: 1px solid #EFE8DC; font-size: 17px; opacity: 0; }
+.ev .d { flex: 0 0 66px; font-weight: 700; font-size: 18px; }
+.ev .s { flex: 1; color: var(--ink-2); }
+.ev .r { font-size: 14px; font-weight: 700; padding: 3px 10px; border-radius: 10px; }
+.ev .r.ok { background: var(--teal-soft); color: var(--teal); }
+.ev .r.ng { background: #EFE9DE; color: var(--muted); }
 #scr-lock { background: linear-gradient(180deg, #C9DEDB 0%, #E9E2D3 70%, #EFE6D6 100%); }
 .lock-time { position: absolute; left: 0; right: 0; top: 120px; text-align: center; font-size: 96px; font-weight: 700; color: #fff; text-shadow: 0 2px 10px rgba(0, 0, 0, .12); }
 .lock-date { position: absolute; left: 0; right: 0; top: 100px; text-align: center; font-size: 20px; font-weight: 700; color: #fff; }
@@ -206,87 +153,60 @@ body { overflow: hidden; }
 .notif .nt { font-size: 15px; color: var(--muted); font-weight: 700; display: flex; justify-content: space-between; }
 .notif .nh { font-size: 21px; font-weight: 700; margin-top: 2px; }
 .notif .nb { font-size: 16px; color: var(--ink-2); margin-top: 2px; }
-
-/* 記録・根拠 */
 .mini-papers { display: flex; gap: 6px; margin-top: 10px; }
 .mini-papers i { display: block; width: 24px; height: 32px; border-radius: 3px; background: #EFE9DE; border: 1.5px solid #DCD3C3; }
 .mini-papers i.on { background: var(--teal-soft); border-color: var(--teal-2); }
 .big-insight { font-size: 25px; line-height: 1.45; font-weight: 700; }
 .big-insight em { font-style: normal; color: var(--teal); background: linear-gradient(transparent 60%, var(--teal-soft) 60%); }
 .link { font-size: 18px; font-weight: 700; color: var(--teal); margin-top: 12px; }
-.sheet-up { position: absolute; left: 0; right: 0; bottom: 0; height: 600px; background: #fff; border-radius: 28px 28px 0 0; box-shadow: 0 -10px 30px rgba(0, 0, 0, .12); padding: 14px 18px; }
-.sheet-up .grab { width: 50px; height: 5px; border-radius: 3px; background: #DDD; margin: 0 auto 14px; }
-.ev { display: flex; align-items: center; gap: 12px; height: 64px; border-bottom: 1px solid #EFE8DC; font-size: 17px; opacity: 0; }
-.ev .d { flex: 0 0 66px; font-weight: 700; font-size: 18px; }
-.ev .s { flex: 1; color: var(--ink-2); }
-.ev .r { font-size: 14px; font-weight: 700; padding: 3px 10px; border-radius: 10px; }
-.ev .r.ok { background: var(--teal-soft); color: var(--teal); }
-.ev .r.ng { background: #EFE9DE; color: var(--muted); }
-
-/* もう一度 */
 .again-blk { position: absolute; left: 16px; right: 16px; border-radius: 18px; padding: 14px 18px; background: #fff; box-shadow: 0 4px 14px rgba(60, 40, 10, .08); opacity: 0; }
 .again-blk .lbl { font-size: 14px; font-weight: 700; color: var(--muted); }
 .again-blk .txt { font-size: 21px; font-weight: 700; margin-top: 4px; line-height: 1.4; }
 .again-blk.old .txt { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 2px; }
 .again-blk.draft { border: 3px solid var(--accent); }
-.again-blk.draft .txt { color: var(--ink); }
 .kw { background: linear-gradient(transparent 62%, var(--teal-soft) 62%); }
 .arrow-down { position: absolute; left: 50%; width: 4px; margin-left: -2px; background: var(--accent); opacity: 0; }
 .arrow-down::after { content: ""; position: absolute; left: -9px; bottom: -12px; border: 11px solid transparent; border-top: 14px solid var(--accent); }
-
-/* 重なる紙 */
 .stack-paper { position: absolute; left: 22px; right: 22px; top: 132px; height: 690px; background: #fff; border-radius: 22px; box-shadow: 0 6px 20px rgba(60, 40, 10, .14); padding: 6px 16px; transform-origin: 50% 0; }
 .stack-paper.back { background: #F1ECE2; }
 .stack-paper .frame { height: 92px; }
-.count-pill { position: absolute; z-index: 5; font-size: 18px; font-weight: 700; padding: 5px 14px; border-radius: 16px; background: var(--accent); color: #fff; opacity: 0; }
+.count-pill { position: absolute; z-index: 5; font-size: 17px; font-weight: 700; padding: 5px 14px; border-radius: 16px; background: var(--accent); color: #fff; opacity: 0; }
 .back-tab { position: absolute; font-size: 14px; font-weight: 700; color: var(--muted); }
 
+/* Claude のラベル */
+.clabel {
+  position: absolute; left: 796px; display: flex; flex-direction: column; padding: 10px 22px 14px; border-radius: 16px;
+  background: #2B2924; color: #fff; font-size: 25px; font-weight: 700; white-space: nowrap; opacity: 0; box-shadow: 0 8px 20px rgba(40, 30, 10, .2);
+}
+.clabel small { font-size: 17px; color: var(--gold); letter-spacing: .06em; margin-bottom: 2px; }
+.clabel::after { content: ""; position: absolute; left: -40px; top: 50%; width: 40px; height: 3px; margin-top: -1.5px; background: #2B2924; }
+.clabel i { position: absolute; left: -48px; top: 50%; width: 14px; height: 14px; margin-top: -7px; border-radius: 50%; background: #2B2924; border: 3px solid #fff; }
+
 /* 右の列（段階） */
-#rail { position: absolute; left: 935px; top: 120px; width: 640px; }
-#rail .eyebrow { font-size: 26px; color: var(--ink-2); font-weight: 700; margin-bottom: 26px; letter-spacing: .04em; }
-.stage-item { position: relative; height: 104px; border-radius: 22px; padding: 18px 26px 0 98px; margin-bottom: 12px; }
+#rail { position: absolute; left: 1250px; top: 96px; width: 620px; }
+#rail .eyebrow { font-size: 26px; color: var(--ink-2); font-weight: 700; margin-bottom: 22px; letter-spacing: .04em; }
+.stage-item { position: relative; height: 96px; border-radius: 22px; padding: 16px 26px 0 100px; margin-bottom: 10px; }
 .stage-item .bg { position: absolute; inset: 0; border-radius: 22px; background: #fff; box-shadow: 0 8px 22px rgba(60, 40, 10, .10); opacity: 0; }
-.stage-item .ix { position: absolute; left: 22px; top: 24px; width: 56px; height: 56px; border-radius: 50%; border: 3px solid #C9C0B0; color: #8C8476; font-size: 26px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
-.stage-item .tt { position: relative; font-size: 38px; font-weight: 700; color: #A79F92; line-height: 1.1; }
-.stage-item .dd { position: relative; font-size: 22px; color: var(--ink-2); margin-top: 6px; opacity: 0; }
-#rail-note { position: absolute; left: 935px; top: 840px; width: 640px; height: 80px; }
-.rnote { position: absolute; left: 0; top: 0; font-size: 28px; font-weight: 700; opacity: 0; white-space: nowrap; }
-.rnote.strike { color: var(--muted); }
-.rnote.strike s { text-decoration-thickness: 3px; text-decoration-color: var(--accent); }
+.stage-item .ix { position: absolute; left: 22px; top: 20px; width: 56px; height: 56px; border-radius: 50%; border: 3px solid #C9C0B0; color: #8C8476; font-size: 26px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.stage-item .tt { position: relative; font-size: 40px; font-weight: 700; color: #A79F92; line-height: 1.1; }
+.stage-item .dd { position: relative; font-size: 22px; color: var(--ink-2); margin-top: 4px; opacity: 0; }
+.rnote { position: absolute; left: 1250px; top: 700px; font-size: 24px; font-weight: 700; opacity: 0; white-space: nowrap; color: var(--accent); border: 2px dashed var(--accent); border-radius: 12px; padding: 4px 14px; background: rgba(255, 253, 248, .8); }
 
-/* ===== ⑤ Claude ===== */
-#sc5 { background: var(--paper); }
-#roles { position: absolute; left: 230px; top: 150px; width: 900px; transform-origin: 0 50%; }
-#roles h2 { margin: 0 0 40px; font-size: 54px; font-weight: 700; display: flex; align-items: center; gap: 18px; }
-#roles h2 .five { font-size: 40px; color: #fff; background: var(--teal); border-radius: 18px; padding: 2px 18px 6px; opacity: 0; }
-.role { position: relative; display: flex; align-items: center; gap: 26px; height: 108px; opacity: 0; }
-.role .n { flex: 0 0 66px; height: 66px; border-radius: 50%; background: var(--teal); color: #fff; font-size: 32px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
-.role .t { font-size: 44px; font-weight: 700; }
-.role .w { font-size: 22px; color: var(--muted); margin-left: 6px; font-weight: 700; }
-#principle { position: absolute; left: 1010px; top: 210px; width: 780px; }
-#principle .p1 { font-size: 72px; font-weight: 700; opacity: 0; letter-spacing: .02em; white-space: nowrap; }
-#principle .p1 .acc { color: var(--accent); }
-#principle .p2 { font-size: 50px; font-weight: 700; opacity: 0; margin-top: 18px; }
-.check-card { margin-top: 44px; background: #fff; border-radius: 22px; padding: 22px 28px; box-shadow: 0 8px 22px rgba(60, 40, 10, .10); opacity: 0; }
-.check-card .lbl { font-size: 26px; font-weight: 700; color: var(--ink-2); margin-bottom: 14px; }
-.nochip { display: inline-flex; align-items: center; gap: 10px; font-size: 30px; font-weight: 700; padding: 8px 20px; border-radius: 16px; background: #F3EEE6; margin-right: 12px; color: var(--ink-2); }
-.nochip b { color: var(--accent); font-size: 30px; }
-.result-ph { margin-top: 26px; border: 3px dashed #B3A894; border-radius: 20px; padding: 18px 26px; font-size: 30px; font-weight: 700; color: var(--ink-2); opacity: 0; background: rgba(255, 253, 248, .7); }
-.result-ph small { display: block; font-size: 22px; color: var(--accent); margin-bottom: 6px; }
-
-/* ===== ⑥ 安全 ===== */
-#sc6 { background: var(--paper); }
-#safe-head { position: absolute; left: 0; right: 0; top: 104px; text-align: center; font-size: 52px; font-weight: 700; opacity: 0; }
+/* ===== ⑥ 締め ===== */
+#roles6 { position: absolute; left: 0; right: 0; top: 190px; text-align: center; }
+#roles6 .clabel { position: relative; left: auto; display: inline-flex; font-size: 46px; padding: 16px 34px 20px; border-radius: 22px; margin: 0 0 24px; gap: 18px; }
+#roles6 .clabel::after, #roles6 .clabel i { display: none; }
+#roles6 .clabel small { display: none; }
+#roles6 .row { height: 110px; }
+#roles6 .p { font-size: 52px; font-weight: 700; opacity: 0; margin-top: 18px; }
+#roles6 .p .acc { color: var(--accent); }
 #scr-safe { background: linear-gradient(180deg, #E5F0EE 0%, #FBF8F2 60%); }
 .safe-ico { position: absolute; left: 50%; top: 150px; width: 96px; height: 96px; margin-left: -48px; border-radius: 50%; background: var(--teal-soft); border: 3px solid var(--teal-2); }
 .safe-ico::after { content: ""; position: absolute; left: 30px; top: 28px; width: 30px; height: 30px; border-radius: 50% 50% 4px 50%; background: var(--teal); transform: rotate(45deg); }
 .safe-t { position: absolute; left: 24px; right: 24px; top: 280px; text-align: center; font-size: 27px; font-weight: 700; line-height: 1.45; }
 .safe-b { position: absolute; left: 30px; right: 30px; top: 380px; text-align: center; font-size: 18px; color: var(--ink-2); line-height: 1.6; }
 .safe-f { position: absolute; left: 24px; right: 24px; bottom: 40px; text-align: center; font-size: 15px; color: var(--muted); }
-#memo {
-  position: absolute; left: 950px; top: 196px; width: 560px; height: 760px; background: #fff; border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(60, 40, 10, .12), 0 18px 40px rgba(60, 40, 10, .18); padding: 40px 44px; opacity: 0;
-}
+#memo { position: absolute; left: 950px; top: 196px; width: 560px; height: 760px; background: #fff; border-radius: 6px; box-shadow: 0 2px 4px rgba(60, 40, 10, .12), 0 18px 40px rgba(60, 40, 10, .18); padding: 40px 44px; opacity: 0; }
 #memo h3 { margin: 0; font-size: 34px; font-weight: 700; }
 #memo .sub { font-size: 18px; color: var(--muted); margin-top: 4px; border-bottom: 2px solid var(--ink); padding-bottom: 14px; }
 #memo .m-row { margin-top: 22px; }
@@ -294,17 +214,7 @@ body { overflow: hidden; }
 #memo .m-row .v { font-size: 22px; line-height: 1.5; margin-top: 3px; }
 #memo .m-sel { margin-top: 26px; padding: 14px 16px; background: #F6F2EA; border-radius: 12px; font-size: 18px; color: var(--ink-2); line-height: 1.7; }
 #memo .m-sel b { color: var(--teal); }
-
-/* ===== ⑦ 締め ===== */
-#sc7 { background: var(--paper); }
-.end-paper { position: absolute; width: 300px; height: 424px; background: #fff; border-radius: 6px; box-shadow: 0 2px 4px rgba(60, 40, 10, .12), 0 14px 30px rgba(60, 40, 10, .16); padding: 16px; }
-.end-paper .ln { height: 12px; border-radius: 6px; background: #E9E2D5; margin: 16px 0; }
-.end-paper .ln.s { width: 60%; }
-.end-paper.gray { background: #ECE7DE; filter: saturate(.3); }
-.end-paper.glow { background: var(--gold-soft); box-shadow: 0 0 0 4px rgba(240, 190, 94, .5), 0 14px 30px rgba(60, 40, 10, .16); }
-.end-label { position: absolute; font-size: 32px; font-weight: 700; text-align: center; white-space: nowrap; transform: translateX(-50%); opacity: 0; }
-#end-head { position: absolute; left: 0; right: 0; top: 96px; text-align: center; font-size: 62px; font-weight: 700; opacity: 0; letter-spacing: .02em; }
-#end-arrow { position: absolute; left: 820px; top: 520px; width: 280px; height: 60px; opacity: 0; }
+#safe-head { position: absolute; left: 0; right: 0; top: 104px; text-align: center; font-size: 52px; font-weight: 700; opacity: 0; }
 #end-lines { position: absolute; left: 0; right: 0; top: 330px; text-align: center; }
 #end-lines .nm { font-size: 40px; font-weight: 700; color: var(--ink-2); opacity: 0; margin-bottom: 60px; letter-spacing: .06em; }
 #end-lines .l { font-size: 66px; font-weight: 700; opacity: 0; margin-bottom: 28px; letter-spacing: .02em; }
@@ -315,31 +225,77 @@ body { overflow: hidden; }
 <body>
 <div id="stage">
 
-  <!-- ① つかみ -->
-  <section class="scene" id="sc1">
-    <div id="desk"></div>
-    <div class="group-label" id="gl-done" style="color:var(--teal)">実行できた 5枚</div>
-    <div class="group-label" id="gl-not" style="color:#7A7062">書いただけ 5枚</div>
-    <div id="hook-head"><span>10枚中5枚、<em>書いただけで終わった</em></span></div>
-    <div class="ph-tag" id="tag1"><b>仮映像</b>実物の10枚（職場・人名を塗りつぶし）の撮影に差し替え</div>
+  <!-- 机の上の書類：① 困りごと／⑤ 動けた／⑥ 締め -->
+  <section class="scene" id="scD">
+    <div id="deskD">
+      <svg width="1920" height="1080" viewBox="0 0 1920 1080">
+        <defs>
+          <filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#3C280A" flood-opacity=".22"/></filter>
+          <filter id="sh2" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#3C280A" flood-opacity=".22"/></filter>
+        </defs>
+        <!-- マグカップ -->
+        <g id="d-mug" filter="url(#sh2)"><circle cx="330" cy="240" r="74" fill="#FBF8F2" stroke="#D8CCB6" stroke-width="4"/><circle cx="330" cy="240" r="56" fill="#8B5E3C"/><rect x="398" y="226" width="44" height="28" rx="12" fill="#FBF8F2" stroke="#D8CCB6" stroke-width="4"/></g>
+        <!-- スマホ（伏せてある） -->
+        <g id="d-phone" filter="url(#sh2)"><rect x="250" y="600" width="160" height="320" rx="28" fill="#34343A" transform="rotate(-12 330 760)"/></g>
+        <!-- レシートなど（日がたつと増える） -->
+        <g id="d-clutter">
+          <g class="cl" filter="url(#sh2)"><rect x="1460" y="560" width="120" height="190" rx="3" fill="#FFFFFF" transform="rotate(9 1520 655)"/><path d="M1476 600h80M1476 624h64M1476 648h80M1476 672h50" stroke="#D3CBBE" stroke-width="6" transform="rotate(9 1520 655)"/></g>
+          <g class="cl" filter="url(#sh2)"><rect x="1540" y="640" width="120" height="170" rx="3" fill="#FFFFFF" transform="rotate(-14 1600 725)"/><path d="M1556 676h80M1556 700h64M1556 724h80" stroke="#D3CBBE" stroke-width="6" transform="rotate(-14 1600 725)"/></g>
+          <g class="cl" filter="url(#sh2)"><rect x="150" y="380" width="240" height="160" rx="4" fill="#F7F3EA" transform="rotate(-6 270 460)"/><path d="M175 420h180M175 448h150M175 476h170" stroke="#D3CBBE" stroke-width="7" transform="rotate(-6 270 460)"/></g>
+          <g class="cl" filter="url(#sh2)"><rect x="1420" y="800" width="210" height="140" rx="4" fill="#F7F3EA" transform="rotate(5 1525 870)"/><path d="M1440 836h160M1440 864h130" stroke="#D3CBBE" stroke-width="7" transform="rotate(5 1525 870)"/></g>
+          <g class="cl" filter="url(#sh2)"><circle cx="560" cy="900" r="60" fill="#FBF8F2" stroke="#D8CCB6" stroke-width="4"/><circle cx="560" cy="900" r="44" fill="#B88A5E" opacity=".6"/></g>
+        </g>
+        <!-- 卓上カレンダー -->
+        <g id="d-cal" filter="url(#sh)" transform="rotate(4 1500 250)">
+          <rect x="1380" y="110" width="250" height="270" rx="10" fill="#FFFFFF"/>
+          <rect x="1380" y="110" width="250" height="64" rx="10" fill="#DE5440"/><rect x="1380" y="150" width="250" height="24" fill="#DE5440"/>
+          <text x="1505" y="156" text-anchor="middle" font-size="34" font-weight="700" fill="#fff" font-family="Zen Maru Gothic">10月</text>
+          <text id="d-cal-day" x="1505" y="305" text-anchor="middle" font-size="120" font-weight="700" fill="#2B2924" font-family="Zen Maru Gothic">15</text>
+          <text id="d-cal-wd" x="1505" y="356" text-anchor="middle" font-size="28" font-weight="700" fill="#988F81" font-family="Zen Maru Gothic">木</text>
+        </g>
+        <!-- 届いた封筒（未開封） -->
+        <g id="d-envA" filter="url(#sh)" transform="rotate(-4 900 520)">
+          <rect x="520" y="340" width="760" height="360" rx="8" fill="#F1E3C6" stroke="#D2BE95" stroke-width="3"/>
+          <rect x="600" y="410" width="340" height="120" rx="6" fill="#FBF6EA" stroke="#D2BE95" stroke-width="2"/>
+          <text x="625" y="458" font-size="28" font-weight="700" fill="#5E584E" font-family="Zen Maru Gothic">〇〇市 市民課</text>
+          <text x="625" y="500" font-size="22" fill="#988F81" font-family="Zen Maru Gothic">〒000-0000</text>
+          <rect x="980" y="560" width="230" height="84" rx="4" fill="none" stroke="#DE5440" stroke-width="4"/>
+          <text x="1095" y="615" text-anchor="middle" font-size="34" font-weight="700" fill="#DE5440" font-family="Zen Maru Gothic">住所変更届 在中</text>
+          <rect x="1150" y="380" width="80" height="96" rx="4" fill="none" stroke="#C9B48C" stroke-width="3" stroke-dasharray="8 6"/>
+        </g>
+        <!-- 付せん -->
+        <g id="d-note1" filter="url(#sh2)" transform="rotate(-7 1250 300)"><rect x="1170" y="220" width="170" height="160" fill="#FFE58A"/><text x="1255" y="318" text-anchor="middle" font-size="46" fill="#5B4A1E" font-family="Klee One" font-weight="600">出す！</text></g>
+        <g id="d-note2" filter="url(#sh2)" transform="rotate(6 640 820)"><rect x="560" y="740" width="170" height="160" fill="#FFE58A"/><text x="645" y="812" text-anchor="middle" font-size="36" fill="#5B4A1E" font-family="Klee One" font-weight="600">今週</text><text x="645" y="858" text-anchor="middle" font-size="36" fill="#5B4A1E" font-family="Klee One" font-weight="600">こそ</text></g>
+        <!-- 動けたあと：開けた封筒と、書き終えて封をした返信用封筒 -->
+        <g id="d-envA-open" filter="url(#sh)" transform="rotate(-10 430 560)" opacity="0">
+          <rect x="170" y="420" width="520" height="250" rx="8" fill="#F1E3C6" stroke="#D2BE95" stroke-width="3"/>
+          <path d="M170 428 l26 -12 l26 12 l26 -12 l26 12 l26 -12 l26 12 l26 -12 l26 12 l26 -12 l26 12 l26 -12 l26 12 l26 -12 l26 12 l26 -12 l26 12 l26 -12 l26 12 l26 -12 l26 12" fill="none" stroke="#D2BE95" stroke-width="3"/>
+          <text x="210" y="520" font-size="24" font-weight="700" fill="#988F81" font-family="Zen Maru Gothic">〇〇市 市民課</text>
+        </g>
+        <g id="d-envB" filter="url(#sh)" transform="rotate(3 1000 540)" opacity="0">
+          <rect x="640" y="360" width="740" height="350" rx="8" fill="#FBF8F2" stroke="#D8CCB6" stroke-width="3"/>
+          <path d="M640 368 L1010 560 L1380 368" fill="none" stroke="#D8CCB6" stroke-width="3"/>
+          <text x="1010" y="640" text-anchor="middle" font-size="34" font-weight="700" fill="#5E584E" font-family="Zen Maru Gothic">返信用封筒</text>
+          <circle cx="1010" cy="556" r="26" fill="none" stroke="#DE5440" stroke-width="4"/><text x="1010" y="568" text-anchor="middle" font-size="30" font-weight="700" fill="#DE5440" font-family="Zen Maru Gothic">〆</text>
+        </g>
+        <g id="d-done" opacity="0" filter="url(#sh2)" transform="rotate(-8 1250 300)"><rect x="1170" y="220" width="170" height="160" fill="#FFE58A"/><text x="1255" y="318" text-anchor="middle" font-size="46" fill="#5B4A1E" font-family="Klee One" font-weight="600">出す！</text><path d="M1188 300 l40 40 l90 -110" fill="none" stroke="#2E7672" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></g>
+      </svg>
+    </div>
+    <div class="headline" id="hlD1"><span>住所変更の書類、<em>2週間</em></span></div>
+    <div class="headline" id="hlD2"><span>書いただけで終わった紙にも、続きが書ける。</span></div>
+    <div class="ph-tag" id="tagD1"><b>仮映像</b>書類（実物か、個人情報のない小道具）の撮影に差し替え</div>
+    <div class="ph-tag" id="tagD2"><b>仮映像</b>封筒に入れた書類の撮影に差し替え（実際にやれた場合だけ）</div>
   </section>
 
-  <!-- ② 壁 -->
+  <!-- ② 方法はある、でも届かない／③ 戻るのは重い -->
   <section class="scene" id="sc2">
     <div id="world">
-      <div class="region" id="w-left"><div class="region-label" id="lb-left" style="left:470px">日常</div></div>
+      <div class="region" id="w-left"><div class="region-label" id="lb-left" style="left:1070px">日常</div></div>
       <div class="region" id="w-right"><div class="region-label" id="lb-right" style="left:510px">医療・支援の場</div></div>
       <div id="crowd"></div>
-      <div id="inside"></div>
+      <div id="proc-glow"></div>
       <div id="wall"></div>
-      <svg id="tangle" viewBox="0 0 260 200">
-        <path id="tangle-path" pathLength="1" fill="none" stroke="#5E584E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
-          d="M40 120 C 20 60, 110 30, 140 70 S 220 140, 170 150 S 70 160, 90 100 S 190 40, 210 90 S 160 170, 120 130 S 80 70, 150 60 S 240 110, 200 140 S 100 150, 60 130" />
-      </svg>
-      <div class="qmark" id="q1" style="left:360px;top:330px">?</div>
-      <div class="qmark" id="q2" style="left:620px;top:350px">?</div>
-      <div class="person" id="me" style="left:452px;top:560px"><div class="hd"></div><div class="bd"></div></div>
-      <div id="me-think" class="hand" style="left:300px;top:292px">何から手をつければ…</div>
+      <div id="door"></div>
       <div id="proc">
         <div id="proc-title">問題解決技法</div>
         <svg width="1920" height="1080" viewBox="0 0 1920 1080">
@@ -347,219 +303,203 @@ body { overflow: hidden; }
             <marker id="ah" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2E7672"/></marker>
             <marker id="ah-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#DE5440"/></marker>
           </defs>
-          <path class="sarrow" pathLength="1" d="M1228 560 H1262" stroke="#2E7672" stroke-width="4" fill="none" marker-end="url(#ah)"/>
-          <path class="sarrow" pathLength="1" d="M1442 560 H1476" stroke="#2E7672" stroke-width="4" fill="none" marker-end="url(#ah)"/>
-          <path class="sarrow" pathLength="1" d="M1656 560 H1690" stroke="#2E7672" stroke-width="4" fill="none" marker-end="url(#ah)"/>
-          <path id="loop" pathLength="1" d="M1781 612 C 1781 712, 1139 712, 1139 622" stroke="#2E7672" stroke-width="5" fill="none" stroke-linecap="round" marker-end="url(#ah)"/>
+          <path class="sarrow" pathLength="1" d="M1228 560 H1262" stroke="#2E7672" stroke-width="4" fill="none"/>
+          <path class="sarrow" pathLength="1" d="M1442 560 H1476" stroke="#2E7672" stroke-width="4" fill="none"/>
+          <path class="sarrow" pathLength="1" d="M1656 560 H1690" stroke="#2E7672" stroke-width="4" fill="none"/>
+          <path id="loop" pathLength="1" d="M1781 612 C 1781 712, 1139 712, 1139 622" stroke="#2E7672" stroke-width="5" fill="none" stroke-linecap="round"/>
         </svg>
         <div class="step" style="left:1054px">具体的に</div>
         <div class="step" style="left:1268px">案を出す</div>
         <div class="step" style="left:1482px">計画する</div>
         <div class="step" style="left:1696px">やってみる</div>
+        <div class="ex" style="left:1019px">封筒を開けると止まる</div>
+        <div class="ex" style="left:1233px">全部書く／封筒だけ出す</div>
+        <div class="ex" style="left:1447px">週末に30分</div>
+        <div class="ex" style="left:1661px">書く</div>
         <div id="loop-label">うまくいかなければ、直してもう一度</div>
-        <div id="heavy-label">一人だと、ここが一番重い</div>
-        <div class="person" id="me2" style="left:1612px;top:790px;color:var(--ink-2)"><div class="hd"></div><div class="bd"></div></div>
+        <div class="person" id="me2" style="left:1735px;top:745px"><div class="hd"></div><div class="bd"></div></div>
       </div>
+      <div class="person" id="me" style="left:452px;top:560px"><div class="hd"></div><div class="bd"></div></div>
+      <div id="me-dots">…</div>
     </div>
-    <div class="note-card" id="note1">保険で受けられる認知行動療法は、1回30分以上・最大16回などの条件つき<small>令和8年 診療報酬　※使う前に原文で確認</small></div>
-    <div class="note-card" id="note2">「問題解決は、一回でうまくいくことはまずない。」<small>― 厚生労働省 認知行動療法マニュアルより　※原文で確認</small></div>
   </section>
 
-  <!-- ③ コンセプト -->
+  <!-- ③ 一人だと止まる（10枚） -->
   <section class="scene" id="sc3">
+    <div id="desk3"></div>
+    <div class="group-label" id="gl-done" style="color:var(--teal)">実行できた 5枚</div>
+    <div class="group-label" id="gl-not" style="color:#7A7062">書いただけ 5枚</div>
+    <div class="headline" id="hl3"><span>10枚中5枚、<em>書いただけで終わった</em></span></div>
+    <div class="ph-tag" id="tag3"><b>仮映像</b>実物の10枚（職場・人名を塗りつぶし）の撮影に差し替え</div>
+  </section>
+
+  <!-- ④ コンセプト -->
+  <section class="scene" id="sc4">
     <svg id="logo" viewBox="0 0 200 200">
-      <g id="logo-back" transform="rotate(-9 100 110)"><rect x="52" y="40" width="96" height="128" rx="10" fill="#D9ECE9" stroke="#3F8F8A" stroke-width="5"/></g>
-      <g id="logo-front"><rect x="66" y="30" width="96" height="128" rx="10" fill="#fff" stroke="#2E7672" stroke-width="6"/>
-        <path d="M84 66 H144 M84 88 H144 M84 110 H124" stroke="#C9C0B0" stroke-width="6" stroke-linecap="round"/></g>
+      <g transform="rotate(-9 100 110)"><rect x="52" y="40" width="96" height="128" rx="10" fill="#D9ECE9" stroke="#3F8F8A" stroke-width="5"/></g>
+      <g><rect x="66" y="30" width="96" height="128" rx="10" fill="#fff" stroke="#2E7672" stroke-width="6"/><path d="M84 66 H144 M84 88 H144 M84 110 H124" stroke="#C9C0B0" stroke-width="6" stroke-linecap="round"/></g>
       <path id="logo-loop" pathLength="1" d="M150 168 C 186 160, 190 112, 168 96" fill="none" stroke="#DE5440" stroke-width="8" stroke-linecap="round"/>
       <path id="logo-loop-head" d="M156 92 L172 90 L172 108" fill="none" stroke="#DE5440" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
     </svg>
     <div id="app-name">【アプリ名】</div>
-    <div class="concept-line" id="cl1" style="top:640px"><span class="hurdle" id="hd1"><i></i><i></i><b></b></span>問題を解くハードルを下げる。</div>
-    <div class="concept-line" id="cl2" style="top:740px"><span class="hurdle" id="hd2"><i></i><i></i><b></b></span><span class="acc">もう一度</span>向き合うハードルは、もっと下げる。</div>
-    <div class="ph-tag" id="tag3"><b>未定</b>【アプリ名】を決めて差し替え</div>
+    <div class="concept-line" id="cl1" style="top:560px"><span class="hurdle" id="hd1"><i></i><i></i><b></b></span>問題を解くハードルを下げる。</div>
+    <div class="concept-line" id="cl2" style="top:660px"><span class="hurdle" id="hd2"><i></i><i></i><b></b></span><span class="acc">もう一度</span>向き合うハードルは、もっと下げる。</div>
+    <div class="ph-tag" id="tag4"><b>未定</b>【アプリ名】を決めて差し替え</div>
   </section>
 
-  <!-- ④ デモ -->
-  <section class="scene" id="sc4">
-    <div class="phone" id="phone4" style="left:365px;top:52px">
-      <div class="screen" id="screen4">
-        <div class="statusbar" id="sb4"><span id="sb4-time">9:41</span><span class="icons"><i style="width:18px;height:11px"></i><i style="width:16px;height:11px;border-radius:6px"></i><i style="width:26px;height:12px;border-radius:4px"></i></span></div>
-
-        <!-- 白紙の紙 / 埋まった紙 -->
-        <div class="scr" id="scr-paper">
-          <div class="scr-head"><span class="chev">‹</span><span>新しい紙</span><span class="pill" id="paper-pill">1枚目</span></div>
-          <div class="apaper" id="paper1"></div>
-        </div>
-
-        <!-- 1 困っていること -->
-        <div class="scr" id="scr-dump">
-          <div class="scr-head"><span class="chev">‹</span><span>1 困っていること</span></div>
-          <div class="card" id="dump-card" style="top:118px;height:240px">
-            <div class="lbl">整理しなくて大丈夫。思いつくまま。</div>
-            <div class="txt" id="dump-txt"></div>
-          </div>
-          <div id="cand" class="abs" style="left:16px;right:16px;top:376px;opacity:0">
-            <div style="font-size:14px;font-weight:700;color:var(--muted);margin-bottom:8px">AIが切り出した問題</div>
-            <span class="chip" id="chip1">役所の書類が出せていない</span><span class="chip" id="chip2">部屋がちらかっている</span><span class="chip" id="chip3">週末が寝て終わる</span>
-          </div>
-          <div class="card" id="scene-card" style="top:118px;opacity:0">
-            <div class="lbl">場面</div>
-            <div class="txt" id="scene-txt"></div>
-          </div>
-          <div class="bubble" id="bq1" style="left:22px;top:470px">その書類は、いま どこにある？</div>
-          <div class="bubble" id="bq2" style="left:70px;top:470px">それを見ると、どうなる？</div>
-          <div class="input" id="dump-input" style="top:700px;opacity:0"></div>
-          <div class="btn" id="btn-goal" style="top:772px">目標を思いついた</div>
-        </div>
-
-        <!-- 3 案を出す -->
-        <div class="scr" id="scr-ideas">
-          <div class="scr-head"><span class="chev">‹</span><span>3 案を出す</span></div>
-          <div class="card" style="top:116px;padding:12px 18px"><div class="lbl" style="margin:0">目標</div><div class="txt b">住所変更の書類を出す</div></div>
-          <div class="li" id="li1" style="top:226px">書類を全部書く（30分）</div>
-          <div class="li" id="li2" style="top:286px">封筒に入れて玄関に置く</div>
-          <div class="li" id="li3" style="top:346px">窓口を予約する</div>
-          <div class="bubble" id="bi1" style="left:30px;top:470px;font-size:17px">5分だけなら、何をする？</div>
-          <div class="bubble" id="bi2" style="left:150px;top:560px;font-size:17px">だれかに頼むなら？</div>
-          <div class="bubble" id="bi3" style="left:60px;top:640px;font-size:17px">場所を変えるなら？</div>
-          <div class="input" id="idea-input" style="top:760px"></div>
-          <div class="ball" id="ball"></div>
-          <div class="sheet-up" id="plan-sheet" style="height:380px">
-            <div class="grab"></div>
-            <div style="font-size:20px;font-weight:700;margin-bottom:12px">一歩：書類を全部書く</div>
-            <div class="ev" id="pl1" style="opacity:1"><span class="d">いつ</span><span class="s" id="pl1v"></span></div>
-            <div class="ev" id="pl2" style="opacity:1"><span class="d">どこで</span><span class="s" id="pl2v"></span></div>
-            <div class="ev" id="pl3" style="opacity:1"><span class="d" style="flex-basis:96px">最初の2分</span><span class="s" id="pl3v"></span></div>
-          </div>
-        </div>
-
-        <!-- ロック画面 -->
-        <div class="scr" id="scr-lock">
-          <div class="lock-date">10月29日 水曜日</div>
-          <div class="lock-time">8:00</div>
-          <div class="notif" id="notif">
-            <div class="app-ico"></div>
-            <div style="flex:1"><div class="nt"><span>【アプリ名】</span><span>いま</span></div><div class="nh">今、どう？</div><div class="nb">今日は「書類を全部書く」の日です</div></div>
-          </div>
-        </div>
-
-        <!-- 今、どう？ -->
-        <div class="scr" id="scr-check">
-          <div style="position:absolute;left:0;right:0;top:170px;text-align:center;font-size:46px;font-weight:700">今、どう？</div>
-          <div style="position:absolute;left:0;right:0;top:240px;text-align:center;font-size:18px;color:var(--ink-2)">書類を全部書く ・ 今日 8:00</div>
-          <div class="btn" id="ck1" style="top:420px;opacity:1">やった</div>
-          <div class="btn outline" id="ck2" style="top:498px;opacity:1">まだこれから</div>
-          <div class="btn outline" id="ck3" style="top:576px;opacity:1">できなかった</div>
-        </div>
-
-        <!-- あなたの記録 -->
-        <div class="scr" id="scr-record">
-          <div class="scr-head"><span class="chev">‹</span><span>あなたの記録</span></div>
-          <div class="card" id="rc-read" style="top:116px">
-            <div class="lbl" id="rc-read-lbl">AIが、これまでの紙を読んでいます</div>
-            <div class="mini-papers" id="mini-papers"></div>
-          </div>
-          <div class="card" id="rc-main" style="top:262px;opacity:0">
-            <div class="lbl">あなたが動けた時の条件</div>
-            <div class="big-insight" id="insight" style="opacity:0">一歩を<em>5分以内</em>にした時は、動けていた。</div>
-            <div class="link" id="ev-link" style="opacity:0">根拠を見る ›</div>
-          </div>
-          <div class="btn red" id="btn-again" style="top:520px">↻ この紙で、もう一度</div>
-          <div class="sheet-up" id="ev-sheet" style="height:560px">
-            <div class="grab"></div>
-            <div style="font-size:20px;font-weight:700;margin-bottom:6px">根拠：これまでの紙</div>
-            <div class="ev"><span class="d">10/03</span><span class="s">一歩 3分</span><span class="r ok">動けた</span></div>
-            <div class="ev"><span class="d">10/08</span><span class="s">一歩 30分</span><span class="r ng">できなかった</span></div>
-            <div class="ev"><span class="d">10/12</span><span class="s">一歩 5分</span><span class="r ok">動けた</span></div>
-            <div class="ev"><span class="d">10/17</span><span class="s">一歩 1時間</span><span class="r ng">できなかった</span></div>
-            <div class="ev"><span class="d">10/21</span><span class="s">一歩 2分</span><span class="r ok">動けた</span></div>
-            <div class="ev"><span class="d">10/24</span><span class="s">一歩 5分</span><span class="r ok">動けた</span></div>
-            <div class="ev"><span class="d">10/29</span><span class="s">一歩 30分</span><span class="r ng">できなかった</span></div>
-          </div>
-        </div>
-
-        <!-- もう一度（下書き） -->
-        <div class="scr" id="scr-again">
-          <div class="scr-head"><span class="chev">‹</span><span>もう一度</span><span class="pill" style="background:var(--accent-soft);color:var(--accent)">下書き</span></div>
-          <div class="again-blk" id="ag1" style="top:116px"><div class="lbl">目標（あなたが書いた言葉）</div><div class="txt">住所変更の書類を出す</div></div>
-          <div class="again-blk old" id="ag2" style="top:236px"><div class="lbl">前回の一歩</div><div class="txt"><span class="kw2">書類</span>を全部<span class="kw2">書く</span>（30分）</div></div>
-          <div class="arrow-down" id="ag-arrow" style="top:352px;height:40px"></div>
-          <div class="again-blk draft" id="ag3" style="top:416px"><div class="lbl" style="color:var(--accent)">小さくした下書き</div><div class="txt"><span class="kw3">書類</span>を机に出して、名前だけ<span class="kw3">書く</span>（2分）</div></div>
-          <div id="ag-note" style="position:absolute;left:0;right:0;top:560px;text-align:center;font-size:17px;font-weight:700;color:var(--teal);opacity:0">あなたの言葉のまま、小さく</div>
-          <div class="btn" id="btn-go" style="top:740px">この一歩でいく</div>
-        </div>
-
-        <!-- 重なる紙 -->
-        <div class="scr" id="scr-stack">
-          <div class="scr-head"><span class="chev">‹</span><span>住所変更の書類を出す</span></div>
-          <div class="stack-paper back" id="paper-back"></div>
-          <div class="back-tab" id="back-tab" style="left:40px;top:104px">1枚目 ・ 10/29</div>
-          <div class="stack-paper" id="paper2"></div>
-          <div class="count-pill" id="pill2" style="right:30px;top:112px">2枚目</div>
-          <div class="sheet-up" id="check2" style="height:300px">
-            <div class="grab"></div>
-            <div style="text-align:center;font-size:30px;font-weight:700;margin:8px 0 22px">今、どう？</div>
-            <div class="btn" id="ck2-yes" style="position:relative;left:0;right:0;opacity:1">やった</div>
-          </div>
-        </div>
-
-        <div class="tap" id="tap4"></div>
-      </div>
-      <div class="island"></div>
-    </div>
-    <div class="ff-chip" id="ff" style="left:800px;top:64px">▶▶ 早送り</div>
-
-    <div id="rail">
-      <div class="eyebrow">一枚の紙が、もう一度動くまで</div>
-      <div class="stage-item" id="st1"><div class="bg"></div><div class="ix">1</div><div class="tt">書く</div><div class="dd">困りごとを、整理せずに</div></div>
-      <div class="stage-item" id="st2"><div class="bg"></div><div class="ix">2</div><div class="tt">決める</div><div class="dd">案を出して、最初の一歩を</div></div>
-      <div class="stage-item" id="st3"><div class="bg"></div><div class="ix">3</div><div class="tt">止まる</div><div class="dd">できなかった日に、記録を見る</div></div>
-      <div class="stage-item" id="st4"><div class="bg"></div><div class="ix">4</div><div class="tt">もう一度</div><div class="dd">同じ紙で、一歩を小さく</div></div>
-      <div class="stage-item" id="st5"><div class="bg"></div><div class="ix">5</div><div class="tt">動けた</div><div class="dd">2枚目で</div></div>
-    </div>
-    <div id="rail-note">
-      <div class="rnote" id="rn1" style="color:var(--teal)">問いかけるだけ。答えは出さない</div>
-      <div class="rnote" id="rn2" style="font-size:30px;color:var(--ink-2)">いつ・どこで・最初の2分</div>
-      <div class="rnote strike" id="rn3"><s>なぜ、できなかったの？</s>　← 反省はさせない</div>
-      <div class="rnote" id="rn4" style="color:var(--accent)">白紙に戻らず、前の紙の上に</div>
-      <div class="rnote" id="rn5" style="color:var(--accent);border:2px dashed var(--accent);border-radius:12px;padding:4px 14px;font-size:24px">本当にやり直して動けた場合だけ使う</div>
-    </div>
-    <div class="ph-tag" id="tag4" style="left:auto;right:40px"><b>仮画面</b>アプリの画面録画（iPhone）に差し替え。入力・待ち時間は早送り</div>
-  </section>
-
-  <!-- ⑤ Claude -->
+  <!-- ⑤ デモ -->
   <section class="scene" id="sc5">
-    <div id="roles">
-      <h2>Claudeにさせていること <span class="five" id="five">5つ</span></h2>
-      <div class="role"><div class="n">1</div><div class="t">問いかける</div></div>
-      <div class="role"><div class="n">2</div><div class="t">具体的かを見る</div></div>
-      <div class="role"><div class="n">3</div><div class="t">全部の紙を読んで、一文にまとめる</div></div>
-      <div class="role"><div class="n">4</div><div class="t">本人の言葉のまま、一歩を小さくする</div></div>
-      <div class="role"><div class="n">5</div><div class="t">深刻な内容に気づく</div></div>
-    </div>
-    <div id="principle">
-      <div class="p1">答えは、<span class="acc">出させない。</span></div>
-      <div class="p2">決めるのは、いつも本人。</div>
-      <div class="check-card" id="chk">
-        <div class="lbl">出力も確かめている</div>
-        <span class="nochip"><b>✕</b>病名</span><span class="nochip"><b>✕</b>点数</span><span class="nochip"><b>✕</b>助言</span>
+    <div id="cam5">
+      <div class="phone" id="phone5" style="left:260px;top:20px;transform:scale(1.18)">
+        <div class="screen">
+          <div class="statusbar"><span id="sb5">20:15</span><span class="icons"><i style="width:18px;height:11px"></i><i style="width:16px;height:11px;border-radius:6px"></i><i style="width:26px;height:12px;border-radius:4px"></i></span></div>
+
+          <div class="scr" id="scr-paper">
+            <div class="scr-head"><span class="chev">‹</span><span>新しい紙</span><span class="pill">1回目</span></div>
+            <div class="apaper" id="paper1"></div>
+            <div class="stopped-tag" id="stopped">ここで止まる</div>
+          </div>
+
+          <div class="scr" id="scr-dump">
+            <div class="scr-head"><span class="chev">‹</span><span>1 いま困っていること</span></div>
+            <div class="card" id="dump-card" style="top:118px">
+              <div class="lbl" id="dump-lbl">そのまま書いて大丈夫</div>
+              <div class="txt" id="dump-txt"></div>
+            </div>
+            <div class="bubble" id="bq1" style="left:22px;top:450px">最後に手が止まったのはどこ？</div>
+            <div class="bubble" id="bq2" style="left:60px;top:450px">そのとき、何がいちばん重かった？</div>
+            <div class="input" id="dump-input" style="top:700px;opacity:0"></div>
+            <div class="btn" id="btn-goal" style="top:772px">目標を思いついた</div>
+            <div class="sheet-up" id="goal-sheet" style="height:300px">
+              <div class="grab"></div>
+              <div style="font-size:20px;font-weight:700;margin-bottom:14px">2 目標</div>
+              <div class="input" id="goal-input" style="position:relative;left:0;right:0"></div>
+            </div>
+          </div>
+
+          <div class="scr" id="scr-ideas">
+            <div class="scr-head"><span class="chev">‹</span><span>3 案を出す</span></div>
+            <div class="card" style="top:116px;padding:12px 18px"><div class="lbl" style="margin:0">目標</div><div class="txt b">住所変更の書類を出す</div></div>
+            <div class="li" id="li1" style="top:226px">週末に、書類を全部書く（30分）</div>
+            <div class="li" id="li2" style="top:286px">封筒だけ机に出す</div>
+            <div class="li" id="li3" style="top:346px">窓口でいっしょに書いてもらう</div>
+            <div class="bubble" id="bi1" style="left:30px;top:470px;font-size:17px">5分だけなら、何をする？</div>
+            <div class="bubble" id="bi2" style="left:150px;top:560px;font-size:17px">だれかに頼むなら？</div>
+            <div class="bubble" id="bi3" style="left:60px;top:640px;font-size:17px">場所を変えるなら？</div>
+            <div class="input" id="idea-input" style="top:760px"></div>
+            <div class="ball" id="ball"></div>
+            <div class="sheet-up" id="plan-sheet" style="height:380px">
+              <div class="grab"></div>
+              <div style="font-size:20px;font-weight:700;margin-bottom:12px">一歩：週末に、書類を全部書く</div>
+              <div class="ev" style="opacity:1"><span class="d">いつ</span><span class="s" id="pl1v"></span></div>
+              <div class="ev" style="opacity:1"><span class="d">どこで</span><span class="s" id="pl2v"></span></div>
+              <div class="ev" style="opacity:1"><span class="d" style="flex-basis:96px">最初の2分</span><span class="s" id="pl3v"></span></div>
+            </div>
+          </div>
+
+          <div class="scr" id="scr-lock">
+            <div class="lock-date">10月31日 土曜日</div>
+            <div class="lock-time">10:00</div>
+            <div class="notif" id="notif">
+              <div class="app-ico"></div>
+              <div style="flex:1"><div class="nt"><span>【アプリ名】</span><span>いま</span></div><div class="nh">今、どう？</div><div class="nb">今日は「書類を全部書く」の日です</div></div>
+            </div>
+          </div>
+
+          <div class="scr" id="scr-check">
+            <div style="position:absolute;left:0;right:0;top:170px;text-align:center;font-size:46px;font-weight:700">今、どう？</div>
+            <div style="position:absolute;left:0;right:0;top:240px;text-align:center;font-size:18px;color:var(--ink-2)">書類を全部書く ・ 土曜 10:00</div>
+            <div class="btn" style="top:420px;opacity:1">やった</div>
+            <div class="btn outline" style="top:498px;opacity:1">まだこれから</div>
+            <div class="btn outline" id="ck3" style="top:576px;opacity:1">できなかった</div>
+          </div>
+
+          <div class="scr" id="scr-record">
+            <div class="scr-head"><span class="chev">‹</span><span>あなたの記録</span></div>
+            <div class="card" style="top:116px">
+              <div class="lbl" id="rc-read-lbl">これまでの紙を読んでいます</div>
+              <div class="mini-papers" id="mini-papers"></div>
+            </div>
+            <div class="card" id="rc-main" style="top:262px;opacity:0">
+              <div class="lbl">あなたが動けた時の条件</div>
+              <div class="big-insight" id="insight" style="opacity:0">一歩が<em>5分以内</em>の時は、動けていた。</div>
+              <div class="link" id="ev-link" style="opacity:0">根拠を見る ›</div>
+            </div>
+            <div class="btn red" id="btn-again" style="top:520px">↻ この紙で、もう一度</div>
+            <div class="sheet-up" id="ev-sheet" style="height:560px">
+              <div class="grab"></div>
+              <div style="font-size:20px;font-weight:700;margin-bottom:6px">根拠：これまでの紙</div>
+              <div class="ev"><span class="d">10/03</span><span class="s">一歩 3分</span><span class="r ok">動けた</span></div>
+              <div class="ev"><span class="d">10/08</span><span class="s">一歩 30分</span><span class="r ng">できなかった</span></div>
+              <div class="ev"><span class="d">10/12</span><span class="s">一歩 5分</span><span class="r ok">動けた</span></div>
+              <div class="ev"><span class="d">10/17</span><span class="s">一歩 1時間</span><span class="r ng">できなかった</span></div>
+              <div class="ev"><span class="d">10/21</span><span class="s">一歩 2分</span><span class="r ok">動けた</span></div>
+              <div class="ev"><span class="d">10/24</span><span class="s">一歩 5分</span><span class="r ok">動けた</span></div>
+              <div class="ev"><span class="d">10/31</span><span class="s">一歩 30分</span><span class="r ng">できなかった</span></div>
+            </div>
+          </div>
+
+          <div class="scr" id="scr-again">
+            <div class="scr-head"><span class="chev">‹</span><span>もう一度</span><span class="pill" style="background:var(--accent-soft);color:var(--accent)">下書き</span></div>
+            <div class="again-blk" id="ag1" style="top:116px"><div class="lbl">目標（あなたが書いた言葉）</div><div class="txt">住所変更の書類を出す</div></div>
+            <div class="again-blk old" id="ag2" style="top:236px"><div class="lbl">前回の一歩</div><div class="txt">週末に、<span class="kw2">書類</span>を全部<span class="kw2">書く</span>（30分）</div></div>
+            <div class="arrow-down" id="ag-arrow" style="top:352px;height:40px"></div>
+            <div class="again-blk draft" id="ag3" style="top:416px"><div class="lbl" style="color:var(--accent)">小さくした下書き</div><div class="txt"><span class="kw3">書類</span>を机に出して、名前だけ<span class="kw3">書く</span>（2分）</div></div>
+            <div class="btn" id="btn-go" style="top:740px">この一歩でいく</div>
+          </div>
+
+          <div class="scr" id="scr-stack">
+            <div class="scr-head"><span class="chev">‹</span><span>住所変更の書類を出す</span></div>
+            <div class="stack-paper back" id="paper-back"></div>
+            <div class="back-tab" id="back-tab" style="left:40px;top:104px">1回目 ・ 10/31</div>
+            <div class="stack-paper" id="paper2"></div>
+            <div class="count-pill" id="pill2" style="right:30px;top:112px">2回目の挑戦</div>
+            <div class="sheet-up" id="check2" style="height:300px">
+              <div class="grab"></div>
+              <div style="text-align:center;font-size:30px;font-weight:700;margin:8px 0 22px">今、どう？</div>
+              <div class="btn" id="ck2-yes" style="position:relative;left:0;right:0;opacity:1">やった</div>
+            </div>
+          </div>
+
+          <div class="tap" id="tap5"></div>
+        </div>
+        <div class="island"></div>
       </div>
-      <div class="result-ph" id="res"><small>差し替え：試した結果</small>私の実際の10枚で試したところ、○件中○件で…</div>
+      <div class="clabel" id="cl-ask"><i></i><small>Claude</small>問いかける</div>
+      <div class="clabel" id="cl-read"><i></i><small>Claude</small>これまでの紙を読む</div>
+      <div class="clabel" id="cl-small"><i></i><small>Claude</small>あなたの言葉のまま、小さくする</div>
+      <div id="rail">
+        <div class="eyebrow">一つの困りごとを、最後まで</div>
+        <div class="stage-item" id="st1"><div class="bg"></div><div class="ix">1</div><div class="tt">書く</div><div class="dd">困りごとを、そのまま</div></div>
+        <div class="stage-item" id="st2"><div class="bg"></div><div class="ix">2</div><div class="tt">決める</div><div class="dd">案を出して、最初の一歩</div></div>
+        <div class="stage-item" id="st3"><div class="bg"></div><div class="ix">3</div><div class="tt">止まる</div><div class="dd">できなかった日</div></div>
+        <div class="stage-item" id="st4"><div class="bg"></div><div class="ix">4</div><div class="tt">もう一度</div><div class="dd">同じ紙で、一歩を小さく</div></div>
+        <div class="stage-item" id="st5"><div class="bg"></div><div class="ix">5</div><div class="tt">動けた</div><div class="dd">2回目の挑戦で</div></div>
+      </div>
+      <div class="rnote" id="rn-only">実際にやれた場合だけ使う一文</div>
+    </div>
+    <div class="ff-chip" id="ff" style="left:770px;top:34px">▶▶ 早送り</div>
+    <div class="ph-tag r" id="tag5"><b>仮画面</b>アプリの画面録画（iPhone）に差し替え</div>
+  </section>
+
+  <!-- ⑥ Claudeの役割 -->
+  <section class="scene" id="sc6a">
+    <div id="roles6">
+      <div class="row"><div class="clabel" id="r6a">Claude：問いかける</div></div>
+      <div class="row"><div class="clabel" id="r6b">Claude：これまでの紙を読む</div></div>
+      <div class="row"><div class="clabel" id="r6c">Claude：あなたの言葉のまま、小さくする</div></div>
+      <div class="p" id="r6p1" style="margin-top:40px">答えは<span class="acc">出しません</span>。</div>
+      <div class="p" id="r6p2">決めるのは、いつも本人です。</div>
     </div>
   </section>
 
   <!-- ⑥ 安全 -->
-  <section class="scene" id="sc6">
-    <div id="safe-head">これは、医療の代わりではありません。</div>
-    <div class="phone" id="phone6" style="left:410px;top:190px;transform:scale(.86);transform-origin:0 0">
+  <section class="scene" id="sc6b">
+    <div id="safe-head">医療の代わりではありません。</div>
+    <div class="phone" id="phone6" style="left:410px;top:190px;transform:scale(.86)">
       <div class="screen">
         <div class="statusbar"><span>21:12</span><span class="icons"><i style="width:18px;height:11px"></i><i style="width:16px;height:11px;border-radius:6px"></i><i style="width:26px;height:12px;border-radius:4px"></i></span></div>
-        <div class="scr" id="scr-write6" style="opacity:1">
-          <div class="scr-head"><span class="chev">‹</span><span>1 困っていること</span></div>
-          <div class="card" style="top:118px;height:300px"><div class="lbl">整理しなくて大丈夫。思いつくまま。</div><div class="txt" id="w6-txt"></div></div>
-        </div>
-        <div class="scr" id="scr-safe">
+        <div class="scr" id="scr-safe" style="display:block;opacity:1">
           <div class="safe-ico"></div>
           <div class="safe-t">ひとりで抱えないで<br>ください</div>
           <div class="safe-b">つらさが強いときは、<br>相談できる窓口があります。</div>
@@ -572,25 +512,18 @@ body { overflow: hidden; }
     </div>
     <div id="memo">
       <h3>相談メモ</h3>
-      <div class="sub">10月3日〜10月29日 ・ 本人が選んだ紙から作成</div>
+      <div class="sub">10月3日〜11月1日 ・ 本人が選んだ紙から作成</div>
       <div class="m-row"><div class="k">困っていたこと</div><div class="v">住所変更の書類が、2週間出せていない</div></div>
-      <div class="m-row"><div class="k">試したこと</div><div class="v">問題解決の紙 10枚。うち5枚で実行</div></div>
-      <div class="m-row"><div class="k">動けた時の条件</div><div class="v">一歩を5分以内にした時</div></div>
+      <div class="m-row"><div class="k">試したこと</div><div class="v">一歩を「全部書く」から「名前だけ書く」へ</div></div>
+      <div class="m-row"><div class="k">動けた時の条件</div><div class="v">一歩が5分以内の時</div></div>
       <div class="m-row"><div class="k">相談したいこと</div><div class="v">（本人が書く）</div></div>
       <div class="m-sel"><b>✓</b> 載せる紙は、本人が選ぶ<br><b>✓</b> A4一枚で、医療に持っていける</div>
     </div>
-    <div class="ph-tag" id="tag6" style="left:auto;right:40px"><b>仮画面</b>相談先の画面・相談メモの実物に差し替え</div>
+    <div class="ph-tag r" id="tag6"><b>仮画面</b>相談先の画面・相談メモの実物に差し替え</div>
   </section>
 
-  <!-- ⑦ 締め -->
-  <section class="scene" id="sc7">
-    <div id="end-head">書いただけで終わった紙にも、続きが書ける。</div>
-    <div class="end-paper gray" id="ep1" style="left:360px;top:330px"></div>
-    <div class="end-paper" id="ep2b" style="left:1270px;top:318px;transform:rotate(4deg)"></div>
-    <div class="end-paper glow" id="ep2" style="left:1250px;top:340px"></div>
-    <div class="end-label" id="el1" style="left:510px;top:790px;color:var(--muted)">紙で止まった1枚</div>
-    <div class="end-label" id="el2" style="left:1400px;top:790px;color:var(--ink)">アプリで重なった2枚</div>
-    <svg id="end-arrow" viewBox="0 0 280 60"><path id="end-arrow-p" pathLength="1" d="M10 30 H250" stroke="#DE5440" stroke-width="7" stroke-linecap="round" fill="none"/><path id="end-arrow-h" opacity="0" d="M232 12 L258 30 L232 48" stroke="#DE5440" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+  <!-- ⑥ 二文 -->
+  <section class="scene" id="sc6c">
     <div id="end-lines">
       <div class="nm" id="end-name">【アプリ名】</div>
       <div class="l" id="end-l1">問題を解くハードルを下げる。</div>
