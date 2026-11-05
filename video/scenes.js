@@ -1,5 +1,6 @@
-/* 発表動画 v4（一つの困りごとを追う）のシーン。window.seek(t) で t 秒目の1コマを描く。
- * 時刻は build/timeline.js（tts.py が作る、ナレーションの文ごとの開始・終了）に合わせる。 */
+/* 発表動画 v4（一つの困りごとを追う・動機を一本の線にした版）のシーン。
+ * window.seek(t) で t 秒目の1コマを描く。時刻は build/timeline.js（tts.py が作る、
+ * ナレーションの文ごとの開始・終了）に合わせる。 */
 (() => {
   const TL = window.TIMELINE;
   const LINE = Object.fromEntries(TL.lines.map((l) => [l.id, l]));
@@ -39,13 +40,13 @@
     const pb = b.replace("#", "").match(/\w\w/g).map((h) => parseInt(h, 16));
     return `rgb(${pa.map((v, i) => Math.round(lerp(v, pb[i], clamp(p)))).join(",")})`;
   };
-  /** 複数のキーフレーム [t, ...値] をなめらかにつなぐ */
+  /** キーフレーム [t, x, y, 倍率] をなめらかにつなぐ（倍率は対数で補間） */
   function keyed(keys, t) {
     let k = 0;
     while (k < keys.length - 2 && t > keys[k + 1][0]) k++;
     const a = keys[k], b = keys[k + 1];
     const p = P(t, a[0], b[0], E.io);
-    return a.slice(1).map((v, i) => (i === a.length - 2 ? Math.exp(lerp(Math.log(v), Math.log(b[i + 1]), p)) : lerp(v, b[i + 1], p)));
+    return [lerp(a[1], b[1], p), lerp(a[2], b[2], p), Math.exp(lerp(Math.log(a[3]), Math.log(b[3]), p))];
   }
 
   /* ------------------------------------------------------------------ */
@@ -55,15 +56,13 @@
   function rD(t) {
     const state = t < 20 ? "before" : t < 160 ? "done" : "end";
     const before = state === "before";
-    const desk = $("#deskD");
-    if (before) tf(desk, { s: 1 + 0.06 * P(t, 0, 13.5, E.lin) });
-    else tf(desk, { s: 1.05 - 0.05 * P(t, state === "done" ? 144.6 : 169.9, state === "done" ? 150.3 : 174, E.out) });
+    if (before) tf($("#deskD"), { s: 1 + 0.06 * P(t, 0, 12, E.lin) });
+    else tf($("#deskD"), { s: 1.05 - 0.05 * P(t, state === "done" ? 144.6 : 169.9, state === "done" ? 150.3 : 174, E.out) });
     const day = before ? 15 + Math.round(14 * P(t, S("n2") - 0.1, En("n2") + 0.5, E.lin)) : 31;
     $("#d-cal-day").textContent = String(day);
     $("#d-cal-wd").textContent = WD[(day - 15) % 7];
     $$("#d-clutter .cl").forEach((el, k) => {
-      const p = before ? P(t, S("n2") + k * 0.75, S("n2") + 0.3 + k * 0.75, E.out) : k < 2 ? 1 : 0;
-      el.style.opacity = p.toFixed(3);
+      el.style.opacity = (before ? P(t, S("n2") + k * 0.7, S("n2") + 0.3 + k * 0.7, E.out) : k < 2 ? 1 : 0).toFixed(3);
     });
     op($("#d-envA"), before ? 1 : 0);
     op($("#d-note1"), before ? 1 : 0);
@@ -72,13 +71,13 @@
     op($("#d-envB"), before ? 0 : 1);
     op($("#d-done"), before ? 0 : 1);
     fadeUp($("#hlD1"), t, before ? S("n2") : 999, 0.45, -14);
-    fadeUp($("#hlD2"), t, state === "end" ? S("n37") - 0.15 : 999, 0.45, -14);
+    fadeUp($("#hlD2"), t, state === "end" ? S("n41") - 0.15 : 999, 0.45, -14);
     op($("#tagD1"), before ? P(t, 0.6, 1.1) : 0);
     op($("#tagD2"), before ? 0 : 1);
   }
 
   /* ------------------------------------------------------------------ */
-  /* ② 方法はある、でも届かない ／ ③ 戻るのは重い                            */
+  /* ② 動機：助けられた、でも届かない ／ ③ 戻るのは重い                      */
   /* ------------------------------------------------------------------ */
   const CROWD = [[110, 640], [205, 760], [300, 610], [655, 690], [760, 770], [830, 620], [150, 480], [720, 480], [250, 790], [560, 770], [405, 760], [70, 770], [345, 690], [610, 560], [820, 800], [480, 820]];
   const crowdEls = [];
@@ -92,12 +91,13 @@
       crowdEls.push(el);
     });
   }
+  const tD0 = () => S("n16") - 0.3;   // ③で手順の図に戻る時刻
   const CAM2 = () => [
-    [13.5, 1460, 570, 1.45], [27.6, 1460, 570, 1.45], [29.4, 960, 540, 1.0], [44.4, 960, 540, 1.0],
-    [44.5, 1460, 600, 1.45], [60, 1460, 600, 1.45],
+    [11.9, 820, 600, 1.2], [S("n6") - 0.2, 820, 600, 1.2], [S("n6") + 1.7, 1460, 570, 1.45],
+    [S("n11") - 0.3, 1460, 570, 1.45], [S("n11") + 1.5, 960, 540, 1.0], [47.3, 960, 540, 1.0],
+    [47.4, 1460, 600, 1.45], [80, 1460, 600, 1.45],
   ];
-  // わたしの歩く道（person の左上の座標）
-  const ME_OUT = [452, 560], ME_DOOR = [922, 700], ME_IN = [1010, 740], ME_BACK = [600, 640];
+  const ME_OUT = [452, 560], ME_DOOR = [922, 700], ME_IN = [1010, 740];
   function walk(t, a, pts, d) {
     const p = P(t, a, a + d, E.io);
     const seg = p < 0.5 ? 0 : 1, q = p < 0.5 ? p * 2 : (p - 0.5) * 2;
@@ -108,20 +108,47 @@
   function r2(t) {
     const [cx, cy, s] = keyed(CAM2(), t);
     $("#world").style.transform = `translate(${(960 - cx * s).toFixed(2)}px,${(540 - cy * s).toFixed(2)}px) scale(${s.toFixed(4)})`;
-    const phaseD = t > 44.45;
-    $("#w-left").style.background = mixHex("#E7EFEC", "#F4EEE3", P(t, 27.6, 29.0, E.lin) * (phaseD ? 0 : 1) + (phaseD ? 1 : 0));
+    const phaseD = t > 47.35;
 
-    // 手順の図
-    fadeUp($("#proc-title"), t, at("n5", "問題解決技法") - 0.3, 0.45, 18, " translateX(-50%)");
-    const tSteps = [at("n6", "具体的に"), at("n6", "案を出し"), at("n6", "計画して"), at("n6", "やってみる")];
-    const dim = phaseD ? 1 - 0.68 * P(t, 52.6, 53.2) : 1;
+    // 壁と場所の名前（最初から立っている。最後に「医療の中にしかない」で高くなる）
+    const tWall = at("n12", "医療の中");
+    const tall = P(t, tWall - 0.3, tWall + 1.0, E.io);
+    tf($("#wall"), { sy: phaseD ? 1.1 : P(t, 12.0, 12.8, E.out) * (1 + 0.1 * tall) });
+    $("#wall").style.filter = `brightness(${phaseD ? 0.88 : 1 - 0.12 * tall})`;
+    const lbl = phaseD ? 0 : P(t, 12.5, 13.1);
+    tf($("#lb-left"), { o: lbl }, " translateX(-50%)");
+    tf($("#lb-right"), { o: lbl }, " translateX(-50%)");
+    const pd = P(t, S("n6") - 0.6, S("n6") - 0.1, E.out);
+    tf($("#door"), { sy: phaseD ? 1 : pd, o: phaseD ? 1 : pd });
+
+    // 壁の外にいた私：何から手をつければいいか分からない
+    const tWhat = at("n5", "何から");
+    const away = 1 - P(t, S("n6"), S("n6") + 0.5, E.lin);
+    const tg = P(t, at("n5", "こういう時") - 0.2, tWhat + 1.0, E.io);
+    draw($("#tangle-path"), tg);
+    op($("#tangle"), tg > 0 ? away * (phaseD ? 0 : 1) : 0);
+    const q1 = pop(t, tWhat + 0.2, 0.35), q2 = pop(t, tWhat + 0.5, 0.35);
+    tf($("#q1"), { s: q1, r: -10, o: Math.min(1, q1 * 2) * away * (phaseD ? 0 : 1) });
+    tf($("#q2"), { s: q2, r: 12, o: Math.min(1, q2 * 2) * away * (phaseD ? 0 : 1) });
+    const me = $("#me");
+    const pos = t >= S("n6") ? walk(t, S("n6"), [ME_OUT, ME_DOOR, ME_IN], 1.9) : ME_OUT;
+    me.style.left = pos[0].toFixed(1) + "px"; me.style.top = pos[1].toFixed(1) + "px";
+    const pm = pop(t, at("n4", "ADHD") - 0.3, 0.45);
+    tf(me, { s: 1.2 * pm, o: phaseD ? 0 : Math.min(1, pm * 2) });
+    op($("#me-dots"), 0);
+
+    // 手順の図と、何度も助けられた
+    fadeUp($("#proc-title"), t, at("n6", "問題解決技法") - 0.3, 0.45, 18, " translateX(-50%)");
+    const tSteps = [at("n7", "具体的に"), at("n7", "案を出し"), at("n7", "計画して"), at("n7", "やってみる")];
+    const dim = phaseD ? 1 - 0.68 * P(t, tD0() + 0.3, tD0() + 0.9) : 1;
+    // 「何度も助けられました」：手順を光がぐるぐる回る
+    const tHelp = at("n9", "何度も") - 0.2;
+    const cyc = t > tHelp && t < En("n9") + 0.6 && !phaseD ? ((t - tHelp) / 0.9) % 1 : -1;
     $$(".step").forEach((el, k) => {
       const p = pop(t, tSteps[k] - 0.05, 0.4);
       tf(el, { y: 14 * (1 - Math.min(p, 1)), s: lerp(0.88, 1, p), o: Math.min(1, p * 2) * dim });
-    });
-    $$(".ex").forEach((el, k) => {
-      const p = P(t, tSteps[k] + 0.25, tSteps[k] + 0.6, E.out);
-      tf(el, { y: 8 * (1 - p), o: p * dim });
+      const lit = cyc >= 0 ? Math.max(0, 1 - Math.abs(cyc * 5 - k) * 1.2) : 0;
+      el.style.background = mixHex("#FFFFFF", "#CFE8E4", lit);
     });
     $$(".sarrow").forEach((el, k) => {
       const p = P(t, tSteps[k + 1] - 0.2, tSteps[k + 1] + 0.1, E.out);
@@ -130,59 +157,33 @@
       el.style.opacity = (p > 0 ? dim : 0).toFixed(3);
     });
     const loop = $("#loop");
-    const lp = P(t, S("n7") - 0.1, at("n7", "もう一度") + 0.35, E.io);
+    const lp = P(t, S("n8") - 0.1, at("n8", "もう一度") + 0.35, E.io);
     draw(loop, lp);
     loop.style.opacity = lp > 0 ? 1 : 0;
-    const red = phaseD ? P(t, 52.7, 53.2, E.lin) : 0;
-    const pulse = red > 0 ? 0.5 + 0.5 * Math.sin((t - 52.7) * 5.2) : 0;
+    const red = phaseD ? P(t, tD0() + 0.4, tD0() + 0.9, E.lin) : 0;
+    const pulse = red > 0 ? 0.5 + 0.5 * Math.sin((t - tD0()) * 5.2) : 0;
+    const loopLit = cyc >= 0 ? Math.max(0, 1 - Math.abs(cyc * 5 - 4.4) * 1.2) : 0;
     loop.setAttribute("stroke", red > 0.5 ? "#DE5440" : "#2E7672");
     loop.setAttribute("marker-end", lp < 0.94 ? "none" : red > 0.5 ? "url(#ah-red)" : "url(#ah)");
-    loop.setAttribute("stroke-width", (5 + 4 * red).toFixed(2));
+    loop.setAttribute("stroke-width", (5 + 4 * red + 3 * loopLit).toFixed(2));
     loop.style.filter = red > 0 ? `drop-shadow(0 0 ${(6 + 10 * pulse) * red}px rgba(222,84,64,${0.55 * red}))` : "none";
-    const ll = P(t, at("n7", "直して") - 0.2, at("n7", "直して") + 0.3, E.out);
+    const ll = P(t, at("n8", "直して") - 0.2, at("n8", "直して") + 0.3, E.out);
     tf($("#loop-label"), { y: 8 * (1 - ll), o: ll }, " translateX(-50%)");
     $("#loop-label").style.color = red > 0.5 ? "#DE5440" : "#2E7672";
-    const m2 = phaseD ? pop(t, at("n13", "戻る") - 0.4, 0.4) : 0;
+    op($("#proc-glow"), phaseD ? 0 : win(t, tHelp, S("n11"), 0.4));
+    const m2 = phaseD ? pop(t, tD0() + 0.6, 0.4) : 0;
     tf($("#me2"), { s: 0.75 * m2, o: Math.min(1, m2 * 2) });
 
-    // 壁と人
-    const tWall = at("n8", "身につく");
-    const wall = P(t, 27.9, 29.0, E.out) * (1 + 0.1 * P(t, tWall, tWall + 1.2, E.io));
-    tf($("#wall"), { sy: phaseD ? 1.1 : wall });
-    $("#wall").style.filter = `brightness(${1 - 0.12 * P(t, tWall, tWall + 1.2)})`;
-    const lbl = phaseD ? 0 : P(t, 28.8, 29.4);
-    tf($("#lb-left"), { o: lbl }, " translateX(-50%)");
-    tf($("#lb-right"), { o: lbl }, " translateX(-50%)");
-    const tAll = at("n8", "誰の日常");
-    const alone = P(t, S("n10") - 0.2, S("n10") + 0.5, E.lin);
+    // 引くと、壁の外にたくさんの人
+    const tAll = at("n11", "誰の日常") - 0.5;
     crowdEls.forEach((el, k) => {
       const p = pop(t, tAll + k * 0.06, 0.35);
-      tf(el, { s: 0.7 * p, o: Math.min(1, p * 2) * (1 - alone) });
+      tf(el, { s: 0.7 * p, o: phaseD ? 0 : Math.min(1, p * 2) });
     });
-    const tDoor = at("n9", "医療につながって") - 0.6;
-    const pd = P(t, tDoor, tDoor + 0.5, E.out);
-    tf($("#door"), { sy: phaseD ? 1 : pd, o: phaseD ? 1 : pd });
-    const glow = Math.max(0.5 * win(t, at("n8", "ほぼ医療") - 0.2, 41.6, 0.4), win(t, at("n9", "初めて") - 0.2, 41.6, 0.4));
-    op($("#proc-glow"), phaseD ? 0 : glow);
-
-    // わたし：群れの中 → 医療の中へ → 一人で外へ
-    const me = $("#me");
-    let pos = ME_OUT;
-    const tIn = at("n9", "医療につながって");
-    const tOut = S("n10") - 0.1;
-    if (t >= tOut) pos = walk(t, tOut, [ME_IN, ME_DOOR, ME_BACK], 1.7);
-    else if (t >= tIn) pos = walk(t, tIn, [ME_OUT, ME_DOOR, ME_IN], 1.8);
-    me.style.left = pos[0].toFixed(1) + "px"; me.style.top = pos[1].toFixed(1) + "px";
-    const pm = pop(t, tAll, 0.4);
-    const hi = P(t, at("n9", "私は") - 0.1, at("n9", "私は") + 0.4, E.out);
-    tf(me, { s: (0.7 + 0.5 * hi) * pm, o: phaseD ? 0 : Math.min(1, pm * 2) });
-    const dots = $("#me-dots");
-    dots.style.left = (pos[0] + 6).toFixed(1) + "px"; dots.style.top = (pos[1] - 72).toFixed(1) + "px";
-    op(dots, phaseD ? 0 : P(t, at("n10", "止まります") - 0.1, at("n10", "止まります") + 0.3, E.lin));
   }
 
   /* ------------------------------------------------------------------ */
-  /* ③ 一人だと止まる（10枚）                                             */
+  /* ③ 動機：当事者にしか分からない（10枚）                                 */
   /* ------------------------------------------------------------------ */
   const SHEETS = [
     ["10/03", "役所の書類が出せない", "期限までに出す", "・今週やる ・朝やる", "朝やる", "書類を全部書く", "土曜 9:00"],
@@ -224,13 +225,14 @@
     return { x: cx - W / 2, y: cy - H / 2, r };
   };
   function r3(t) {
-    const t0 = S("n11") - 0.4;
-    const tNum = at("n11", "10枚");
-    const tStamp = at("n12", "5枚") - 0.55;
-    const tSplit = at("n12", "5枚") + 0.1;
+    const t0 = 47.0;
+    const tNum = at("n15", "10枚");
+    const tStamp = at("n15", "5枚") - 0.55;
+    const tSplit = at("n15", "5枚") + 0.1;
+    tf($("#desk3"), { s: 1 + 0.025 * P(t, t0, tNum, E.lin) - 0.025 * P(t, tNum, tNum + 0.6, E.io) });
     sheetEls.forEach((el, i) => {
       const a = posA(i), b = posB(i);
-      const pin = P(t, t0 + i * 0.05, t0 + 0.5 + i * 0.05, E.out);
+      const pin = P(t, t0 + 0.2 + i * 0.42, t0 + 0.7 + i * 0.42, E.out);   // 1枚ずつ置いていく
       const pm = P(t, tSplit + i * 0.05, tSplit + 0.9 + i * 0.05, E.io);
       const done = DONE.includes(i);
       tf(el, { x: lerp(a.x, b.x, pm), y: lerp(a.y, b.y, pm) - 26 * (1 - pin), r: lerp(a.r, b.r, pm), s: lerp(1, 0.78, pm) * lerp(1.05, 1, pin), o: pin });
@@ -246,27 +248,31 @@
     const gl = P(t, tSplit + 0.9, tSplit + 1.3, E.out);
     tf($("#gl-done"), { y: 12 * (1 - gl), o: gl });
     tf($("#gl-not"), { y: 12 * (1 - gl), o: gl });
-    fadeUp($("#hl3"), t, at("n12", "書いただけ") - 0.2, 0.45, -14);
+    fadeUp($("#hl3"), t, at("n15", "書いただけ") - 0.2, 0.45, -14);
     op($("#tag3"), P(t, t0 + 0.3, t0 + 0.7));
+  }
+  function r3b(t) {
+    const p = P(t, S("n17") - 0.15, S("n17") + 0.5, E.out);
+    tf($("#maker"), { y: 16 * (1 - p), o: p });
   }
 
   /* ------------------------------------------------------------------ */
   /* ④ コンセプト                                                        */
   /* ------------------------------------------------------------------ */
   function r4(t) {
-    const tMake = at("n14", "作りました") + 0.1;
-    const lift = P(t, S("n15") - 0.6, S("n15") + 0.1, E.io);
-    const pl = pop(t, tMake, 0.5);
+    const t0 = S("n18");
+    const lift = P(t, S("n19") - 0.6, S("n19") + 0.1, E.io);
+    const pl = pop(t, t0 - 0.2, 0.5);
     tf($("#logo"), { s: lerp(0.6, 1, pl), y: -175 * lift, o: Math.min(1, pl * 2) });
-    draw($("#logo-loop"), P(t, tMake + 0.35, tMake + 0.95, E.io));
-    op($("#logo-loop-head"), P(t, tMake + 0.85, tMake + 1.0, E.lin));
-    const pn = P(t, En("n14") + 0.05, En("n14") + 0.5, E.out);
+    draw($("#logo-loop"), P(t, t0 + 0.15, t0 + 0.75, E.io));
+    op($("#logo-loop-head"), P(t, t0 + 0.65, t0 + 0.8, E.lin));
+    const pn = P(t, t0 + 0.1, t0 + 0.55, E.out);
     tf($("#app-name"), { y: 18 * (1 - pn) - 175 * lift, o: pn });
-    const c1 = fadeUp($("#cl1"), t, S("n15") - 0.1, 0.45);
-    const c2 = fadeUp($("#cl2"), t, S("n16") - 0.1, 0.45);
-    $("#hd1 b").style.top = lerp(6, 34, c1 > 0 ? P(t, S("n15") + 0.5, S("n15") + 1.3, E.io) : 0).toFixed(1) + "px";
-    $("#hd2 b").style.top = lerp(6, 46, c2 > 0 ? P(t, at("n16", "もっと") - 0.3, at("n16", "もっと") + 0.6, E.io) : 0).toFixed(1) + "px";
-    op($("#tag4"), P(t, En("n14"), En("n14") + 0.5));
+    const c1 = fadeUp($("#cl1"), t, S("n19") - 0.1, 0.45);
+    const c2 = fadeUp($("#cl2"), t, S("n20") - 0.1, 0.45);
+    $("#hd1 b").style.top = lerp(6, 34, c1 > 0 ? P(t, S("n19") + 0.5, S("n19") + 1.3, E.io) : 0).toFixed(1) + "px";
+    $("#hd2 b").style.top = lerp(6, 46, c2 > 0 ? P(t, at("n20", "もっと") - 0.3, at("n20", "もっと") + 0.6, E.io) : 0).toFixed(1) + "px";
+    op($("#tag4"), P(t, t0 + 0.3, t0 + 0.8));
   }
 
   /* ------------------------------------------------------------------ */
@@ -283,16 +289,19 @@
   const A1 = "封筒を開けるところ。中を見るのがしんどい";
   const A2 = "全部いっぺんに書かなきゃと思う";
   const GOAL = "住所変更の書類を出す";
-  const IDEAS = [["週末に、書類を全部書く（30分）", 87.8, 88.6], ["封筒だけ机に出す", 89.35, 89.85], ["窓口でいっしょに書いてもらう", 90.5, 91.0]];
-  const TYPING = [[70.3, 72.6], [75.6, 76.8], [78.6, 79.6], [83.5, 84.6], [87.8, 91.0]];
-  const STAGES = [[60, 87.1], [87.1, 100.0], [100.0, 120.4], [120.4, 138.2], [138.2, 200]];
+  // 書く（77〜93）
+  const Q1 = () => S("n23") + 0.1;                 // 泡1が上がる
+  const SEND1 = () => Q1() + 2.35, Q2 = () => SEND1() + 0.65, SEND2 = () => Q2() + 2.05;
+  // 決める（93〜102）
+  const IDEAS = [["週末に、書類を全部書く（30分）", 93.7, 94.4], ["封筒だけ机に出す", 95.1, 95.5], ["窓口でいっしょに書いてもらう", 96.2, 96.6]];
+  const STAGES = [[60, 93.0], [93.0, 102.0], [102.0, 120.4], [120.4, 138.2], [138.2, 200]];
   const STAGE_COLOR = ["#2E7672", "#2E7672", "#DE5440", "#DE5440", "#2E7672"];
   // スマホの画面座標 → ステージ座標（phone5 は left 260, top 20, ×1.18）
-  const PX = (sx) => 260 + 1.18 * (12 + sx), PY = (sy) => 20 + 1.18 * (12 + sy);
+  const PY = (sy) => 20 + 1.18 * (12 + sy);
   const REST = [560, 520, 1];
-  const CAM5 = [
-    [66.9, ...REST], [76.7, ...REST], [77.6, 508, 430, 1.3], [80.7, 508, 430, 1.3], [81.5, ...REST],
-    [112.3, ...REST], [113.0, 508, 400, 1.5], [116.0, 508, 400, 1.5], [116.6, ...REST],
+  const CAM5 = () => [
+    [76.9, ...REST], [SEND1() - 0.3, ...REST], [SEND1() + 0.5, 508, 430, 1.3], [SEND2() + 0.6, 508, 430, 1.3], [SEND2() + 1.3, ...REST],
+    [S("n30") - 0.6, ...REST], [S("n30") + 0.1, 508, 400, 1.5], [En("n30") + 0.2, 508, 400, 1.5], [En("n30") + 0.8, ...REST],
     [126.8, ...REST], [127.5, 508, 560, 1.45], [130.0, 508, 560, 1.45], [130.6, ...REST], [150, ...REST],
   ];
   let P1, P2;
@@ -308,13 +317,13 @@
   }
   function buildDemo() {
     P1 = buildPaper($("#paper1"), PAPER1);
-    const PB = buildPaper($("#paper-back"), PAPER1);
-    PB.forEach((f, i) => fillFrame(f, i < 6 ? 1 : 0));
+    buildPaper($("#paper-back"), PAPER1).forEach((f, i) => fillFrame(f, i < 6 ? 1 : 0));
     P2 = buildPaper($("#paper2"), PAPER2);
     for (let i = 0; i < 10; i++) $("#mini-papers").appendChild(document.createElement("i"));
     $("#cl-ask").style.top = PY(480) - 40 + "px";
     $("#cl-read").style.top = PY(160) - 40 + "px";
     $("#cl-small").style.top = PY(470) - 40 + "px";
+    op($("#ev-link"), 0);
   }
   function screen(el, t, wins, f = 0.25) {
     const o = Math.max(...wins.map(([a, b]) => win(t, a, b, f)));
@@ -335,11 +344,10 @@
     op(el, 0);
   }
   function r5(t) {
-    // カメラ（大事な所に寄る）
-    const [fx, fy, s] = keyed(CAM5, t);
+    const [fx, fy, s] = keyed(CAM5(), t);
     $("#cam5").style.transform = `translate(${(560 - fx * s).toFixed(2)}px,${(520 - fy * s).toFixed(2)}px) scale(${s.toFixed(4)})`;
     const zoom = clamp((s - 1) / 0.25);
-    const pin = P(t, 66.9, 67.6, E.out);
+    const pin = P(t, 76.9, 77.6, E.out);
     tf($("#phone5"), { y: 40 * (1 - pin), s: 1.18 });
 
     // 右の列
@@ -360,71 +368,72 @@
       setText(ix, done ? "✓" : String(k + 1));
     });
     tf($("#rn-only"), { o: win(t, 140.1, 145, 0.3) * (1 - zoom) });
-    op($("#tag5"), P(t, 67.4, 67.9));
-    op($("#ff"), Math.max(...TYPING.map(([a, b]) => win(t, a - 0.1, b + 0.25, 0.15))));
-    setText($("#sb5"), t < 98.9 ? "20:15" : t < 100.9 ? "" : t < 120.4 ? "10:00" : "21:00");
+    op($("#tag5"), P(t, 77.4, 77.9));
+    const typing = [[80.3, 82.6], [Q1() + 1.1, SEND1() - 0.15], [Q2() + 1.0, SEND2() - 0.15], [91.5, 92.1], [93.7, 96.6]];
+    op($("#ff"), Math.max(...typing.map(([a, b]) => win(t, a - 0.1, b + 0.25, 0.15))));
+    setText($("#sb5"), t < 100.7 ? "20:15" : t < 102.4 ? "" : t < 120.4 ? "10:00" : "21:00");
 
     // Claude のラベル
     const lab = (el, a, b) => { const p = P(t, a, a + 0.35, E.out); tf(el, { x: -16 * (1 - p), o: win(t, a, b, 0.3) }); };
-    lab($("#cl-ask"), S("n19") - 0.1, 82.6);
-    lab($("#cl-read"), at("n25", "Claudeが") - 0.1, 119.6);
-    lab($("#cl-small"), at("n28", "自分の言葉") - 0.25, 130.4);
+    lab($("#cl-ask"), S("n23") - 0.1, 91.0);
+    lab($("#cl-read"), at("n29", "Claudeが") - 0.1, 119.6);
+    lab($("#cl-small"), at("n32", "自分の言葉") - 0.25, 130.4);
 
     // 紙（白紙／目標まで／一歩まで／止まった）
-    const sp = screen($("#scr-paper"), t, [[66.9, 69.95], [85.5, 87.3], [93.8, 99.1], [103.3, 106.0]]);
+    const sp = screen($("#scr-paper"), t, [[76.9, 79.95], [92.4, 93.35], [99.2, 100.95], [104.8, 107.6]]);
     if (sp > 0) {
-      let n = 0;
-      if (t > 85 && t < 88) n = 2; else if (t > 93 && t < 107) n = 6;
       P1.forEach((fr, i) => {
-        let p = i < n ? 1 : 0;
-        if (t > 93 && t < 100 && i >= 2 && i < 6) p = P(t, 94.0 + (i - 2) * 0.15, 94.2 + (i - 2) * 0.15, E.lin);
-        if (t > 85 && t < 88 && i === 1) p = P(t, 85.8, 86.1, E.lin);
+        let p = 0;
+        if (t > 92 && t < 94) p = i === 0 ? 1 : i === 1 ? P(t, 92.6, 92.8, E.lin) : 0;
+        else if (t > 99 && t < 101) p = i < 2 ? 1 : i < 6 ? P(t, 99.4 + (i - 2) * 0.12, 99.55 + (i - 2) * 0.12, E.lin) : 0;
+        else if (t > 104) p = i < 6 ? 1 : 0;
         fillFrame(fr, p);
       });
-      const stopped = t > 103 ? P(t, at("n24", "ここで") - 0.4, at("n24", "ここで"), E.lin) : 0;
+      const tStop = at("n28", "ここで");
+      const stopped = t > 104 ? P(t, tStop - 0.4, tStop, E.lin) : 0;
       $("#paper1").style.filter = stopped > 0 ? `saturate(${1 - 0.8 * stopped}) brightness(${1 - 0.08 * stopped})` : "none";
-      const ps = pop(t, at("n24", "ここで") - 0.2, 0.35);
-      tf($("#stopped"), { s: t > 103 ? ps : 0, o: t > 103 ? Math.min(1, ps * 2) : 0 }, " translate(-50%,-50%) rotate(-8deg)");
-      const pulse = t < 70 ? win(t, 68.4, 69.8, 0.3) * (0.5 + 0.5 * Math.sin((t - 68.4) * 7)) : 0;
+      const ps = pop(t, tStop - 0.2, 0.35);
+      tf($("#stopped"), { s: t > 104 ? ps : 0, o: t > 104 ? Math.min(1, ps * 2) : 0 }, " translate(-50%,-50%) rotate(-8deg)");
+      const pulse = t < 80 ? win(t, 78.4, 79.8, 0.3) * (0.5 + 0.5 * Math.sin((t - 78.4) * 7)) : 0;
       P1[0].querySelector(".empty").style.borderColor = mixHex("#E1D9CB", "#3F8F8A", pulse);
     }
 
     // 1 いま困っていること
-    const sd = screen($("#scr-dump"), t, [[69.5, 85.8]]);
+    const sd = screen($("#scr-dump"), t, [[79.5, 92.7]]);
     if (sd > 0) {
-      const z = P(t, 69.5, 70.05, E.out);
+      const z = P(t, 79.5, 80.05, E.out);
       $("#scr-dump").style.transformOrigin = "198px 185px";
       tf($("#scr-dump"), { s: lerp(0.3, 1, z), o: sd });
-      let txt = DUMP.slice(0, Math.round(DUMP.length * P(t, 70.3, 72.6, E.lin)));
-      if (t > 76.95) txt = DUMP + SC1.slice(0, Math.round(SC1.length * P(t, 76.95, 77.5, E.lin)));
-      if (t > 79.75) txt = DUMP + SC1 + SC2.slice(0, Math.round(SC2.length * P(t, 79.75, 80.4, E.lin)));
+      let txt = DUMP.slice(0, Math.round(DUMP.length * P(t, 80.3, 82.6, E.lin)));
+      if (t > SEND1()) txt = DUMP + SC1.slice(0, Math.round(SC1.length * P(t, SEND1(), SEND1() + 0.55, E.lin)));
+      if (t > SEND2()) txt = DUMP + SC1 + SC2.slice(0, Math.round(SC2.length * P(t, SEND2(), SEND2() + 0.65, E.lin)));
       setText($("#dump-txt"), txt);
-      setText($("#dump-lbl"), t > 76.95 ? "場面" : "そのまま書いて大丈夫");
+      setText($("#dump-lbl"), t > SEND1() ? "場面" : "そのまま書いて大丈夫");
       const bub = (el, a, b, dx) => {
         const pu = P(t, a, a + 0.7, E.out), pp = P(t, b, b + 0.3, E.out);
         tf(el, { x: dx * Math.sin((t - a) * 1.3), y: 120 * (1 - pu) + 6 * Math.sin((t - a) * 2.1), s: 1 + 0.15 * pp, o: pu * (1 - pp) });
       };
-      bub($("#bq1"), S("n19") + 0.1, 76.95, 6);
-      bub($("#bq2"), 77.6, 79.75, 8);
+      bub($("#bq1"), Q1(), SEND1(), 6);
+      bub($("#bq2"), Q2(), SEND2(), 8);
       const inp = $("#dump-input");
-      op(inp, P(t, 74.6, 74.9, E.lin) * (1 - P(t, 81.2, 81.5, E.lin)));
+      op(inp, P(t, Q1() + 0.1, Q1() + 0.4, E.lin) * (1 - P(t, 90.1, 90.4, E.lin)));
       let a = "";
-      if (t < 76.95) a = A1.slice(0, Math.round(A1.length * P(t, 75.6, 76.8, E.lin)));
-      else if (t < 79.75) a = A2.slice(0, Math.round(A2.length * P(t, 78.6, 79.6, E.lin)));
+      if (t < SEND1()) a = A1.slice(0, Math.round(A1.length * P(t, Q1() + 1.1, SEND1() - 0.15, E.lin)));
+      else if (t < SEND2()) a = A2.slice(0, Math.round(A2.length * P(t, Q2() + 1.0, SEND2() - 0.15, E.lin)));
       setText(inp, a);
-      const bg = P(t, 81.6, 82.0, E.out);
-      tf($("#btn-goal"), { y: 20 * (1 - bg), s: t > 82.65 && t < 82.9 ? 0.96 : 1, o: bg });
-      const gs = P(t, 83.0, 83.4, E.out) * (1 - P(t, 85.0, 85.4, E.io));
+      const bg = P(t, 90.4, 90.7, E.out);
+      tf($("#btn-goal"), { y: 20 * (1 - bg), s: t > 90.95 && t < 91.2 ? 0.96 : 1, o: bg });
+      const gs = P(t, 91.15, 91.45, E.out) * (1 - P(t, 92.15, 92.45, E.io));
       tf($("#goal-sheet"), { y: 320 * (1 - gs) });
-      typeIn($("#goal-input"), GOAL, P(t, 83.5, 84.6, E.lin));
+      typeIn($("#goal-input"), GOAL, P(t, 91.5, 92.1, E.lin));
     }
 
     // 3 案を出す
-    const si = screen($("#scr-ideas"), t, [[87.1, 94.0]]);
+    const si = screen($("#scr-ideas"), t, [[93.1, 99.45]]);
     if (si > 0) {
-      tf($("#scr-ideas"), { x: 40 * (1 - P(t, 87.1, 87.5, E.out)), o: si });
+      tf($("#scr-ideas"), { x: 40 * (1 - P(t, 93.1, 93.5, E.out)), o: si });
       ["#bi1", "#bi2", "#bi3"].forEach((sel, k) => {
-        const po = P(t, 87.3 + k * 0.3, 87.8 + k * 0.3, E.out), u = t - 87;
+        const po = P(t, 93.3 + k * 0.3, 93.8 + k * 0.3, E.out), u = t - 93;
         tf($(sel), { x: 10 * Math.sin(u * 0.7 + k), y: -16 * Math.sin(u * 0.9 + k * 1.7) - u * 5, o: po });
       });
       let txt = "";
@@ -442,40 +451,41 @@
         }
       });
       if (!shown) op($("#ball"), 0);
-      $("#li1").classList.toggle("sel", t > 91.85);
-      const ps = P(t, 92.1, 92.5, E.out);
+      $("#li1").classList.toggle("sel", t > 97.35);
+      const ps = P(t, 97.6, 97.95, E.out);
       tf($("#plan-sheet"), { y: 400 * (1 - ps) });
-      typeIn($("#pl1v"), "土曜 10:00", P(t, 92.5, 92.75, E.lin));
-      typeIn($("#pl2v"), "リビングの机", P(t, 92.75, 93.0, E.lin));
-      typeIn($("#pl3v"), "封筒を開ける", P(t, 93.0, 93.3, E.lin));
+      typeIn($("#pl1v"), "土曜 10:00", P(t, 98.0, 98.2, E.lin));
+      typeIn($("#pl2v"), "リビングの机", P(t, 98.2, 98.4, E.lin));
+      typeIn($("#pl3v"), "封筒を開ける", P(t, 98.4, 98.65, E.lin));
     }
 
     // ロック画面・今、どう？
-    if (screen($("#scr-lock"), t, [[98.9, 101.2]]) > 0) {
-      const pn = P(t, 99.6, 100.05, E.out);
-      tf($("#notif"), { y: -140 * (1 - pn), s: t > 100.65 && t < 100.9 ? 0.97 : 1, o: pn });
+    if (screen($("#scr-lock"), t, [[100.7, 102.6]]) > 0) {
+      const pn = P(t, 101.1, 101.5, E.out);
+      tf($("#notif"), { y: -140 * (1 - pn), s: t > 102.15 && t < 102.4 ? 0.97 : 1, o: pn });
     }
-    if (screen($("#scr-check"), t, [[100.9, 103.5]]) > 0) {
-      const pressed = t > 102.45;
+    if (screen($("#scr-check"), t, [[102.35, 105.0]]) > 0) {
+      const pressed = t > at("n27", "できません") + 0.05;
       $("#ck3").style.background = pressed ? "#ECE6DB" : "#fff";
       $("#ck3").style.borderColor = pressed ? "#9A9284" : "#D9D0C0";
     }
 
-    // あなたの記録
-    const sr = screen($("#scr-record"), t, [[105.8, 121.4]]);
+    // あなたの記録：Claude が紙を読む → 条件
+    const sr = screen($("#scr-record"), t, [[107.3, 121.4]]);
     if (sr > 0) {
-      tf($("#scr-record"), { y: 30 * (1 - P(t, 105.8, 106.3, E.out)), o: sr });
-      const r0 = at("n25", "これまでの紙") - 0.2, r1 = at("n25", "動けた時") - 0.3;
+      tf($("#scr-record"), { y: 30 * (1 - P(t, 107.3, 107.8, E.out)), o: sr });
+      const r0 = at("n29", "これまでの紙") - 0.2, r1 = at("n29", "動けた時") - 0.2;
       $$("#mini-papers i").forEach((el, k) => el.classList.toggle("on", t > lerp(r0, r1, k / 9)));
       setText($("#rc-read-lbl"), t > r1 ? "これまでの紙 10枚を読みました" : "これまでの紙を読んでいます");
-      fadeUp($("#rc-main"), t, at("n25", "動けた時") - 0.2, 0.4);
-      fadeUp($("#insight"), t, S("n26") - 0.15, 0.45, 10);
-      op($("#ev-link"), P(t, 114.2, 114.5, E.lin));
-      const ev = P(t, 116.9, 117.3, E.out) * (1 - P(t, 119.6, 120.0, E.io));
+      // 読んでいる紙の日付が並ぶ（根拠）
+      const ev = P(t, r0 + 0.1, r0 + 0.5, E.out) * (1 - P(t, S("n30") - 0.7, S("n30") - 0.3, E.io));
       tf($("#ev-sheet"), { y: 600 * (1 - ev) });
-      $$("#ev-sheet .ev").forEach((el, k) => op(el, P(t, 117.2 + k * 0.15, 117.45 + k * 0.15, E.lin)));
-      const ba = P(t, 120.0, 120.35, E.out);
-      tf($("#btn-again"), { y: 20 * (1 - ba), s: t > 120.95 && t < 121.2 ? 0.96 : 1, o: ba });
+      $$("#ev-sheet .ev").forEach((el, k) => op(el, P(t, r0 + 0.4 + k * 0.32, r0 + 0.6 + k * 0.32, E.lin)));
+      fadeUp($("#rc-main"), t, S("n30") - 0.35, 0.4);
+      fadeUp($("#insight"), t, S("n30") - 0.15, 0.45, 10);
+      const ba = P(t, En("n30") + 0.9, En("n30") + 1.25, E.out);
+      const pulse = win(t, En("n30") + 1.4, 120.5, 0.2) * Math.sin((t - En("n30")) * 8);
+      tf($("#btn-again"), { y: 20 * (1 - ba), s: (1 + 0.025 * pulse) * (t > 120.95 && t < 121.2 ? 0.96 : 1), o: ba });
     }
 
     // もう一度（下書き）
@@ -483,34 +493,31 @@
     if (sa > 0) {
       tf($("#scr-again"), { x: 40 * (1 - P(t, 121.3, 121.7, E.out)), o: sa });
       fadeUp($("#ag1"), t, 121.6);
-      fadeUp($("#ag2"), t, S("n28") - 0.1);
-      const tA = at("n28", "小さくした") - 0.3;
+      fadeUp($("#ag2"), t, S("n32") - 0.1);
+      const tA = at("n32", "小さくした") - 0.3;
       const pa = P(t, tA, tA + 0.35, E.out);
       $("#ag-arrow").style.height = (40 * pa).toFixed(1) + "px";
       op($("#ag-arrow"), Math.min(1, pa * 3));
-      const tD = at("n28", "下書き") - 0.25;
-      const pd = pop(t, tD, 0.4);
+      const pd = pop(t, at("n32", "下書き") - 0.25, 0.4);
       tf($("#ag3"), { s: lerp(0.92, 1, pd), o: Math.min(1, pd * 2) });
-      const kw = t > S("n29");
-      $$(".kw2, .kw3").forEach((el) => el.classList.toggle("kw", kw));
+      $$(".kw2, .kw3").forEach((el) => el.classList.toggle("kw", t > S("n33")));
       const pg = P(t, 129.4, 129.75, E.out);
       tf($("#btn-go"), { y: 20 * (1 - pg), s: t > 130.05 && t < 130.3 ? 0.96 : 1, o: pg });
     }
 
     // 重なる紙 → 動けた
-    const ss = screen($("#scr-stack"), t, [[130.4, 146]]);
-    if (ss > 0) {
+    if (screen($("#scr-stack"), t, [[130.4, 146]]) > 0) {
       tf($("#paper-back"), { x: 14, y: -20, r: 2.6 });
       const pf = P(t, 130.6, 131.6, E.out);
       tf($("#paper2"), { y: lerp(-760, 8, pf), r: lerp(-4, 0, pf) });
-      const tCarry = at("n30", "前の紙") - 0.2;
+      const tCarry = at("n34", "前の紙") - 0.2;
       P2.forEach((fr, i) => {
         if (i < 3) { fillFrame(fr, 1); fr.classList.toggle("carry", t > tCarry); }
         else if (i < 6) { fillFrame(fr, 1); fr.classList.toggle("new", i === 3); }
         else fillFrame(fr, P(t, 140.1, 140.5, E.lin));
       });
       typeIn(P2[6].querySelector(".fc"), PAPER2[6], P(t, 140.1, 140.8, E.lin));
-      const pc = pop(t, at("n30", "重なります") - 0.15, 0.4);
+      const pc = pop(t, at("n34", "重なります") - 0.15, 0.4);
       tf($("#pill2"), { s: pc, o: Math.min(1, pc * 2) });
       op($("#back-tab"), P(t, 130.5, 130.9, E.lin));
       const ck = P(t, 138.3, 138.7, E.out) * (1 - P(t, 139.6, 140.0, E.io));
@@ -521,54 +528,55 @@
       $("#paper2").style.boxShadow = `0 0 0 ${(5 * glow).toFixed(1)}px rgba(240,190,94,${(0.6 * glow).toFixed(2)}), 0 6px 20px rgba(60,40,10,.14), 0 0 ${(40 * glow).toFixed(0)}px rgba(240,190,94,${(0.45 * glow).toFixed(2)})`;
     }
 
-    tapAt(t, [[82.7, 198, 803], [91.8, 120, 251], [100.7, 198, 330], [102.4, 198, 607], [116.7, 84, 401],
-      [121.0, 198, 551], [130.1, 198, 771], [139.3, 198, 686]]);
+    tapAt(t, [[91.0, 198, 803], [97.3, 120, 251], [102.2, 198, 330], [at("n27", "できません"), 198, 607],
+      [120.95, 198, 551], [130.1, 198, 771], [139.3, 198, 686]]);
   }
 
   /* ------------------------------------------------------------------ */
   /* ⑥ 締め                                                              */
   /* ------------------------------------------------------------------ */
   function r6a(t) {
-    const ts = [at("n32", "問いかけて"), at("n32", "読んで"), at("n32", "小さく")];
+    const ts = [at("n36", "問いかけて"), at("n36", "読んで"), at("n36", "小さく")];
     ["#r6a", "#r6b", "#r6c"].forEach((s, k) => {
       const p = pop(t, ts[k] - 0.15, 0.4);
       tf($(s), { s: lerp(0.85, 1, p), o: Math.min(1, p * 2) });
     });
-    fadeUp($("#r6p1"), t, S("n33") - 0.1);
-    fadeUp($("#r6p2"), t, at("n33", "決めるのは") - 0.1);
+    fadeUp($("#r6p1"), t, S("n37") - 0.1);
+    fadeUp($("#r6p2"), t, at("n37", "決めるのは") - 0.1);
   }
   function r6b(t) {
-    fadeUp($("#safe-head"), t, S("n34") - 0.15);
+    fadeUp($("#safe-head"), t, S("n38") - 0.15);
     const ph = P(t, 160.0, 160.6, E.out);
-    const side = P(t, S("n36") - 0.5, S("n36") + 0.35, E.io);
+    const side = P(t, S("n40") - 0.5, S("n40") + 0.35, E.io);
     $("#phone6").style.transform = `translate(${(370 * (1 - side)).toFixed(1)}px,${(30 * (1 - ph)).toFixed(1)}px) scale(.86)`;
     op($("#phone6"), ph);
-    const pm = P(t, S("n36") - 0.2, S("n36") + 0.4, E.out);
+    const pm = P(t, S("n40") - 0.2, S("n40") + 0.4, E.out);
     tf($("#memo"), { x: 80 * (1 - pm), r: 2 * (1 - pm), o: pm });
-    $("#memo .m-sel").style.background = mixHex("F6F2EA", "D9ECE9", P(t, at("n36", "医療に") - 0.2, at("n36", "医療に") + 0.3, E.lin));
+    $("#memo .m-sel").style.background = mixHex("F6F2EA", "D9ECE9", P(t, at("n40", "医療に") - 0.2, at("n40", "医療に") + 0.3, E.lin));
     op($("#tag6"), P(t, 160.3, 160.8));
   }
   function r6c(t) {
-    fadeUp($("#end-name"), t, S("n38") - 0.4);
-    fadeUp($("#end-l1"), t, S("n38") - 0.1);
-    fadeUp($("#end-l2"), t, S("n39") - 0.1);
-    op($("#thanks"), P(t, En("n39") - 0.4, En("n39") + 0.2));
+    fadeUp($("#end-name"), t, S("n42") - 0.4);
+    fadeUp($("#end-l1"), t, S("n42") - 0.1);
+    fadeUp($("#end-l2"), t, S("n43") - 0.1);
+    op($("#thanks"), P(t, En("n43") - 0.4, En("n43") + 0.2));
   }
 
   /* ------------------------------------------------------------------ */
   const SCENES = [
-    ["#scD", [[-1, 13.8], [144.6, 150.3], [169.95, 174.0]], rD],
-    ["#sc2", [[13.5, S("n11") - 0.1], [En("n12") + 0.3, 57.8]], r2],
-    ["#sc3", [[S("n11") - 0.4, En("n12") + 0.6]], r3],
-    ["#sc4", [[57.5, 67.2]], r4],
-    ["#sc5", [[66.9, 144.9]], r5],
+    ["#scD", [[-1, 12.3], [144.6, 150.3], [169.95, 174.0]], rD],
+    ["#sc2", [[11.95, 47.35], [S("n16") - 0.3, S("n17") - 0.25]], r2],
+    ["#sc3", [[46.95, S("n16") - 0.05]], r3],
+    ["#sc3b", [[S("n17") - 0.4, 68.25]], r3b],
+    ["#sc4", [[67.95, 77.2]], r4],
+    ["#sc5", [[76.9, 144.9]], r5],
     ["#sc6a", [[150.0, 160.25]], r6a],
     ["#sc6b", [[159.95, 170.25]], r6b],
     ["#sc6c", [[173.7, 999]], r6c],
   ];
 
   // 字幕：ナレーションと同じ文。画面に同じ文が大きく出る所は出さない。デモ中は右の列に出す。
-  const NOSUB = new Set(["n15", "n16", "n33", "n34", "n37", "n38", "n39"]);
+  const NOSUB = new Set(["n17", "n18", "n19", "n20", "n37", "n38", "n41", "n42", "n43"]);
   const CUES = [];
   TL.lines.forEach((l) => { if (!NOSUB.has(l.id)) l.subs.forEach((c) => CUES.push({ ...c })); });
   CUES.sort((a, b) => a.start - b.start);
@@ -578,7 +586,7 @@
     const box = $("#sub");
     if (!c) { box.style.display = "none"; return; }
     box.style.display = "block";
-    box.className = t > 66.9 && t < 144.9 ? "side" : "";
+    box.className = t > 76.9 && t < 144.9 ? "side" : "";
     setText(box.querySelector("span"), c.text);
   }
 

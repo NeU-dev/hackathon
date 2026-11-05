@@ -38,6 +38,13 @@ def synth(line, rate):
     os.makedirs(TTS_DIR, exist_ok=True)
     txt = os.path.join(TTS_DIR, line["id"] + ".txt")
     wav = os.path.join(TTS_DIR, line["id"] + ".wav")
+    if "silent" in line:   # 【アプリ名】のように、まだ読めない所は無音で長さだけ取る
+        with wave.open(wav, "wb") as w:
+            w.setnchannels(1)
+            w.setsampwidth(2)
+            w.setframerate(SR)
+            w.writeframes(b"\0\0" * int(line["silent"] * SR))
+        return line["silent"]
     with open(txt, "w", encoding="utf-8") as f:
         f.write(line.get("tts", line["text"]))
     subprocess.run(
