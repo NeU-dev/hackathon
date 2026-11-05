@@ -12,7 +12,7 @@ const f = (sec: number) => Math.round(sec * FPS);
 export const Narration: React.FC = () => (
   <>
     {LINES.filter((l) => l.id !== "n18").map((l) => (
-      <Audio key={l.id} name={`ナレーション ${l.id}`} from={f(l.start)} src={staticFile(`narration/${l.id}.wav`)} volume={1} />
+      <Audio key={l.id} name={`ナレーション ${l.id}`} from={f(l.start)} src={staticFile(`narration/${l.id}.wav`)} volume={0.85} />
     ))}
   </>
 );
@@ -90,7 +90,7 @@ export const Bgm: React.FC = () => (
       volume={(fr) => {
         const t = fr / FPS;
         const fade = P(t, 0, 2.5, EASE.lin) * (1 - P(t, 177.5, 180, EASE.lin));
-        return 0.34 * fade * lerp(1, 0.42, speaking(t));
+        return 0.54 * fade * lerp(1, 0.42, speaking(t));
       }}
     />
     <Audio
@@ -98,7 +98,7 @@ export const Bgm: React.FC = () => (
       src={staticFile("bgm/arp.wav")}
       volume={(fr) => {
         const t = fr / FPS;
-        return 0.3 * arpLevel(t) * lerp(1, 0.4, speaking(t));
+        return 0.47 * arpLevel(t) * lerp(1, 0.4, speaking(t));
       }}
     />
   </Sequence>
