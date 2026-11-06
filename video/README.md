@@ -12,6 +12,7 @@
 cd remotion
 npm i
 ./prepare.sh                         # 素材を用意（ナレーション合成・文字の時刻・BGM・フォント）
+blender -b -P ../blender/wall_scene.py -- render   # 壁の場面（3D）のコマを描く（1時間ほど。描いたコマは飛ばす）
 npx remotion studio                  # プレビュー（音つきで再生・コマ送りできる）
 npx remotion render HackathonV4 out/video.mp4 --concurrency=4
 ```
@@ -24,7 +25,8 @@ ffmpeg -i out/video.mp4 -c:v copy -af "loudnorm=I=-16:TP=-1.5:LRA=11" -c:a aac -
 
 この作業環境では Remotion 同梱ブラウザの配布元に届かないため、`remotion.config.ts` で入っている Chrome Headless Shell を指定しています。手元のパソコンで使うときは、その1行（`Config.setBrowserExecutable(...)`）を消してください。
 
-必要なもの: `open_jtalk`（`apt install open-jtalk open-jtalk-mecab-naist-jdic`）、ffmpeg、Node.js、Python（BGM の合成に numpy）。
+必要なもの: `open_jtalk`（`apt install open-jtalk open-jtalk-mecab-naist-jdic`）、ffmpeg、Node.js、Python（BGM の合成に numpy）、Blender 4.x（壁の場面。画面のない Linux では EEVEE のために Mesa の EGL も要る）。
+Blender を使わない場合は `src/Video.tsx` の `WALL_3D` を `false` にすると、壁の場面が2Dの図（`World.tsx`）に戻ります。
 
 ## しくみ
 
@@ -34,6 +36,7 @@ ffmpeg -i out/video.mp4 -c:v copy -af "loudnorm=I=-16:TP=-1.5:LRA=11" -c:a aac -
 | 文字ごとの時刻 | `align.py` が音素の時刻から、字幕の文字ごとの読み上げ時刻を出す（`build/captions.json`）。字幕と画面の動きはこれに合わせる |
 | 字幕 | 読まれた所から白くなる。文節に近いまとまりで改行。データは @remotion/captions の Caption 形式 |
 | 場面 | `remotion/src/scenes/`。TransitionSeries でつなぐ。動きは spring と Easing.bezier |
+| 壁の場面（3D） | ②動機と③の「重さ」。`blender/wall_scene.py` が壁・扉・人・紙のシートを組み、3D の中で動きがあるコマだけを EEVEE で描く（`remotion/public/wall3d/`）。止まっているコマは直前の絵を使い、Remotion 側でゆっくり寄る。紙のシートの四隅の画面上の位置を `src/data/wall3d.json` に書き出し、手順の図は `Wall3D.tsx` が遠近を合わせて（matrix3d）紙に重ねる |
 | 強調 | @remotion/rough-notation の手描き風マーカー |
 | 音 | 効果音（Kenney の CC0 音源）と仮の BGM（`gen_bgm.py` で合成）。BGM は話しているあいだ下がり、止まる場面で分散和音が消え、動けた場面で一番濃くなる |
 
@@ -42,6 +45,7 @@ ffmpeg -i out/video.mp4 -c:v copy -af "loudnorm=I=-16:TP=-1.5:LRA=11" -c:a aac -
 - ナレーションと字幕の文: `narration.py` を直して `./remotion/prepare.sh`（または `python3 tts.py && python3 align.py` のあと、`build/tts/*.wav` と `build/captions.json` を remotion にコピー）
 - パートの時間枠: `narration.py` の `SECTIONS`
 - 画面の動き: `remotion/src/scenes/*.tsx`。言葉の時刻は `at("n28", "締切")` のように、文の ID と言葉で引く
+- ②③の文の時刻が変わったとき: 壁の場面のコマも描き直す（`blender -b -P blender/wall_scene.py -- render force`）。見た目だけ確かめるときは `-- look 27,31,50` で、その秒の静止画を `build/wall_look/` に出す
 
 ## 差し替えるもの（画面に札が出ています）
 

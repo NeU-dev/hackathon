@@ -19,4 +19,8 @@ cp "$V"/assets/noise.png public/
 if [ ! -f public/bgm/pad.wav ] || [ ! -f public/bgm/arp.wav ]; then
   python3 "$V/gen_bgm.py"
 fi
+if [ ! -f public/wall3d/f00447.jpg ]; then
+  echo "壁の場面（3D）のコマがありません。blender -b -P ../blender/wall_scene.py -- render で描いてください（1時間ほど）。"
+  echo "Blender を使わない場合は src/Video.tsx の WALL_3D を false にすると2Dの図になります。"
+fi
 echo "ok"

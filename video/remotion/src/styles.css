@@ -52,6 +52,10 @@
 #proc-title { position: absolute; left: 1460px; top: 380px; font-size: 34px; font-weight: 700; color: var(--ink); white-space: nowrap; }
 #proc svg { position: absolute; left: 0; top: 0; overflow: visible; }
 #loop-label { position: absolute; left: 1460px; top: 718px; font-size: 27px; font-weight: 700; color: var(--teal); white-space: nowrap; }
+/* 3D の紙のシートに貼る図（880×450。multiply で紙に重ねる） */
+.board3d .b3-title { position: absolute; left: 440px; top: 46px; font-size: 36px; font-weight: 700; color: var(--ink); white-space: nowrap; }
+.board3d .b3-step { position: absolute; top: 172px; width: 170px; height: 96px; border-radius: 20px; background: #E3F0EE; border: 3px solid var(--teal); color: var(--teal); font-size: 29px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.board3d .b3-loop { position: absolute; left: 440px; top: 378px; font-size: 27px; font-weight: 700; white-space: nowrap; }
 
 /* ===== ③ 10枚 ===== */
 #sc3 { background: radial-gradient(ellipse at 50% 45%, #E3D3B6 0%, #D3BE9B 60%, #C2AB86 100%); }

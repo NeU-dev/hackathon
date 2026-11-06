@@ -27,7 +27,10 @@ const cues = (): Cue[] => {
   c.push([at("n3", "回らない"), "stamp", 0.2]);
   c.push([at("n5", "2週間") - 0.1, "select", 0.18]);
   // ② 壁と手順
+  c.push([15.05, "shove", 0.14]); // 壁が立つ
   c.push([at("n7", "分からず"), "bubble", 0.16]);
+  c.push([S("n8") - 0.6, "slide", 0.12]); // 扉が開く
+  c.push([at("n14", "医療の中") - 0.3, "shove", 0.18]); // 壁が高くなる
   c.push([S("n8") - 0.2, "swoosh", 0.1]);
   c.push([at("n9", "紙のシート") - 0.1, "paper1", 0.22]);
   [at("n9", "具体的に"), at("n9", "案を出し"), at("n9", "計画して"), at("n9", "やってみる")].forEach((tt) => c.push([tt - 0.05, "select", 0.2]));

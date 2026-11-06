@@ -13,18 +13,23 @@ import { EndLines, EndPapers, Roles, Safety } from "./scenes/Closing";
 import { Demo } from "./scenes/Demo";
 import { Sheets } from "./scenes/Sheets";
 import { Concept, Maker } from "./scenes/Statement";
+import { Wall3D } from "./scenes/Wall3D";
 import { World } from "./scenes/World";
 import { EASE, FPS, S } from "./lib/time";
 import "./styles.css";
+
+// 壁の場面：true で Blender の3D（public/wall3d/ が要る）、false で2Dの図
+const WALL_3D = true;
+const Wall: React.FC<{ from: number; phase: "motive" | "heavy" }> = (p) => (WALL_3D ? <Wall3D {...p} /> : <World {...p} />);
 
 type Scene = { name: string; a: number; b: number; render: (from: number) => React.ReactNode; enter?: "fade" | "slide" };
 
 // 場面の表示区間（秒）。隣どうしが重なる所がトランジションになる。
 const scenes = (): Scene[] => [
   { name: "① 困りごと：上司に相談できない", a: 0, b: 15.3, render: (from) => <Chat from={from} mode="before" /> },
-  { name: "② 動機：助けられた、でも届かない", a: 14.9, b: 56.3, render: (from) => <World from={from} phase="motive" /> },
+  { name: "② 動機：助けられた、でも届かない", a: 14.9, b: 56.3, render: (from) => <Wall from={from} phase="motive" /> },
   { name: "③ 10枚と紙の問題", a: 55.9, b: S("n21") - 0.05, render: (from) => <Sheets from={from} /> },
-  { name: "③ 止まった問題に戻る重さ", a: S("n21") - 0.3, b: S("n22") - 0.25, render: (from) => <World from={from} phase="heavy" /> },
+  { name: "③ 止まった問題に戻る重さ", a: S("n21") - 0.3, b: S("n22") - 0.25, render: (from) => <Wall from={from} phase="heavy" /> },
   { name: "③ だから、当事者の私が作りました", a: S("n22") - 0.4, b: 87.25, render: (from) => <Maker from={from} /> },
   { name: "④ コンセプト：誰でも。何度でも。", a: 86.95, b: 94.2, render: (from) => <Concept from={from} /> },
   { name: "⑤ デモ", a: 93.9, b: 147.6, render: (from) => <Demo from={from} />, enter: "slide" },
