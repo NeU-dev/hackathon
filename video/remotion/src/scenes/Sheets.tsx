@@ -3,7 +3,7 @@ import React from "react";
 import { Highlight } from "@remotion/rough-notation";
 import { AbsoluteFill } from "remotion";
 import { PhTag, SceneProps, useT } from "../components/common";
-import { at, atEnd, EASE, lerp, P, pop, settle } from "../lib/time";
+import { at, atEnd, EASE, lerp, P, pop, S, settle } from "../lib/time";
 
 const SHEETS = [
   ["10/03", "役所の書類が出せない", "期限までに出す", "・今週やる ・朝やる", "朝やる", "書類を全部書く", "土曜 9:00"],
@@ -18,6 +18,11 @@ const SHEETS = [
   ["10/24", "■■の資料が終わらない", "金曜に出す", "・朝やる ・カフェ", "カフェでやる", "全部しあげる", "土曜"],
 ];
 export const DONE = [1, 3, 4, 7, 8];
+const PROBLEMS: [string, string][] = [
+  ["", "一人だと、具体的にできない"],
+  ["やったかどうかを書く欄はある。でも", "「できなかった」と書くのが、つらい"],
+  ["", "そこから、もう一度向き合うのは、もっとつらい"],
+];
 const ROT_A = [-2.2, 1.4, -0.8, 2.0, -1.5, 1.1, -2.4, 0.7, 1.8, -1.0];
 const W = 250, H = 354;
 const posA = (i: number) => ({ x: 243 + (i % 5) * (W + 46), y: 168 + Math.floor(i / 5) * (H + 40), r: ROT_A[i] });
@@ -31,10 +36,12 @@ const posB = (i: number) => {
 };
 
 // 効果音と合わせる時刻（Audio 側からも使う）
-export const SHEET_T0 = 47.0;
-export const sheetDealTime = (i: number) => SHEET_T0 + 0.2 + i * 0.42;
-export const sheetStampTime = (di: number) => at("n15", "5枚") - 0.55 + di * 0.1;
-export const sheetSplitTime = () => at("n15", "5枚") + 0.1;
+export const SHEET_T0 = 55.9;
+export const sheetDealTime = (i: number) => SHEET_T0 + 0.5 + i * 0.3;
+export const sheetStampTime = (di: number) => at("n16", "5枚") - 0.55 + di * 0.1;
+export const sheetSplitTime = () => at("n16", "5枚") + 0.1;
+// 紙の問題（「紙には、問題がありました。」から）
+export const problemTimes = () => [S("n18") - 0.1, at("n19", "でも") - 0.1, S("n20") - 0.1];
 
 const Row: React.FC<{ text: string; k: number }> = ({ text, k }) => {
   const parts = text.split("■■");
@@ -55,16 +62,20 @@ const Row: React.FC<{ text: string; k: number }> = ({ text, k }) => {
 
 export const Sheets: React.FC<SceneProps> = ({ from }) => {
   const t = useT(from);
-  const tNum = at("n15", "10枚");
+  const tNum = at("n16", "10枚");
   const tSplit = sheetSplitTime();
   const deskScale = 1 + 0.025 * P(t, SHEET_T0, tNum, EASE.lin) - 0.025 * P(t, tNum, tNum + 0.6, EASE.io);
   const gl = P(t, tSplit + 0.9, tSplit + 1.3, EASE.out);
-  const head = P(t, at("n15", "書いただけ") - 0.2, at("n15", "書いただけ") + 0.25, EASE.out);
-  const hl = P(t, at("n15", "書いただけ"), atEnd("n15", "終わりました"), EASE.io);
+  const head = P(t, at("n16", "書いただけ") - 0.2, at("n16", "書いただけ") + 0.25, EASE.out);
+  const hl = P(t, at("n16", "書いただけ"), atEnd("n16", "終わりました"), EASE.io);
+  // 紙の問題：シートを奥へ下げて、カードを1枚ずつ出す
+  const tP = S("n17") - 0.2;
+  const back = P(t, tP, tP + 0.6, EASE.io);
+  const pt = problemTimes();
 
   return (
     <AbsoluteFill style={{ background: "radial-gradient(ellipse at 50% 45%, #E3D3B6 0%, #D3BE9B 60%, #C2AB86 100%)" }}>
-      <div id="desk3" style={{ scale: deskScale.toFixed(4) }}>
+      <div id="desk3" style={{ scale: (deskScale * (1 - 0.04 * back)).toFixed(4), opacity: 1 - 0.55 * back, filter: back > 0 ? `blur(${(3 * back).toFixed(2)}px)` : undefined }}>
         {SHEETS.map((d, i) => {
           const a = posA(i), b = posB(i);
           const pin = settle(t, sheetDealTime(i), 0.5);
@@ -105,13 +116,13 @@ export const Sheets: React.FC<SceneProps> = ({ from }) => {
           );
         })}
       </div>
-      <div className="group-label" style={{ left: 180, top: 262, color: "var(--teal)", opacity: gl, translate: `0px ${(12 * (1 - gl)).toFixed(1)}px` }}>
+      <div className="group-label" style={{ left: 180, top: 262, color: "var(--teal)", opacity: gl * (1 - back), translate: `0px ${(12 * (1 - gl)).toFixed(1)}px` }}>
         実行できた 5枚
       </div>
-      <div className="group-label" style={{ left: 1160, top: 262, color: "#7A7062", opacity: gl, translate: `0px ${(12 * (1 - gl)).toFixed(1)}px` }}>
+      <div className="group-label" style={{ left: 1160, top: 262, color: "#7A7062", opacity: gl * (1 - back), translate: `0px ${(12 * (1 - gl)).toFixed(1)}px` }}>
         書いただけ 5枚
       </div>
-      <div className="headline" style={{ opacity: head, translate: `0px ${(-14 * (1 - head)).toFixed(1)}px` }}>
+      <div className="headline" style={{ opacity: head * (1 - back), translate: `0px ${(-14 * (1 - head)).toFixed(1)}px` }}>
         <span>
           10枚中5枚、
           <Highlight progress={hl} color="rgba(222, 84, 64, 0.26)" iterations={1} padding={{ left: 4, right: 4, top: 2, bottom: 2 }}>
@@ -119,6 +130,20 @@ export const Sheets: React.FC<SceneProps> = ({ from }) => {
           </Highlight>
         </span>
       </div>
+      {back > 0 && (
+        <div className="pp-head" style={{ opacity: back, translate: `0px ${(16 * (1 - back)).toFixed(1)}px` }}>紙の問題</div>
+      )}
+      {PROBLEMS.map(([sub, text], k) => {
+        const p = settle(t, pt[k], 0.55);
+        if (p <= 0) return null;
+        return (
+          <div key={k} className={`pp-card${k === 2 ? " red" : ""}`} style={{ left: 140 + k * 560, opacity: Math.min(1, p * 1.6), translate: `0px ${(50 * (1 - p)).toFixed(1)}px`, rotate: `${(2 * (1 - p) * (k - 1)).toFixed(2)}deg` }}>
+            <div className="pp-n">{k + 1}</div>
+            {sub && <div className="pp-s">{sub}</div>}
+            <div className="pp-t">{text}</div>
+          </div>
+        );
+      })}
       <PhTag label="仮映像" opacity={P(t, SHEET_T0 + 0.3, SHEET_T0 + 0.7)}>実物の10枚（職場・人名を塗りつぶし）の撮影に差し替え</PhTag>
     </AbsoluteFill>
   );

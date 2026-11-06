@@ -1,24 +1,12 @@
-# 発表動画 v4（3分）の仮動画
+# 発表動画（3分）の仮動画
 
-台本「ハッカソン発表原稿 v4（一つの困りごとを追う）」の修正版（動機を一本の線にした版）から作った、差し替え前提の仮動画（Vコンテ）です。
-画面の動き・字幕・仮ナレーションが台本の時間割どおりに入っています。
-v3 の台本で作った版は git の履歴（コミット 40943ee）に残っています。
+台本「ハッカソン発表原稿 v5（上司に相談できない／紙の問題）」から作った、差し替え前提の仮動画です。
+画面の動き・字幕・仮ナレーション・効果音・仮の BGM が、台本の時間割どおりに入っています。
 
-- 出力: `build/hackathon_v4_draft.mp4`（1920×1080、30fps、3:00）
-- 字幕ファイル: `build/subtitles.srt`（編集ソフトで使う場合）
-- ナレーションだけ: `build/narration.wav`
+本体は `remotion/`（Remotion で作った版）です。Remotion 公式の Agent Skills（remotion-dev/skills）の書き方に沿っています。
+`index.html`・`scenes.js`・`render.js` は台本 v4 のころの HTML 版で、いまは更新していません（ナレーション定義が v5 になったため、そのままでは動きません。v4 の HTML 版はコミット 9f7ffd3 にあります）。
 
-## Remotion 版（完成度を上げた版）
-
-`remotion/` は同じ台本を Remotion（React で動画を作る仕組み）で作り直したものです。Remotion 公式の Agent Skills（remotion-dev/skills）の書き方に沿っています。
-
-| HTML 版との違い | 中身 |
-| --- | --- |
-| 音 | 効果音（タップ・通知・紙を置く音・スタンプ・できた音。Kenney の CC0 音源）と、仮の BGM（`gen_bgm.py` で合成）。BGM は話しているあいだ自動で下がり、止まる場面では分散和音が消え、動けた場面で一番濃くなる |
-| 字幕 | 音素の時刻から文字ごとの読み上げ時刻を出し（`align.py`）、読まれた文字から白くなる。文節に近いまとまりで改行。データは @remotion/captions の Caption 形式 |
-| 同期 | 画面の動きも同じ文字ごとの時刻に合わせた（これまでは文字数の比で推定） |
-| 動き | Remotion の spring と Easing.bezier で作り直した。場面は TransitionSeries でつなぐ |
-| 強調 | @remotion/rough-notation の手描き風マーカー（2週間／書いただけで終わった／当事者の私／5分以内／名前だけ／もう一度／本人／続きが書ける） |
+## 作り直す
 
 ```sh
 cd remotion
@@ -28,54 +16,50 @@ npx remotion studio                  # プレビュー（音つきで再生・�
 npx remotion render HackathonV4 out/video.mp4 --concurrency=4
 ```
 
-この作業環境では Remotion 同梱ブラウザの配布元に届かないため、`remotion.config.ts` で入っている Chrome Headless Shell を指定しています。手元のパソコンで使うときは、その1行（`Config.setBrowserExecutable(...)`）を消してください。
-
-## 作り直す（HTML 版）
+書き出したあと、音量をそろえる場合:
 
 ```sh
-./setup.sh                # フォントと音声モデルを取得（リポジトリには入れていない）
-python3 tts.py            # ナレーション合成 → build/timeline.json, narration.wav, subtitles.srt
-node render.js stills 12,45,100   # 指定秒の静止画を build/stills/ に
-node render.js video      # 3分の mp4 を書き出し（4並列、数分）
+ffmpeg -i out/video.mp4 -c:v copy -af "loudnorm=I=-16:TP=-1.5:LRA=11" -c:a aac -b:a 192k out/video_final.mp4
 ```
 
-ブラウザで `index.html?play` を開き、画面をクリックすると音声つきで再生できます（`&from=60` で途中から）。
-`index.html?t=45` はその秒の1コマを表示します。
+この作業環境では Remotion 同梱ブラウザの配布元に届かないため、`remotion.config.ts` で入っている Chrome Headless Shell を指定しています。手元のパソコンで使うときは、その1行（`Config.setBrowserExecutable(...)`）を消してください。
 
-必要なもの: `open_jtalk`（`apt install open-jtalk open-jtalk-mecab-naist-jdic`）、ffmpeg、Node.js + Playwright。
+必要なもの: `open_jtalk`（`apt install open-jtalk open-jtalk-mecab-naist-jdic`）、ffmpeg、Node.js、Python（BGM の合成に numpy）。
+
+## しくみ
+
+| 部分 | 中身 |
+| --- | --- |
+| ナレーション | `narration.py` の文を `tts.py` が Open JTalk で合成し、台本の時間枠に並べる（`text` が字幕、`tts` が読み） |
+| 文字ごとの時刻 | `align.py` が音素の時刻から、字幕の文字ごとの読み上げ時刻を出す（`build/captions.json`）。字幕と画面の動きはこれに合わせる |
+| 字幕 | 読まれた所から白くなる。文節に近いまとまりで改行。データは @remotion/captions の Caption 形式 |
+| 場面 | `remotion/src/scenes/`。TransitionSeries でつなぐ。動きは spring と Easing.bezier |
+| 強調 | @remotion/rough-notation の手描き風マーカー |
+| 音 | 効果音（Kenney の CC0 音源）と仮の BGM（`gen_bgm.py` で合成）。BGM は話しているあいだ下がり、止まる場面で分散和音が消え、動けた場面で一番濃くなる |
 
 ## 文を直すとき
 
-- ナレーションと字幕の文: `narration.py`（`text` が字幕、`tts` が読み）
+- ナレーションと字幕の文: `narration.py` を直して `./remotion/prepare.sh`（または `python3 tts.py && python3 align.py` のあと、`build/tts/*.wav` と `build/captions.json` を remotion にコピー）
 - パートの時間枠: `narration.py` の `SECTIONS`
-- 画面の動き: `scenes.js`（文の時刻に合わせて動くので、文を直しても大きくはずれません）
-
-## 映像の作り（台本 v4 の「映像の直し方」への対応）
-
-| 台本の指示 | 仮動画 |
-| --- | --- |
-| スマホ画面を大きくする | 画面の高さいっぱい（約1040px）。記録カード・下書き・場面の3か所でさらに寄る |
-| 横の段階リストを残し、少し大きくする | 右の列に残し、文字を大きくした。寄っているあいだだけ消える |
-| Claudeのラベルは動いている所に重ねる | 問いかける／これまでの紙を読む／あなたの言葉のまま、小さくする、をその画面の横に出す |
-| 字幕を重ねすぎない | 引用・数字の字幕はなし。デモ中の字幕は右の列に出し、スマホに重ねない |
-| ①と⑥は同じ書類を映す | ①は未開封の封筒、動けたあとと締めは、封をした返信用封筒 |
+- 画面の動き: `remotion/src/scenes/*.tsx`。言葉の時刻は `at("n28", "締切")` のように、文の ID と言葉で引く
 
 ## 差し替えるもの（画面に札が出ています）
 
 | 場所 | いまの中身 | 差し替え |
 | --- | --- | --- |
-| ① 困りごと | 描いた机と封筒 | 住所変更の書類（実物か、個人情報のない小道具）の撮影 |
-| ③ 当事者にしか分からない | 描いた10枚のシート | 実物の10枚（職場・人名を塗りつぶし）の撮影 |
-| ④ コンセプト・⑥ 締め | 【アプリ名】 | 決まったアプリ名 |
-| ⑤ デモ | 仮のアプリ画面 | iPhoneの画面録画（入力・待ち時間は早送り） |
-| ⑤ 動けた | 「名前を書いたら、そのまま最後まで書けました。」と封をした封筒 | 実際にやれた場合だけ使う。できていなければ「2回目は、ここから始まります」で終える |
-| ⑥ 安全 | 仮の相談先画面・相談メモ | 実物の画面 |
+| ③ 紙の問題 | 描いた10枚のシート | 実物の10枚（職場・人名を塗りつぶし）の撮影 |
+| ④ コンセプト・⑤ 通知・⑥ 締め | 【アプリ名】 | 決まったアプリ名 |
+| ⑤ デモ | 仮のアプリ画面（台本の「画面録画で入力する内容」どおり） | iPhone の画面録画 |
+| ⑥ 安全 | 仮の相談先画面・相談メモ（上司への相談の例） | 実物の画面 |
 | 全編 | 合成音声（Open JTalk） | 本人の声で録り直す。`build/subtitles.srt` の時刻が目安 |
+
+①のチャット画面と、⑤の最後の「送れた」チャットは、実在の名前を出さない作り物です。
 
 ## 時間割
 
-台本 v4 の表どおりです（①0:00〜0:12、②0:12〜0:47、③0:47〜1:08、④1:08〜1:17、⑤1:17〜2:30、⑥2:30〜3:00）。
-②③は文字数が多いため、合成音声は1.2倍速で読んでいます。本人の声で録るときは、ここが一番早口になります。
+台本 v5 の表どおりです（①0:00〜0:15、②〜0:56、③〜1:27、④〜1:34、⑤〜2:34、⑥〜3:00）。
+⑤の「書く」だけ読み切れないため、「決める」との境目を 0.5 秒後ろにずらしました（1:46 → 1:46.5）。
+②③と⑤の「書く」「止まる」は文字数が多く、合成音声は 1.15〜1.25 倍速です。本人の声で録るときは、ここが一番早口になります。
 
 ## 素材のライセンス
 

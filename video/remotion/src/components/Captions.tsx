@@ -5,8 +5,9 @@ import { AbsoluteFill, useCurrentFrame } from "remotion";
 import type { Caption } from "@remotion/captions";
 import { FPS, LINES, P, EASE } from "../lib/time";
 
-const NOSUB = new Set(["n17", "n18", "n19", "n20", "n37", "n38", "n41", "n42", "n43"]);
-const SIDE: [number, number] = [76.9, 144.9];
+// 画面に同じ文が大きく出る所：③の最後の一文、④、⑥の役割・安全・問いかけ・核の一文
+const NOSUB = new Set(["n22", "n23", "n24", "n25", "n43", "n45", "n46", "n48", "n49", "n50"]);
+const SIDE: [number, number] = [93.9, 147.6];
 
 type Page = { start: number; show: number; text: string; from: number; chars: [number, number][]; groups: { text: string; from: number }[] };
 
@@ -14,12 +15,19 @@ type Page = { start: number; show: number; text: string; from: number; chars: [n
 function groupTokens(tokens: Caption[]) {
   const out: { text: string; from: number }[] = [];
   let pos = 0;
+  let open: { text: string; from: number } | null = null; // 開きかっこは次の語にくっつける
   for (const tok of tokens) {
     const glue = /^[ぁ-んー、。」）]{1,3}$/.test(tok.text) || /^[、。」）！？]+$/.test(tok.text);
-    if (glue && out.length) out[out.length - 1].text += tok.text;
+    if (/^[「（]+$/.test(tok.text)) {
+      open = open ? { text: open.text + tok.text, from: open.from } : { text: tok.text, from: pos };
+    } else if (open) {
+      out.push({ text: open.text + tok.text, from: open.from });
+      open = null;
+    } else if (glue && out.length && out[out.length - 1].text.length + tok.text.length <= 10) out[out.length - 1].text += tok.text;
     else out.push({ text: tok.text, from: pos });
     pos += tok.text.length;
   }
+  if (open) out.push(open);
   return out;
 }
 
