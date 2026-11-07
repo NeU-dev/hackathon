@@ -1,9 +1,9 @@
-// ⑥ 締め：Claude の役割／安全と医療／止まった紙と2回目の挑戦／核の一文
+// ⑥ 締め：Claude の役割（安全は小さな注記だけ）／止まった紙と2回目の挑戦／核の一文
 import React from "react";
 import { Highlight } from "@remotion/rough-notation";
 import { AbsoluteFill } from "remotion";
-import { PhTag, SceneProps, useT } from "../components/common";
-import { at, atEnd, EASE, En, lerp, mix, P, pop, S, settle } from "../lib/time";
+import { SceneProps, useT } from "../components/common";
+import { at, atEnd, EASE, En, lerp, P, pop, S, settle } from "../lib/time";
 import { CoreLine } from "./Statement";
 
 export const Roles: React.FC<SceneProps> = ({ from }) => {
@@ -38,57 +38,14 @@ export const Roles: React.FC<SceneProps> = ({ from }) => {
           です。
         </div>
       </div>
+      {/* 声には出さない注記：医療の代わりではない（審査の禁止例に先に答える） */}
+      <div style={{ position: "absolute", left: 0, right: 0, top: 880, textAlign: "center", fontSize: 26, color: "var(--muted)", opacity: P(t, S("n45") + 0.2, S("n45") + 0.7, EASE.lin) }}>
+        ※医療の代わりではありません。深刻な内容は、地域の相談窓口を案内します。
+      </div>
     </AbsoluteFill>
   );
 };
 
-export const Safety: React.FC<SceneProps> = ({ from }) => {
-  const t = useT(from);
-  const head = P(t, S("n46") - 0.15, S("n46") + 0.3, EASE.out);
-  const ph = settle(t, from + 0.1, 0.6);
-  const tMemo = at("n47", "相談窓口") + 0.4;
-  const side = P(t, tMemo - 0.4, tMemo + 0.4, EASE.io);
-  const pm = settle(t, tMemo - 0.1, 0.6);
-  const sel = P(t, tMemo + 0.8, tMemo + 1.3, EASE.lin);
-  return (
-    <AbsoluteFill style={{ background: "#F4EEE3" }}>
-      <div id="safe-head" style={{ opacity: head, translate: `0px ${(18 * (1 - head)).toFixed(1)}px` }}>医療の代わりではありません。</div>
-      <div className="phone" style={{ left: 410, top: 190, scale: "0.86", translate: `${(370 * (1 - side)).toFixed(1)}px ${(30 * (1 - ph)).toFixed(1)}px`, opacity: ph }}>
-        <div className="screen">
-          <div className="statusbar">
-            <span>21:12</span>
-            <span className="icons">
-              <i style={{ width: 18, height: 11 }} />
-              <i style={{ width: 16, height: 11, borderRadius: 6 }} />
-              <i style={{ width: 26, height: 12, borderRadius: 4 }} />
-            </span>
-          </div>
-          <div className="scr" id="scr-safe">
-            <div className="safe-ico" />
-            <div className="safe-t">ひとりで抱えないで<br />ください</div>
-            <div className="safe-b">つらさが強いときは、<br />相談できる窓口があります。</div>
-            <div className="btn" style={{ top: 520, opacity: 1, scale: t > at("n47", "相談窓口") && t < at("n47", "相談窓口") + 0.25 ? "0.97" : "1" }}>地域の相談窓口を見る</div>
-            <div className="btn outline" style={{ top: 598, opacity: 1 }}>いま話せる窓口（電話・SNS）</div>
-            <div className="safe-f">このアプリは、医療の代わりではありません</div>
-          </div>
-        </div>
-        <div className="island" />
-      </div>
-      <div id="memo" style={{ opacity: pm, translate: `${(80 * (1 - pm)).toFixed(1)}px 0px`, rotate: `${(2 * (1 - pm)).toFixed(2)}deg` }}>
-        <h3>相談メモ</h3>
-        <div className="sub">10月3日〜11月9日 ・ 本人が選んだ紙から作成</div>
-        <div className="m-row"><div className="k">困っていたこと</div><div className="v">締切が3つ重なり、上司に相談できないまま2週間</div></div>
-        <div className="m-row"><div className="k">試したこと</div><div className="v">一歩を「1on1で全部話す」から「一言だけ送る」へ</div></div>
-        <div className="m-row"><div className="k">動けた時の条件</div><div className="v">一歩が5分以内の時</div></div>
-        <div className="m-row"><div className="k">相談したいこと</div><div className="v">（本人が書く）</div></div>
-        <div className="m-sel" style={{ background: mix("F6F2EA", "D9ECE9", sel) }}><b>✓</b> 相談メモとして、医療に持っていける<br /><b>✓</b> 載せる紙は、本人が選ぶ</div>
-      </div>
-      <PhTag label="仮画面" right opacity={P(t, from + 0.3, from + 0.8)}>相談先の画面・相談メモの実物に差し替え</PhTag>
-    </AbsoluteFill>
-  );
-};
-
-/** 皆さんにも、止まったままの問題はありませんか。 */
 export const EndPapers: React.FC<SceneProps> = ({ from }) => {
   const t = useT(from);
   const head = P(t, S("n48") - 0.15, S("n48") + 0.35, EASE.out);

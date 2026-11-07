@@ -52,7 +52,7 @@ def F(sec):
 
 
 # 場面の区間（Video.tsx と同じ）
-MOTIVE = (14.9, 56.3)
+MOTIVE = (14.9, 63.5)
 HEAVY = (S("n21") - 0.3, S("n22") - 0.25)
 T_WALL_UP = 15.0
 T_ME = at("n6", "ADHD") - 0.3
@@ -64,6 +64,12 @@ T_WIDE = S("n13") - 0.3
 T_CROWD = at("n13", "誰の日常") - 0.5
 T_TALL = at("n14", "医療の中") - 0.3
 T_ME2 = HEAVY[0] + 0.6
+# 「医療の中でも、受けられる場所は限られている」：壁の手前（日常の側）にカメラを下ろし、扉の前に列ができる
+T_D0 = T_TALL + 1.25
+T_D1 = S("n14b") + 0.35
+T_Q = at("n14b", "受けられる") - 0.3
+QUEUE = [11, 3, 0, 1]                      # 列に並ぶ人（CROWD の番号）
+QUEUE_AT = [(-0.75, -1.05), (-0.8, -1.85), (-0.72, -2.65), (-0.78, -3.45)]   # 壁に沿って、扉の前から並ぶ
 
 # ---------------------------------------------------------------- 色
 def hexrgb(h, a=1.0):
@@ -219,6 +225,8 @@ def build():
     door.data.materials.append(mat("扉", "#8E6B4E", 0.7))
     for t, r in ((MOTIVE[0], 0), (T_DOOR, 0), (T_DOOR + 0.7, -112), (T_DOOR + 0.85, -106)):
         key(hinge, "rotation_euler", F(t), math.radians(r), index=2)
+    for t, h in ((MOTIVE[0], 0.001), (T_WALL_UP, 0.001), (T_WALL_UP + 0.5, 1.0)):
+        key(hinge, "scale", F(t), h, index=2)
     bpy.ops.object.light_add(type="POINT", location=(1.6, 0.0, 2.2))
     inner = bpy.context.object
     inner.name = "内側の光"
@@ -304,6 +312,20 @@ def build():
         p.keyframe_insert("scale", frame=F(MOTIVE[0]))
         pop_keys(p, T_CROWD + k * 0.05, 0.92)
         vis_keys(p, [(MOTIVE[0], True), (HEAVY[0], False)])
+        if k in QUEUE:
+            qi = QUEUE.index(k)
+            t0 = T_Q + qi * 0.12
+            p.location = (x, y, 0)
+            p.keyframe_insert("location", frame=F(t0))
+            p.location = (*QUEUE_AT[qi], 0)
+            p.keyframe_insert("location", frame=F(t0 + 1.25))
+            for j in range(7):
+                p.location.z = 0.05 if j % 2 else 0.0
+                p.keyframe_insert("location", index=2, frame=F(t0 + j * 0.18))
+            p.location.z = 0
+            p.keyframe_insert("location", index=2, frame=F(t0 + 1.3))
+            key(p, "rotation_euler", F(t0), p.rotation_euler[2], index=2)
+            key(p, "rotation_euler", F(t0 + 0.5), math.radians(-8 + 6 * qi), index=2)
         crowd.append(p)
 
     # ③：一人でいる私（紙のそば）
@@ -341,19 +363,26 @@ def build():
             for kp in fc.keyframe_points:
                 kp.interpolation = "BEZIER"
                 kp.easing = "AUTO"
-    return sc, cam, me, board
+    return sc, cam, me, board, crowd
 
 
 BOARD = {"center": (3.2, 1.2, 1.62), "w": 2.8, "h": 1.43}
+WALL_X = -0.235
+NOTES = [  # (y の範囲, z の範囲)：日常の側から見て、左が y の大きい方
+    ((4.6, 2.6), (0.9, 4.3)),       # 受けられる場所が限られる
+    ((-1.5, -2.7), (2.0, 3.6)),     # 順番待ち（列の上）
+]
 ME_OUT = (-3.4, 0.2)
 ME_IN = (0.95, 0.85)
-CROWD = [(-4.6, -3.6), (-6.4, -1.0), (-8.2, -4.4), (-5.2, 2.6), (-7.4, 3.8), (-9.6, 0.8), (-3.0, -5.6), (-6.0, -6.4),
-         (-8.8, -7.2), (-4.0, 5.2), (-10.6, -3.0), (-2.4, 3.4), (-7.0, 7.0), (-11.4, 4.6), (-3.2, 8.0), (-9.4, 9.4)]
+CROWD = [(-4.6, -3.6), (-6.4, -1.0), (-8.2, -4.4), (-5.2, 2.6), (-6.6, 2.5), (-9.6, 0.8), (-3.8, -5.3), (-6.0, -6.4),
+         (-8.8, -7.2), (-4.3, 3.1), (-10.6, -3.0), (-2.4, 3.4), (-7.0, 7.0), (-11.4, 4.6), (-4.1, 0.2), (-9.4, 9.4)]
+CHIPS = [4, 9, 14, 6]   # 日常の困りごとを頭の上に出す人（Remotion 側と同じ番号）
 
 # カメラ：（秒, 位置, 注視点, ピント距離）
 POSE_A = ((-7.2, -6.6, 1.75), (-1.4, 0.6, 1.45), 6.8)           # 壁の外：私と扉
 POSE_C = ((2.4, -3.7, 1.72), (2.75, 1.2, 1.5), 4.9)             # 紙のシートの正面（左手前に私）
 POSE_W = ((-4.5, -9.5, 17.5), (1.0, 2.6, 0.0), 21.0)           # 上から：壁が世界を分けている
+POSE_D = ((-11.0, -8.5, 3.4), (-2.0, 1.0, 1.8), 12.0)          # 日常の側から：高い壁と、扉の前の列
 CAMERA = [
     (MOTIVE[0], *POSE_A),
     (T_WALK - 0.25, *POSE_A),
@@ -362,8 +391,10 @@ CAMERA = [
     (T_WALK + 3.0, *POSE_C),
     (T_WIDE, *POSE_C),
     (T_WIDE + 1.8, *POSE_W),
-    (MOTIVE[1], *POSE_W),
-    (HEAVY[0] - 0.04, *POSE_W),
+    (T_D0, *POSE_W),
+    (T_D1, *POSE_D),
+    (MOTIVE[1], *POSE_D),
+    (HEAVY[0] - 0.04, *POSE_D),
     (HEAVY[0], *POSE_C),
     (HEAVY[1], *POSE_C),
 ]
@@ -425,6 +456,11 @@ def project(sc, cam, pts):
     return out
 
 
+def note_corners(n):
+    (ya, yb), (z0, z1) = NOTES[n]
+    return [(WALL_X, ya, z1), (WALL_X, yb, z1), (WALL_X, yb, z0), (WALL_X, ya, z0)]
+
+
 def board_corners():
     x, y, z = BOARD["center"]
     hw, hh = BOARD["w"] / 2, BOARD["h"] / 2
@@ -443,6 +479,8 @@ def motion_windows():
         (T_WIDE - 0.05, T_WIDE + 1.85),
         (T_CROWD - 0.05, T_CROWD + 16 * 0.05 + 0.55),
         (T_TALL - 0.05, T_TALL + 1.15),
+        (T_D0 - 0.05, T_D1 + 0.05),
+        (T_Q - 0.05, T_Q + 0.12 * 3 + 1.35),
         (MOTIVE[1] - 0.02, MOTIVE[1]),
         (HEAVY[0], T_ME2 + 0.55),
         (HEAVY[1] - 0.02, HEAVY[1]),
@@ -471,7 +509,7 @@ def plan():
 def main():
     args = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else ["look"]
     mode = args[0]
-    sc, cam, me, board = build()
+    sc, cam, me, board, crowd = build()
     if mode == "look":
         os.makedirs(LOOK, exist_ok=True)
         secs = [float(s) for s in (args[1].split(",") if len(args) > 1 else ["12", "20", "27", "31", "44", "48", "51", "55", "80"])]
@@ -479,7 +517,9 @@ def main():
             sc.frame_set(F(s))
             sc.render.filepath = os.path.join(LOOK, f"look_{s:06.2f}.jpg")
             bpy.ops.render.render(write_still=True)
-            print("LOOK", s)
+            heads = [p.matrix_world @ Vector((0, 0, 1.45)) for p in crowd]
+            print("LOOK", s, json.dumps({"crowd": [[round(v[0]), round(v[1])] for v in project(sc, cam, heads)],
+                                          "notes": [[[round(v[0]), round(v[1])] for v in project(sc, cam, note_corners(n))] for n in range(len(NOTES))]}))
         return
     frames, render_list, src = plan()
     os.makedirs(OUT, exist_ok=True)
@@ -488,7 +528,9 @@ def main():
     for f in render_list:
         sc.frame_set(f)
         head = me.matrix_world @ Vector((0, 0, 1.45))
-        at_src[f] = {"board": project(sc, cam, board_corners()), "head": project(sc, cam, [head])[0]}
+        heads = [p.matrix_world @ Vector((0, 0, 1.45)) for p in crowd]
+        at_src[f] = {"board": project(sc, cam, board_corners()), "head": project(sc, cam, [head])[0],
+                     "crowd": project(sc, cam, heads), "notes": [project(sc, cam, note_corners(n)) for n in range(len(NOTES))]}
     proj = {f: {"src": src[f], **at_src[src[f]]} for f in frames}
     with open(os.path.join(OUT, "wall3d.json"), "w") as fp:
         json.dump({"fps": FPS, "res": RES, "proj": PROJ, "frames": proj}, fp)
@@ -496,7 +538,9 @@ def main():
     compact = {
         "fps": FPS,
         "src": {str(f): src[f] for f in frames},
-        "at": {str(f): {"board": [p[:2] for p in v["board"]], "head": v["head"][:2]} for f, v in at_src.items()},
+        "at": {str(f): {"board": [p[:2] for p in v["board"]], "head": v["head"][:2],
+                        "crowd": [[round(p[0], 1), round(p[1], 1)] for p in v["crowd"]],
+                        "notes": [[q[:2] for q in quad] for quad in v["notes"]]} for f, v in at_src.items()},
     }
     with open(DATA, "w") as fp:
         json.dump(compact, fp, separators=(",", ":"))

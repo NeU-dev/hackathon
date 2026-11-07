@@ -4,10 +4,11 @@ import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import type { Caption } from "@remotion/captions";
 import { FPS, LINES, P, EASE } from "../lib/time";
+import { W } from "../lib/warp";
 
-// 画面に同じ文が大きく出る所：③の最後の一文、④、⑥の役割・安全・問いかけ・核の一文
-const NOSUB = new Set(["n22", "n23", "n24", "n25", "n43", "n45", "n46", "n48", "n49", "n50"]);
-const SIDE: [number, number] = [93.9, 147.6];
+// 画面に同じ文が大きく出る所：③の最後の一文、④（アプリの一言も）、⑥の役割・問いかけ・核の一文
+const NOSUB = new Set(["n22", "n23", "n23b", "n24", "n25", "n43", "n45", "n48", "n49", "n50"]);
+const SIDE: [number, number] = [103.4, W(147.6)];
 
 type Page = { start: number; show: number; text: string; from: number; chars: [number, number][]; groups: { text: string; from: number }[] };
 

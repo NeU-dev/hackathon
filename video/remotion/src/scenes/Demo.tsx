@@ -4,6 +4,7 @@ import { Circle, Highlight } from "@remotion/rough-notation";
 import { AbsoluteFill } from "remotion";
 import { PhTag, SceneProps, useT } from "../components/common";
 import { at, atEnd, camAt, clamp, EASE, En, lerp, line, mix, P, pop, S, settle, typed, win } from "../lib/time";
+import { W } from "../lib/warp";
 
 // ---- 中身（台本 v5「画面録画で入力する内容」に合わせたダミー） ----
 const FR = ["いま困っていること", "目標", "案を出す", "一歩を決める", "いつ・どこで", "最初の2分", "やってみた"];
@@ -15,14 +16,14 @@ const PAPER2 = [PAPER1[0], PAPER1[1], PAPER1[2], NEW_STEP, "今日 18:00 ・ 自
 const A1 = "締切が重なってる";
 const A2 = "水木金。金曜のが無理";
 const GOAL = "上司に相談して、締切を1つずらしてもらう";
-const IDEAS: [string, number, number][] = [["来週の1on1で全部話す", 106.8, 107.2], ["チャットで先に一言送る", 107.7, 108.05], ["先輩に相談の仕方を聞く", 108.55, 108.9]];
+const IDEAS: [string, number, number][] = [["来週の1on1で全部話す", W(106.8), W(107.2)], ["チャットで先に一言送る", W(107.7), W(108.05)], ["先輩に相談の仕方を聞く", W(108.55), W(108.9)]];
 const EVIDENCE: [string, string, boolean][] = [["10/03", "一歩 3分", true], ["10/08", "一歩 30分", false], ["10/12", "一歩 5分", true], ["10/17", "一歩 1時間", false], ["10/21", "一歩 2分", true], ["10/24", "一歩 5分", true], ["11/09", "一歩 30分", false]];
 const STAGES: [string, string, number, number, string][] = [
-  ["書く", "困りごとを、そのまま", 60, 106.5, "#2E7672"],
-  ["決める", "案を出して、最初の一歩", 106.5, 113.0, "#2E7672"],
-  ["止まる", "できなかった日", 113.0, 129.4, "#DE5440"],
-  ["もう一度", "同じ紙で、一歩を小さく", 129.4, 143.0, "#DE5440"],
-  ["動けた", "2回目の挑戦で", 143.0, 200, "#2E7672"],
+  ["書く", "困りごとを、そのまま", 60, W(106.5), "#2E7672"],
+  ["決める", "案を出して、1回目の一歩", W(106.5), W(113.0), "#2E7672"],
+  ["止まる", "できなかった日", W(113.0), W(129.4), "#DE5440"],
+  ["もう一度", "同じ紙で、一歩を小さく", W(129.4), W(143.0), "#DE5440"],
+  ["動けた", "2回目の挑戦で", W(143.0), 200, "#2E7672"],
 ];
 
 // ---- 時刻（効果音からも使う） ----
@@ -35,12 +36,12 @@ const TAP_AGAIN = () => at("n36", "もう一度") + 0.1;
 const TAP_GO = () => En("n39") + 0.25;
 export const DEMO_TAPS = (): [number, number, number][] => [
   [at("n30", "来週"), 120, 251], [at("n31", "今") - 0.15, 198, 330], [at("n32", "言い出せ") + 0.3, 198, 607],
-  [TAP_AGAIN(), 198, 551], [TAP_GO(), 198, 772], [144.0, 198, 686],
+  [TAP_AGAIN(), 198, 551], [TAP_GO(), 198, 772], [W(144.0), 198, 686],
 ];
 export const NOTIFY_T = () => at("n31", "アプリが聞きます") - 0.1;
 export const STOP_T = () => at("n33", "終わり") - 0.15;
 export const STACK_T = () => S("n37") - 0.1;
-export const DONE_T = 144.8;
+export const DONE_T = W(144.8);
 
 const PY = (sy: number) => 20 + 1.18 * (12 + sy); // スマホ画面の y → ステージの y
 const REST: [number, number, number] = [560, 520, 1];
@@ -102,12 +103,12 @@ const ProblemChip: React.FC<{ t: number; n: number; text: string; answer: string
 export const Demo: React.FC<SceneProps> = ({ from }) => {
   const t = useT(from);
   const cam = camAt([
-    [93.9, ...REST], [SEND2() - 0.4, ...REST], [SEND2() + 0.3, 508, 420, 1.32], [105.6, 508, 420, 1.32], [106.3, ...REST],
+    [W(93.9), ...REST], [SEND2() - 0.4, ...REST], [SEND2() + 0.3, 508, 420, 1.32], [W(105.6), 508, 420, 1.32], [W(106.3), ...REST],
     [S("n35") - 0.6, ...REST], [S("n35") + 0.1, 508, 400, 1.5], [En("n35") + 0.2, 508, 400, 1.5], [En("n35") + 0.8, ...REST],
     [at("n38", "小さく") - 0.6, ...REST], [at("n38", "小さく") + 0.1, 508, 640, 1.38], [En("n39") - 0.1, 508, 640, 1.38], [En("n39") + 0.5, ...REST], [160, ...REST],
   ], t);
   const zoom = clamp((cam.s - 1) / 0.25);
-  const pin = settle(t, 93.9, 0.7);
+  const pin = settle(t, W(93.9), 0.7);
 
   const label = (a: number, b: number) => {
     const p = settle(t, a, 0.45);
@@ -131,9 +132,9 @@ export const Demo: React.FC<SceneProps> = ({ from }) => {
           </div>
           <div className="island" />
         </div>
-        <div className="clabel" style={{ top: PY(470) - 40, ...label(at("n28", "Claude") - 0.1, 106.3) }}><i /><small>Claude</small>問いかける</div>
-        <div className="clabel" style={{ top: PY(160) - 40, ...label(at("n34", "Claude") - 0.1, 129.6) }}><i /><small>Claude</small>これまでの紙を読む</div>
-        <div className="clabel" style={{ top: PY(560) - 40, ...label(at("n38", "私の言葉") - 0.25, En("n39") + 0.4) }}><i /><small>Claude</small>あなたの言葉のまま、小さくする</div>
+        <div className="clabel" style={{ top: PY(470) - 40, ...label(at("n28", "Claude") - 0.1, W(106.3)) }}><i /><small>Claude</small>問いかける</div>
+        <div className="clabel" style={{ top: PY(160) - 40, ...label(at("n34", "Claude") - 0.1, W(129.6)) }}><i /><small>Claude</small>これまでの紙を読む</div>
+        <div className="clabel" style={{ top: PY(560) - 40, ...label(at("n38", "本人の言葉") - 0.25, En("n39") + 0.4) }}><i /><small>Claude</small>あなたの言葉のまま、小さくする</div>
         <div id="rail" style={{ opacity: 1 - zoom }}>
           <div className="eyebrow">上司への相談が、もう一度動くまで</div>
           {STAGES.map(([tt, dd, a, b, color], k) => {
@@ -153,23 +154,23 @@ export const Demo: React.FC<SceneProps> = ({ from }) => {
           })}
         </div>
       </div>
-      <ProblemChip t={t} n={1} text="一人だと、具体的にできない" answer="問いに答えて、具体的に" a={S("n27")} ok={at("n28", "見えてくる")} b={106.4} zoom={zoom} />
-      <ProblemChip t={t} n={2} text="「できなかった」と書くのが、つらい" answer="できなかった日が、手がかりになる" a={S("n33")} ok={S("n35")} b={129.3} zoom={zoom} />
-      <ProblemChip t={t} n={3} text="もう一度向き合うのは、もっとつらい" answer="同じ紙の上で、一歩を小さく" a={S("n36")} ok={at("n39", "送る")} b={142.9} red zoom={zoom} />
+      <ProblemChip t={t} n={1} text="一人だと、具体的にできない" answer="問いに答えて、具体的に" a={S("n27")} ok={at("n28", "見えてくる")} b={W(106.4)} zoom={zoom} />
+      <ProblemChip t={t} n={2} text="「できなかった」と書くのが、つらい" answer="できなかった日が、手がかりになる" a={S("n33")} ok={S("n35")} b={W(129.3)} zoom={zoom} />
+      <ProblemChip t={t} n={3} text="もう一度向き合うのは、もっとつらい" answer="同じ紙の上で、一歩を小さく" a={S("n36")} ok={at("n39", "送る")} b={W(142.9)} red zoom={zoom} />
       <div className="ff-chip" style={{ left: 770, top: 34, opacity: fastForward(t) }}>▶▶ 早送り</div>
-      <PhTag label="仮画面" right opacity={P(t, 94.4, 94.9)}>アプリの画面録画（iPhone）に差し替え</PhTag>
+      <PhTag label="仮画面" right opacity={P(t, W(94.4), W(94.9))}>アプリの画面録画（iPhone）に差し替え</PhTag>
     </AbsoluteFill>
   );
 };
 
 const fastForward = (t: number) => {
-  const typing: [number, number][] = [[Q1() + 0.25, SEND1() - 0.1], [Q2() + 0.3, SEND2() - 0.1], [106.8, 108.9]];
+  const typing: [number, number][] = [[Q1() + 0.25, SEND1() - 0.1], [Q2() + 0.3, SEND2() - 0.1], [W(106.8), W(108.9)]];
   return Math.max(...typing.map(([a, b]) => win(t, a - 0.1, b + 0.25, 0.15)));
 };
 
 const StatusBar: React.FC<{ t: number }> = ({ t }) => (
   <div className="statusbar">
-    <span>{t < 113.3 ? "20:15" : t < at("n31", "今") ? "" : t < 129.4 ? "15:30" : "18:00"}</span>
+    <span>{t < W(113.3) ? "20:15" : t < at("n31", "今") ? "" : t < W(129.4) ? "15:30" : "18:00"}</span>
     <span className="icons">
       <i style={{ width: 18, height: 11 }} />
       <i style={{ width: 16, height: 11, borderRadius: 6 }} />
@@ -193,17 +194,17 @@ const Tap: React.FC<{ t: number }> = ({ t }) => {
 
 // 紙（白紙／一歩まで／止まった）
 const PaperScreen: React.FC<{ t: number }> = ({ t }) => {
-  const o = Math.max(win(t, 93.9, 96.7, 0.25), win(t, 112.4, 113.65, 0.25), win(t, at("n33", "紙") - 0.4, S("n34") + 0.2, 0.25));
+  const o = Math.max(win(t, W(93.9), W(96.7), 0.25), win(t, W(112.4), W(113.65), 0.25), win(t, at("n33", "紙") - 0.4, S("n34") + 0.2, 0.25));
   if (o <= 0) return null;
   const tFail = at("n33", "できなかった");
   const fill = (i: number) => {
-    if (t > 112 && t < 114) return i < 2 ? 1 : i < 6 ? P(t, 112.6 + (i - 2) * 0.12, 112.75 + (i - 2) * 0.12, EASE.lin) : 0;
+    if (t > 112 && t < 114) return i < 2 ? 1 : i < 6 ? P(t, W(112.6) + (i - 2) * 0.12, W(112.75) + (i - 2) * 0.12, EASE.lin) : 0;
     if (t > 114) return i < 6 ? 1 : P(t, tFail - 0.05, tFail + 0.1, EASE.lin);
     return 0;
   };
   const stopped = t > 114 ? P(t, STOP_T() - 0.2, STOP_T() + 0.2, EASE.lin) : 0;
   const ps = t > 114 ? P(t, STOP_T(), STOP_T() + 0.16, EASE.out) : 0;
-  const pulse = t < 97 ? win(t, 95.0, 96.6, 0.3) * (0.5 + 0.5 * Math.sin((t - 95.0) * 7)) : 0;
+  const pulse = t < 97 ? win(t, W(95.0), W(96.6), 0.3) * (0.5 + 0.5 * Math.sin((t - W(95.0)) * 7)) : 0;
   return (
     <Screen o={o}>
       <div className="scr-head"><span className="chev">‹</span><span>新しい紙</span><span className="pill">1回目</span></div>
@@ -222,7 +223,7 @@ const PaperScreen: React.FC<{ t: number }> = ({ t }) => {
 
 // 1 いま困っていること
 const DumpScreen: React.FC<{ t: number }> = ({ t }) => {
-  const o = win(t, at("n27", "最初") - 0.2, 106.75, 0.25);
+  const o = win(t, at("n27", "最初") - 0.2, W(106.75), 0.25);
   if (o <= 0) return null;
   const z = settle(t, at("n27", "最初") - 0.2, 0.55);
   const tProb = at("n28", "締切");
@@ -259,7 +260,7 @@ const DumpScreen: React.FC<{ t: number }> = ({ t }) => {
 
 // 3 案を出す
 const IdeasScreen: React.FC<{ t: number }> = ({ t }) => {
-  const o = win(t, 106.55, 112.65, 0.25);
+  const o = win(t, W(106.55), W(112.65), 0.25);
   if (o <= 0) return null;
   let txt = "";
   for (const [str, a, b] of IDEAS) if (t >= a - 0.05 && t < b + 0.15) txt = typed(str, P(t, a, b, EASE.lin));
@@ -274,7 +275,7 @@ const IdeasScreen: React.FC<{ t: number }> = ({ t }) => {
   const tSel = at("n30", "来週");
   const ps = settle(t, tSel + 0.35, 0.4);
   return (
-    <Screen o={o} style={{ translate: `${(40 * (1 - settle(t, 106.55, 0.4))).toFixed(1)}px 0px` }}>
+    <Screen o={o} style={{ translate: `${(40 * (1 - settle(t, W(106.55), 0.4))).toFixed(1)}px 0px` }}>
       <div className="scr-head"><span className="chev">‹</span><span>3 案を出す</span></div>
       <div className="card" style={{ top: 116, padding: "12px 18px" }}>
         <div className="lbl" style={{ margin: 0 }}>目標</div>
@@ -289,9 +290,9 @@ const IdeasScreen: React.FC<{ t: number }> = ({ t }) => {
         );
       })}
       {["5分だけなら、何をする？", "だれかに頼むなら？", "先に伝えるとしたら？"].map((q, k) => {
-        const u = t - 106.5;
+        const u = t - W(106.5);
         return (
-          <div key={q} className="bubble" style={{ left: [30, 150, 60][k], top: [470, 560, 640][k], fontSize: 17, opacity: P(t, 106.7 + k * 0.25, 107.1 + k * 0.25, EASE.out), translate: `${(10 * Math.sin(u * 0.7 + k)).toFixed(1)}px ${(-16 * Math.sin(u * 0.9 + k * 1.7) - u * 5).toFixed(1)}px` }}>
+          <div key={q} className="bubble" style={{ left: [30, 150, 60][k], top: [470, 560, 640][k], fontSize: 17, opacity: P(t, W(106.7) + k * 0.25, W(107.1) + k * 0.25, EASE.out), translate: `${(10 * Math.sin(u * 0.7 + k)).toFixed(1)}px ${(-16 * Math.sin(u * 0.9 + k * 1.7) - u * 5).toFixed(1)}px` }}>
             {q}
           </div>
         );
@@ -310,7 +311,7 @@ const IdeasScreen: React.FC<{ t: number }> = ({ t }) => {
 };
 
 const LockScreen: React.FC<{ t: number }> = ({ t }) => {
-  const o = win(t, 113.4, at("n31", "今") + 0.05, 0.25);
+  const o = win(t, W(113.4), at("n31", "今") + 0.05, 0.25);
   if (o <= 0) return null;
   const pn = settle(t, NOTIFY_T(), 0.45);
   return (
@@ -336,7 +337,7 @@ const CheckScreen: React.FC<{ t: number }> = ({ t }) => {
   return (
     <Screen o={o}>
       <div style={{ position: "absolute", left: 0, right: 0, top: 170, textAlign: "center", fontSize: 46, fontWeight: 700 }}>今、どう？</div>
-      <div style={{ position: "absolute", left: 0, right: 0, top: 240, textAlign: "center", fontSize: 18, color: "var(--ink-2)" }}>1on1で全部話す ・ 今日 15:00</div>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 240, textAlign: "center", fontSize: 18, color: "var(--ink-2)" }}>1on1で全部話す ・ 昨日 15:00</div>
       <div className="btn" style={{ top: 420, opacity: 1 }}>やった</div>
       <div className="btn outline" style={{ top: 498, opacity: 1 }}>まだこれから</div>
       <div className="btn outline" style={{ top: 576, opacity: 1, background: pressed ? "#ECE6DB" : "#fff", borderColor: pressed ? "#9A9284" : "#D9D0C0" }}>できなかった</div>
@@ -348,7 +349,7 @@ const CheckScreen: React.FC<{ t: number }> = ({ t }) => {
 const RecordScreen: React.FC<{ t: number }> = ({ t }) => {
   const o = win(t, S("n34") - 0.1, TAP_AGAIN() + 0.7, 0.25);
   if (o <= 0) return null;
-  const r0 = at("n34", "これまでの紙") - 0.2, r1 = at("n34", "教えて") - 0.1;
+  const r0 = at("n34", "これまでの紙") - 0.2, r1 = at("n34", "見つけて") - 0.1;
   const ev = settle(t, r0 + 0.1, 0.45) * (1 - P(t, S("n35") - 0.6, S("n35") - 0.25, EASE.io));
   const main = P(t, S("n35") - 0.35, S("n35") + 0.05, EASE.out);
   const ins = P(t, S("n35") - 0.15, S("n35") + 0.3, EASE.out);
@@ -368,13 +369,13 @@ const RecordScreen: React.FC<{ t: number }> = ({ t }) => {
       <div className="card" style={{ top: 262, opacity: main, translate: `0px ${(18 * (1 - main)).toFixed(1)}px` }}>
         <div className="lbl">あなたが動けた時の条件</div>
         <div className="big-insight" style={{ opacity: ins, translate: `0px ${(10 * (1 - ins)).toFixed(1)}px` }}>
+          動けた時は、
+          <br />
           一歩が
           <Highlight progress={hl} color="rgba(63, 143, 138, 0.3)" iterations={1} padding={{ left: 2, right: 2, top: 1, bottom: 1 }}>
             <span style={{ color: "var(--teal)" }}>5分以内</span>
           </Highlight>
-          の時は、
-          <br />
-          動けていた。
+          だった。
         </div>
       </div>
       <div className="btn red" style={{ top: 520, opacity: ba, translate: `0px ${(20 * (1 - ba)).toFixed(1)}px`, scale: t > TAP_AGAIN() && t < TAP_AGAIN() + 0.25 ? "0.96" : "1" }}>↻ この紙で、もう一度</div>
@@ -409,8 +410,8 @@ const StackScreen: React.FC<{ t: number }> = ({ t }) => {
   const go = settle(t, En("n39") - 0.3, 0.35);
   const updated = t > TAP_GO() + 0.3;
   // 動けた
-  const ck = settle(t, 143.1, 0.4) * (1 - P(t, 144.3, 144.7, EASE.io));
-  const glow = P(t, 145.0, 146.2, EASE.io);
+  const ck = settle(t, W(143.1), 0.4) * (1 - P(t, W(144.3), W(144.7), EASE.io));
+  const glow = P(t, W(145.0), W(146.2), EASE.io);
   const fill7 = P(t, DONE_T, DONE_T + 0.4, EASE.lin);
   const push = settle(t, TAP_AGAIN() + 0.15, 0.45); // 記録の画面を押し出して入る
   return (
@@ -461,7 +462,7 @@ const StackScreen: React.FC<{ t: number }> = ({ t }) => {
       <div className="sheet-up" style={{ height: 300, translate: `0px ${(320 * (1 - ck)).toFixed(1)}px` }}>
         <div className="grab" />
         <div style={{ textAlign: "center", fontSize: 30, fontWeight: 700, margin: "8px 0 22px" }}>今、どう？</div>
-        <div className="btn" style={{ position: "relative", left: 0, right: 0, opacity: 1, scale: t > 144.0 && t < 144.25 ? "0.96" : "1" }}>やった</div>
+        <div className="btn" style={{ position: "relative", left: 0, right: 0, opacity: 1, scale: t > W(144.0) && t < W(144.25) ? "0.96" : "1" }}>やった</div>
       </div>
     </Screen>
   );
@@ -469,7 +470,7 @@ const StackScreen: React.FC<{ t: number }> = ({ t }) => {
 
 /** 動けた瞬間に、紙のまわりで小さく光る */
 const Sparkles: React.FC<{ t: number }> = ({ t }) => {
-  const a = 145.1;
+  const a = W(145.1);
   if (t < a || t > a + 1.6) return null;
   const pts: [number, number, number][] = [[60, 160, 0], [330, 190, 0.1], [40, 520, 0.2], [350, 600, 0.05], [200, 140, 0.15], [330, 780, 0.25]];
   return (

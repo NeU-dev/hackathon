@@ -52,6 +52,9 @@
 #proc-title { position: absolute; left: 1460px; top: 380px; font-size: 34px; font-weight: 700; color: var(--ink); white-space: nowrap; }
 #proc svg { position: absolute; left: 0; top: 0; overflow: visible; }
 #loop-label { position: absolute; left: 1460px; top: 718px; font-size: 27px; font-weight: 700; color: var(--teal); white-space: nowrap; }
+/* 3D の壁の場面：日常の困りごと（頭の上の札） */
+.w3-chip { position: absolute; translate: -50% -100%; transform-origin: 50% 100%; padding: 8px 18px 10px; border-radius: 16px; background: #FFFDF8; border: 2px solid #CDBFA8; color: var(--ink); font-size: 27px; font-weight: 700; white-space: nowrap; box-shadow: 0 4px 12px rgba(60, 40, 10, .18); }
+.w3-chip::after { content: ""; position: absolute; left: 50%; bottom: -9px; width: 14px; height: 14px; margin-left: -7px; background: #FFFDF8; border-right: 2px solid #CDBFA8; border-bottom: 2px solid #CDBFA8; transform: rotate(45deg); }
 /* 3D の紙のシートに貼る図（880×450。multiply で紙に重ねる） */
 .board3d .b3-title { position: absolute; left: 440px; top: 46px; font-size: 36px; font-weight: 700; color: var(--ink); white-space: nowrap; }
 .board3d .b3-step { position: absolute; top: 172px; width: 170px; height: 96px; border-radius: 20px; background: #E3F0EE; border: 3px solid var(--teal); color: var(--teal); font-size: 29px; font-weight: 700; display: flex; align-items: center; justify-content: center; }

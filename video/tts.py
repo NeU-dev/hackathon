@@ -31,7 +31,7 @@ TOTAL = 180.0
 GAP = 0.32          # 文と文のあいだの既定値（秒）
 TAIL = 0.35         # パートの終わりに残す余白（秒）
 BASE_RATE = 1.08
-MAX_RATE = 1.25
+MAX_RATE = 1.28
 
 
 def synth(line, rate):

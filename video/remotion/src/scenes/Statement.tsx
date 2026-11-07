@@ -85,6 +85,14 @@ export const Concept: React.FC<SceneProps> = ({ from }) => {
         <path d="M156 92 L172 90 L172 108" fill="none" stroke="#DE5440" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" opacity={P(t, t0 + 0.65, t0 + 0.8, EASE.lin)} />
       </svg>
       <div id="app-name" style={{ opacity: name, translate: `0px ${(18 * (1 - name) - 190 * lift).toFixed(1)}px`, scale: lerp(1, 0.8, lift).toFixed(4) }}>【アプリ名】</div>
+      {(() => {
+        const d = P(t, S("n23b") - 0.15, S("n23b") + 0.35, EASE.out);
+        return (
+          <div style={{ position: "absolute", left: 0, right: 0, top: 650, textAlign: "center", fontSize: 40, fontWeight: 700, color: "var(--ink-2)", opacity: d, translate: `0px ${(14 * (1 - d) - 222 * lift).toFixed(1)}px`, scale: lerp(1, 0.76, lift).toFixed(4) }}>
+            <span style={{ color: "var(--teal)" }}>Claude</span>と一緒に、紙のシートを書くアプリ
+          </div>
+        );
+      })()}
       <CoreLine t={t} ids={["n24", "n25"]} top={500} />
       <PhTag label="未定" opacity={P(t, t0 + 0.3, t0 + 0.8)}>【アプリ名】を決めて差し替え</PhTag>
     </AbsoluteFill>

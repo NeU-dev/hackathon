@@ -20,7 +20,7 @@ const SHEETS = [
 export const DONE = [1, 3, 4, 7, 8];
 const PROBLEMS: [string, string][] = [
   ["", "一人だと、具体的にできない"],
-  ["やったかどうかを書く欄はある。でも", "「できなかった」と書くのが、つらい"],
+  ["やってみて、できなかった時。", "「できなかった」と書くのが、つらい"],
   ["", "そこから、もう一度向き合うのは、もっとつらい"],
 ];
 const ROT_A = [-2.2, 1.4, -0.8, 2.0, -1.5, 1.1, -2.4, 0.7, 1.8, -1.0];
@@ -36,12 +36,12 @@ const posB = (i: number) => {
 };
 
 // 効果音と合わせる時刻（Audio 側からも使う）
-export const SHEET_T0 = 55.9;
+export const SHEET_T0 = 63.1;
 export const sheetDealTime = (i: number) => SHEET_T0 + 0.5 + i * 0.3;
 export const sheetStampTime = (di: number) => at("n16", "5枚") - 0.55 + di * 0.1;
 export const sheetSplitTime = () => at("n16", "5枚") + 0.1;
 // 紙の問題（「紙には、問題がありました。」から）
-export const problemTimes = () => [S("n18") - 0.1, at("n19", "でも") - 0.1, S("n20") - 0.1];
+export const problemTimes = () => [S("n18") - 0.1, S("n19") - 0.1, S("n20") - 0.1];
 
 const Row: React.FC<{ text: string; k: number }> = ({ text, k }) => {
   const parts = text.split("■■");

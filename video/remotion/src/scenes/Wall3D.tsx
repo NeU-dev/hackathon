@@ -5,11 +5,12 @@ import React from "react";
 import { Underline } from "@remotion/rough-notation";
 import { AbsoluteFill, Img, staticFile } from "remotion";
 import { SceneProps, useT } from "../components/common";
-import { at, atEnd, camAt, EASE, FPS, lerp, P, pop, S, win } from "../lib/time";
+import { at, atEnd, camAt, EASE, En, FPS, lerp, P, pop, S, settle, win } from "../lib/time";
 import data from "../data/wall3d.json";
 
 type Pt = [number, number];
-const W3 = data as unknown as { fps: number; src: Record<string, number>; at: Record<string, { board: Pt[]; head: Pt }> };
+type Shot = { board: Pt[]; head: Pt; crowd: Pt[]; notes: Pt[][] };
+const W3 = data as unknown as { fps: number; src: Record<string, number>; at: Record<string, Shot> };
 const FRAMES = Object.keys(W3.src).map(Number).sort((a, b) => a - b);
 
 /** そのコマで使う Blender の絵と、紙の四隅・頭の位置 */
@@ -49,6 +50,17 @@ const TANGLE = "M40 120 C 20 60, 110 30, 140 70 S 220 140, 170 150 S 70 160, 90 
 const T_WALK = () => S("n8");
 const T_SOLVED = () => at("n11", "解ける") - 0.2;
 const T_WIDE = () => S("n13") - 0.3;
+const T_D0 = () => at("n14", "医療の中") - 0.3 + 1.25; // 上から → 日常の側へ下りる
+const T_D1 = () => S("n14b") + 0.35;
+
+// 日常の困りごと（頭の上に出す人は Blender の CHIPS と同じ番号）→「この方法があることすら、知らない」で「？」に変わる
+const CHIPS = [4, 9, 14, 6];
+const CHIP_TEXT = ["仕事が回らない", "返信できない", "部屋が片付かない", "手続きが進まない"];
+export const chipTimes = () => CHIP_TEXT.map((_, k) => at("n13", "日常") + k * 0.22);
+export const qTimes = () => CHIP_TEXT.map((_, k) => at("n14c", "この方法") + k * 0.18);
+// 壁の貼り紙（Blender の NOTES と同じ順番。紙の大きさは壁の上の縦横比に合わせる）
+const NOTE_SIZE: Pt[] = [[300, 510], [240, 320]];
+export const noteTimes = () => [at("n14b", "限られて") - 0.25, En("n14b") - 0.1];
 
 /** 3D のカメラが止まっているあいだだけ、ゆっくり寄る（動くあいだに元へ戻す）。[秒, 寄る中心x, y, 倍率] */
 const zoomKeys = (heavy: boolean): [number, number, number, number][] =>
@@ -57,7 +69,7 @@ const zoomKeys = (heavy: boolean): [number, number, number, number][] =>
     : [
         [14.9, 760, 560, 1.0], [T_WALK() - 0.25, 760, 560, 1.07], [T_WALK() + 1.9, 960, 540, 1.0],
         [T_WALK() + 3.0, 1100, 500, 1.0], [T_WIDE(), 1100, 500, 1.06], [T_WIDE() + 1.8, 1100, 500, 1.0],
-        [57, 1150, 520, 1.04],
+        [T_D0(), 760, 600, 1.035], [T_D1(), 960, 540, 1.0], [64, 1120, 430, 1.05],
       ];
 
 export const Wall3D: React.FC<SceneProps & { phase: "motive" | "heavy" }> = ({ from, phase }) => {
@@ -68,7 +80,7 @@ export const Wall3D: React.FC<SceneProps & { phase: "motive" | "heavy" }> = ({ f
   const z = camAt(zoomKeys(heavy), t);
 
   // 図が見えるのは、カメラが壁を越えてから
-  const onBoard = heavy ? 1 : P(t, T_WALK() + 1.5, T_WALK() + 2.1, EASE.lin);
+  const onBoard = heavy ? 1 : P(t, T_WALK() + 1.5, T_WALK() + 2.1, EASE.lin) * (1 - P(t, T_D0(), T_D0() + 0.35, EASE.lin));
   const tTitle = Math.max(at("n8", "問題解決技法") - 0.3, T_WALK() + 1.8);
   const titleP = heavy ? 1 : P(t, tTitle, tTitle + 0.45, EASE.out);
   const tSheet = at("n9", "紙のシート");
@@ -167,6 +179,67 @@ export const Wall3D: React.FC<SceneProps & { phase: "motive" | "heavy" }> = ({ f
             </svg>
           </div>
         )}
+
+        {/* 壁の貼り紙：受けられる場所が限られる／順番待ち */}
+        {!heavy &&
+          noteTimes().map((tn, n) => {
+            const p = settle(t, tn, 0.55);
+            if (p <= 0 || !sh.notes) return null;
+            const [w, h] = NOTE_SIZE[n];
+            return (
+              <div key={n} style={{ position: "absolute", left: 0, top: 0, width: w, height: h, transformOrigin: "0 0", transform: quadMatrix(w, h, sh.notes[n]) }}>
+                <div
+                  style={{
+                    position: "absolute", inset: 0, background: "#FFFDF8", borderRadius: 4, boxShadow: "0 3px 10px rgba(60,40,10,.28)", filter: "brightness(.95)",
+                    opacity: Math.min(1, p * 1.6), translate: `0px ${(-26 * (1 - p)).toFixed(1)}px`, rotate: `${n ? 1.2 : -1.0}deg`,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}
+                >
+                  <div style={{ position: "absolute", top: -12, left: "50%", width: 90, height: 26, marginLeft: -45, background: "rgba(214,196,150,.85)", rotate: "-3deg" }} />
+                  <div style={{ writingMode: "vertical-rl", fontSize: n ? 62 : 52, fontWeight: 700, letterSpacing: ".08em", lineHeight: 1.55, color: "#4A453E" }}>
+                    {n === 0 ? (
+                      <>
+                        受けられる場所が
+                        <br />
+                        <span style={{ color: "#C8432F" }}>限られる</span>
+                      </>
+                    ) : (
+                      "順番待ち"
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+
+        {/* 日常の困りごと → 「？」 */}
+        {!heavy &&
+          sh.crowd &&
+          CHIPS.map((idx, k) => {
+            const pc = pop(t, chipTimes()[k], 12);
+            if (pc <= 0) return null;
+            const [cx, cy] = sh.crowd[idx];
+            const tq = qTimes()[k];
+            const out = P(t, tq - 0.05, tq + 0.25, EASE.io);
+            const pq = pop(t, tq + 0.1, 11);
+            return (
+              <React.Fragment key={idx}>
+                {out < 1 && (
+                  <div
+                    className="w3-chip"
+                    style={{ left: cx, top: cy - 26, opacity: Math.min(1, pc * 2) * (1 - out), scale: (lerp(0.7, 1, Math.min(pc, 1.1)) * (1 - 0.3 * out)).toFixed(4) }}
+                  >
+                    {CHIP_TEXT[k]}
+                  </div>
+                )}
+                {pq > 0 && (
+                  <div className="qmark" style={{ left: cx - 22, top: cy - 112, fontSize: 76, color: "#5E584E", scale: pq.toFixed(4), rotate: `${k % 2 ? 10 : -8}deg`, opacity: Math.min(1, pq * 2) }}>
+                    ？
+                  </div>
+                )}
+              </React.Fragment>
+            );
+          })}
 
         {/* 壁の外の私の頭の上：もつれた線と「?」 */}
         {!heavy && tangle > 0 && away > 0 && (
