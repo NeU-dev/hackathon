@@ -1,0 +1,483 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #fbf7ec;
+  --color-paper-bright: #fffef8;
+  /* しまってある紙：少しくすんだ紙（透けさせずに、色だけ落とす） */
+  --color-paper-dim: #ece5d4;
+  --color-rule: #ede4d1;
+  --color-frame: #d9cdb3;
+  --color-ink: #33302a;
+  /* 文字色はすべて紙・机の上で 4.5:1 以上 */
+  --color-ink-soft: #5e584c;
+  --color-ink-faint: #70685a;
+  /* 押せない状態や飾りの線など、文字以外に使う薄い色 */
+  --color-ink-mute: #b3aa98;
+  --color-accent: #356e69;
+  --color-accent-soft: #d6eae6;
+  --color-danger: #a8443a;
+  /* 紙の外に重なる面（設定・相談先） */
+  --color-sheet: #f6f3ec;
+  --color-scrim: rgb(52 46 36 / 0.38);
+  /* 机（木目をうすく洗ったオーク。上に貼りつく見出しの帯も同じ色）とバインダー（ハードボード） */
+  --color-desk-calm: #ebdec5;
+  --color-board: #8a6a48;
+  /* 用紙の印刷（特色1色）と、本人が書いたインク */
+  --color-print: #44736a;
+  --color-print-line: #bfd3cb;
+  --color-print-frame: #8db2a7;
+  --color-print-tint: #e9f1ec;
+  --color-pen: #24375a;
+  --font-sans: "Noto Sans JP", ui-sans-serif, system-ui, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif;
+  --font-pen: "Klee One", "Hiragino Maru Gothic ProN", "Noto Sans JP", sans-serif;
+}
+
+:root {
+  --vvh: 100dvh;
+  --vvt: 0px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  /* 素材のざらつき（SVG のノイズ） */
+  --tex-paper: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.34 0 0 0 0 0.2 0 0 0 0.07 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  --tex-wood: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='720' height='720'><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='0.004 0.11' numOctaves='3' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.3 0 0 0 0 0.16 0 0 0 0.42 -0.06'/></filter><rect width='100%25' height='100%25' filter='url(%23w)'/></svg>");
+  --tex-board: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='b'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.15 0 0 0 0 0.1 0 0 0 0 0.05 0 0 0 0.22 0'/></filter><rect width='100%25' height='100%25' filter='url(%23b)'/></svg>");
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-desk-calm);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* iOS がフォーカス時にズームしないよう、入力は 16px 以上 */
+input,
+textarea {
+  font-size: max(1rem, 16px);
+  caret-color: var(--color-pen);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-ink-faint);
+  opacity: 1;
+}
+
+/* 書く欄の見本は、用紙に刷られた記入例として出す（本人のペン書きと見分けるため） */
+textarea.pen::placeholder {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 0.9375rem;
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-pen);
+}
+
+/*
+ * キーボード操作の時だけ、紙の色から作ったフォーカスの輪を出す。
+ * base 層に置くので、記入線（.write-line）など部品側の見た目で上書きできる
+ */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  button:focus:not(:focus-visible) {
+    outline: none;
+  }
+  /* 文の最後の1〜2文字だけが、次の行に落ちないように（「寝てい／る。」） */
+  p,
+  li,
+  dd,
+  td,
+  h1,
+  h2,
+  h3,
+  .pen {
+    text-wrap: pretty;
+  }
+}
+
+/* 文節の切れ目でだけ折り返す（Phrases と組で使う）。文節より狭い時だけ、途中で折り返す */
+@utility phrase-wrap {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+/* Tailwind のユーティリティで上書きできるよう、components 層に置く */
+@layer components {
+  /* 紙：繊維のざらつきと、机に落ちる影 */
+  .paper-sheet {
+    background-color: var(--color-paper);
+    background-image: var(--tex-paper);
+    box-shadow:
+      0 1px 1px rgba(60, 45, 25, 0.12),
+      0 4px 10px rgba(60, 45, 25, 0.1),
+      0 18px 36px -12px rgba(60, 45, 25, 0.22);
+  }
+
+  /* 紙そのもの（作業画面のように、紙に寄って見ている時） */
+  .paper-surface {
+    background-color: var(--color-paper);
+    background-image: var(--tex-paper);
+  }
+
+  /* 机：木目はうっすら。紙を読む・書くための、落ち着いた面（どの画面も同じ机） */
+  .desk-calm {
+    background-color: var(--color-desk-calm);
+    /* 木目を同じ色で半分ほど洗う（見出しの帯の無地と、見た目の色がそろうように） */
+    background-image:
+      linear-gradient(rgb(235 222 197 / 0.55), rgb(235 222 197 / 0.55)),
+      var(--tex-wood);
+  }
+
+  /* バインダー（クリップボード）：ボードの地の質感だけ。光沢や縁の盛り上がりは付けない */
+  .clipboard {
+    border-radius: 16px;
+    background-color: var(--color-board);
+    background-image: var(--tex-board);
+    box-shadow:
+      0 1px 2px rgb(50 35 20 / 0.22),
+      0 14px 28px -14px rgb(50 35 20 / 0.4);
+  }
+  /* 金具：つや消しの金属。上が少し明るいだけ */
+  .clip {
+    border-radius: 10px 10px 14px 14px;
+    background: linear-gradient(180deg, #eef1f3 0%, #c8ced3 100%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.7),
+      0 2px 4px rgb(30 25 20 / 0.25);
+  }
+  .clip-ring {
+    border-radius: 999px;
+    border: 3px solid #a3abb1;
+    box-shadow:
+      inset 0 1px 1px rgb(0 0 0 / 0.3),
+      0 1px 0 rgb(255 255 255 / 0.8);
+  }
+
+  /* 押せるもの：紙の札。細い縁と、ほんの少しの影だけ（光沢は付けない）。押すと沈む */
+  .tactile {
+    background: var(--color-paper-bright);
+    border: 1px solid rgb(110 88 58 / 0.3);
+    box-shadow: 0 1px 2px rgb(60 45 25 / 0.12);
+    transition:
+      transform 90ms ease-out,
+      box-shadow 90ms ease-out,
+      background-color 90ms ease-out;
+  }
+  .tactile:active:not(:disabled) {
+    transform: translateY(1px);
+    background: var(--color-paper);
+    box-shadow: inset 0 1px 2px rgb(60 45 25 / 0.12);
+  }
+  /* 押せない時：盛り上がりを消して、破線のふちだけ残す（ボタンが消えたように見えないように） */
+  .tactile:disabled {
+    background: rgb(255 255 255 / 0.3);
+    box-shadow: none;
+    border: 1.5px dashed rgb(130 108 75 / 0.45);
+    color: var(--color-ink-faint);
+  }
+  .tactile-accent {
+    color: #fff;
+    background: var(--color-accent);
+    border: 1px solid #2f625d;
+    box-shadow: 0 1px 2px rgb(30 60 55 / 0.25);
+    transition:
+      transform 90ms ease-out,
+      box-shadow 90ms ease-out,
+      background-color 90ms ease-out;
+  }
+  .tactile-accent:active:not(:disabled) {
+    transform: translateY(1px);
+    background: #2f625d;
+    box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.2);
+  }
+  .tactile-accent:disabled {
+    background: transparent;
+    border: 1.5px dashed rgb(53 110 105 / 0.45);
+    box-shadow: none;
+    color: rgb(53 110 105 / 0.6);
+  }
+
+  /* マスキングテープ：半分透けて、下の紙がうっすら見える。端はぎざぎざにちぎれている */
+  .tape {
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.35), rgb(255 255 255 / 0) 45%),
+      rgb(232 218 178 / 0.62);
+    box-shadow:
+      0 1px 1px rgb(60 40 15 / 0.12),
+      inset 0 0 0 1px rgb(255 255 255 / 0.18);
+    clip-path: polygon(2% 0, 98% 4%, 100% 25%, 98% 50%, 100% 75%, 97% 100%, 3% 96%, 0 75%, 2% 50%, 0 25%);
+  }
+
+  /* 紙の上に引かれた1本の記入線（作業画面の入力欄） */
+  .write-line {
+    background: transparent;
+    border: 0;
+    border-bottom: 1.5px solid var(--color-print-frame);
+    border-radius: 0;
+    font-family: var(--font-pen);
+    font-weight: 600;
+    color: var(--color-pen);
+  }
+  .write-line:focus,
+  .write-line:focus-visible {
+    outline: none;
+    border-bottom-color: var(--color-pen);
+    box-shadow: 0 1px 0 var(--color-pen);
+  }
+  textarea.write-line {
+    resize: none;
+    line-height: 1.6;
+  }
+
+  /* 用紙の記入欄：印刷された罫線の上に書く */
+  .field {
+    /* 罫線の間隔は文字の大きさの設定に合わせて変わる（rem） */
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0 calc(1.875rem - 1px),
+      var(--color-print-line) calc(1.875rem - 1px) 1.875rem
+    );
+    line-height: 1.875rem;
+  }
+
+  /* 本人が書いた文字 */
+  .pen {
+    font-family: var(--font-pen);
+    font-weight: 600;
+    color: var(--color-pen);
+  }
+}
+
+/* インクが紙にしみこむように、文字が入る */
+@keyframes ink-in {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+.ink-in {
+  animation: ink-in 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes ink-char {
+  from {
+    opacity: 0;
+    filter: blur(2.5px);
+    transform: translateY(1.5px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+.ink-char {
+  display: inline-block;
+  white-space: pre;
+  animation: ink-char 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* 動きを減らす時は、移動やにじみをやめて、フェードだけにする */
+:root[data-reduced] .ink-in,
+:root[data-reduced] .ink-char {
+  animation-name: fade-in;
+  filter: none;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+:root[data-reduced] .tactile,
+:root[data-reduced] .tactile-accent {
+  transition: none;
+}
+
+/*
+ * 引き出しから出したばかりの紙（バインダーにはさまる時）：
+ * 用紙の外枠が引かれ、上の段から順に刷られ、記入日が書きこまれ、最後に「ここから」の枠がそっと光る。
+ * 書きかけの紙は、次に書く枠が光るだけ。動きを減らす時は、印（data-arrive）そのものを付けない
+ */
+@keyframes form-rule {
+  from {
+    border-color: transparent;
+  }
+}
+@keyframes print-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+}
+@keyframes write-in {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+@keyframes ready {
+  35% {
+    background-color: var(--color-print-tint);
+  }
+}
+/* 使い方：見本の用紙の明るい枠が、ゆっくり光る（押せることが分かるように） */
+.tut-glow {
+  animation: ready 2.4s ease-in-out 0.6s infinite;
+}
+:root[data-reduced] .tut-glow {
+  animation: none;
+}
+[data-arrive='fresh'] [data-form] {
+  animation: form-rule 0.3s ease-out 0.42s both;
+}
+[data-arrive='fresh'] [data-form] > * {
+  --d: 0.48s;
+  animation: print-in 0.36s cubic-bezier(0.22, 1, 0.36, 1) var(--d) both;
+}
+[data-arrive='fresh'] [data-form] > :nth-child(2) {
+  --d: 0.53s;
+}
+[data-arrive='fresh'] [data-form] > :nth-child(3) {
+  --d: 0.58s;
+}
+[data-arrive='fresh'] [data-form] > :nth-child(4) {
+  --d: 0.63s;
+}
+[data-arrive='fresh'] [data-form] > :nth-child(5) {
+  --d: 0.68s;
+}
+[data-arrive='fresh'] [data-form] > :nth-child(6) {
+  --d: 0.73s;
+}
+[data-arrive='fresh'] [data-form] > :nth-child(7) {
+  --d: 0.78s;
+}
+[data-arrive='fresh'] [data-form] > :nth-child(8) {
+  --d: 0.83s;
+}
+[data-arrive='fresh'] [data-date] {
+  animation: write-in 0.45s cubic-bezier(0.45, 0, 0.55, 1) 0.9s both;
+}
+[data-arrive='fresh'] [data-form] > [data-bright] {
+  animation:
+    print-in 0.36s cubic-bezier(0.22, 1, 0.36, 1) var(--d) both,
+    ready 1.1s ease-out 1.25s;
+}
+[data-arrive='open'] [data-bright] {
+  animation: ready 1.1s ease-out 0.8s;
+}
+
+/*
+ * たたみ（根拠を見る など）：高さは grid の行で伸び縮みさせ、中身はぼかしを解きながら出す。
+ * 物差しは src/lib/motion.ts と同じ（transitions.dev の motion tokens）
+ */
+.fold {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 250ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fold[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.fold > div {
+  min-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  filter: blur(2px);
+  transition:
+    opacity 250ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 250ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fold[data-open="true"] > div {
+  opacity: 1;
+  filter: none;
+}
+/* 開くと、山形の矢印が上下に裏返る（途中で一度まっすぐな線になる） */
+.flip {
+  transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.flip[data-open="true"] {
+  transform: scaleY(-1);
+}
+.flip path {
+  vector-effect: non-scaling-stroke;
+}
+:root[data-reduced] .fold,
+:root[data-reduced] .fold > div,
+:root[data-reduced] .flip {
+  transition: none;
+}
+
+/* 待っている間の、ゆっくりした明滅 */
+@keyframes breathe {
+  50% {
+    opacity: 0.45;
+  }
+}
+.breathe {
+  animation: breathe 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .breathe {
+    animation: none;
+  }
+}
+
+.no-callout {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.pt-safe {
+  padding-top: calc(var(--safe-top) + 8px);
+}
+.pb-safe {
+  padding-bottom: calc(var(--safe-bottom) + 12px);
+}
+
+/* 相談メモの印刷：確定したメモだけを A4 一枚に刷る（アプリの画面は刷らない） */
+.print-only {
+  display: none;
+}
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm 14mm;
+  }
+  html {
+    font-size: 11px !important;
+  }
+  html,
+  body {
+    height: auto;
+    background: #fff;
+  }
+  #root {
+    display: none !important;
+  }
+  .print-only {
+    display: block;
+    color: #000;
+  }
+}
