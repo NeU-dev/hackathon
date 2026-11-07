@@ -687,8 +687,8 @@
    "id": "n5",
    "sec": "s1",
    "start": 11.319,
-   "end": 14.237,
-   "text": "でも、言い出せないまま、もう2週間。",
+   "end": 14.048,
+   "text": "でも、言い出せないまま、もう3日。",
    "chars": [
     [
      11.339,
@@ -740,34 +740,30 @@
     ],
     [
      13.069,
-     13.224
+     13.226
     ],
     [
-     13.224,
-     13.379
+     13.226,
+     13.384
     ],
     [
-     13.379,
-     13.654
+     13.384,
+     13.704
     ],
     [
-     13.654,
-     13.929
+     13.704,
+     14.024
     ],
     [
-     13.929,
-     14.204
-    ],
-    [
-     14.204,
-     14.204
+     14.024,
+     14.024
     ]
    ],
    "pages": [
     {
      "from": 0,
-     "to": 18,
-     "text": "でも、言い出せないまま、もう2週間。"
+     "to": 17,
+     "text": "でも、言い出せないまま、もう3日。"
     }
    ],
    "tokens": [
@@ -822,32 +818,24 @@
     {
      "text": "もう",
      "startMs": 13069,
-     "endMs": 13379,
-     "timestampMs": 13224,
+     "endMs": 13384,
+     "timestampMs": 13227,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "2",
-     "startMs": 13379,
-     "endMs": 13654,
-     "timestampMs": 13516,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "週間",
-     "startMs": 13654,
-     "endMs": 14204,
-     "timestampMs": 13929,
+     "text": "3日",
+     "startMs": 13384,
+     "endMs": 14024,
+     "timestampMs": 13704,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 14204,
-     "endMs": 14204,
-     "timestampMs": 14204,
+     "startMs": 14024,
+     "endMs": 14024,
+     "timestampMs": 14024,
      "confidence": null,
      "pageBreakAfter": true
     }

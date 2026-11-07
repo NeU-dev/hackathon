@@ -1,4 +1,4 @@
-// 上司とのチャット：① 相談できないまま2週間（mode="before"）／⑤ 送れた（mode="sent"）
+// 上司とのチャット：① 相談できないまま3日（mode="before"）／⑤ 送れた（mode="sent"）
 import React from "react";
 import { Highlight } from "@remotion/rough-notation";
 import { AbsoluteFill } from "remotion";
@@ -32,11 +32,11 @@ export const Chat: React.FC<SceneProps & { mode: "before" | "sent" }> = ({ from,
   const tEx = before ? at("n3", "たとえば") - 0.1 : -99;
   const panel = before ? settle(t, tEx, 0.6) : 1;
   const late = before ? pop(t, at("n3", "回らない"), 11) : 1;
-  // 「2週間」で見出しと日数
-  const t2w = before ? at("n5", "2週間") : -99;
+  // 「3日」で見出しと日数
+  const t2w = before ? at("n5", "3日") : -99;
   const head = before ? P(t, t2w - 0.2, t2w + 0.25, EASE.out) : 0;
-  const hl = before ? P(t, t2w, atEnd("n5", "2週間") + 0.3, EASE.io) : 0;
-  const days = before ? Math.round(lerp(1, 14, P(t, t2w - 0.1, t2w + 0.7, EASE.out))) : 14;
+  const hl = before ? P(t, t2w, atEnd("n5", "3日") + 0.3, EASE.io) : 0;
+  const days = before ? Math.round(lerp(1, 3, P(t, t2w - 0.1, t2w + 0.5, EASE.out))) : 3;
   const daysIn = before ? pop(t, t2w - 0.1, 12) : 0;
   // ⑤ 送れた
   const sent = before ? 0 : pop(t, from + 0.35, 12);
@@ -59,7 +59,7 @@ export const Chat: React.FC<SceneProps & { mode: "before" | "sent" }> = ({ from,
             )}
           </div>
           <div className="chat-body">
-            <div className="chat-date">10月23日</div>
+            <div className="chat-date">11月3日</div>
             <div className="msg them">
               <div className="bubble-c">お疲れさまです。来週からの案件、よろしくお願いします。</div>
               <span className="msg-time">10:12</span>
@@ -99,7 +99,7 @@ export const Chat: React.FC<SceneProps & { mode: "before" | "sent" }> = ({ from,
           <span>
             上司に相談できないまま、
             <Highlight progress={hl} color="rgba(222, 84, 64, 0.28)" iterations={1} padding={{ left: 4, right: 4, top: 2, bottom: 2 }}>
-              2週間
+              3日
             </Highlight>
           </span>
         </div>
