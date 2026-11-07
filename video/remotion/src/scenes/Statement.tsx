@@ -2,7 +2,7 @@
 import React from "react";
 import { Highlight } from "@remotion/rough-notation";
 import { AbsoluteFill } from "remotion";
-import { PhTag, SceneProps, useT } from "../components/common";
+import { SceneProps, useT } from "../components/common";
 import { at, atEnd, EASE, En, lerp, line, P, pop, S } from "../lib/time";
 
 /** 話した所から文字が出てくる（文字ごとの時刻を使う） */
@@ -103,7 +103,7 @@ export const Concept: React.FC<SceneProps> = ({ from }) => {
         <path d="M150 168 C 186 160, 190 112, 168 96" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - loop} fill="none" stroke="#DE5440" strokeWidth="8" strokeLinecap="round" />
         <path d="M156 92 L172 90 L172 108" fill="none" stroke="#DE5440" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" opacity={P(t, t0 + 0.65, t0 + 0.8, EASE.lin)} />
       </svg>
-      <div id="app-name" style={{ opacity: name, translate: `0px ${(18 * (1 - name) - 190 * lift).toFixed(1)}px`, scale: lerp(1, 0.8, lift).toFixed(4) }}>【アプリ名】</div>
+      <div id="app-name" style={{ opacity: name, translate: `0px ${(18 * (1 - name) - 190 * lift).toFixed(1)}px`, scale: lerp(1, 0.8, lift).toFixed(4) }}>ポケット問題解決</div>
       {(() => {
         const d = P(t, S("n23b") - 0.15, S("n23b") + 0.35, EASE.out);
         return (
@@ -113,7 +113,6 @@ export const Concept: React.FC<SceneProps> = ({ from }) => {
         );
       })()}
       <CoreLine t={t} ids={["n24", "n25"]} top={500} />
-      <PhTag label="未定" opacity={P(t, t0 + 0.3, t0 + 0.8)}>【アプリ名】を決めて差し替え</PhTag>
     </AbsoluteFill>
   );
 };

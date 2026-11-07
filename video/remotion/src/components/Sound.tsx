@@ -26,8 +26,9 @@ const cues = (): Cue[] => {
   const c: Cue[] = [];
   // ① チャット：締切の一覧、「間に合わない」、日数
   c.push([at("n3", "たとえば") - 0.1, "swoosh", 0.1]);
-  c.push([at("n3", "回らない"), "stamp", 0.2]);
-  c.push([at("n5", "3日") - 0.1, "select", 0.18]);
+  c.push([at("n3", "月曜") - 0.15, "drop", 0.2]); // 締切の付箋
+  c.push([at("n4", "閉じて") - 0.1, "slide", 0.14]); // 閉じる
+  c.push([at("n4", "3日") - 0.1, "select", 0.18]);
   // ② 壁と手順
   c.push([15.05, "shove", 0.14]); // 壁が立つ
   c.push([at("n7", "分からず"), "bubble", 0.16]);
@@ -56,11 +57,11 @@ const cues = (): Cue[] => {
   c.push([NOTIFY_T(), "notify", 0.32]);
   c.push([STOP_T(), "stamp", 0.4]);
   c.push([STACK_T() + 0.35, "paper1", 0.28]);
-  c.push([at("n37", "同じ紙"), "select", 0.2]);
+  c.push([at("n37", "前の紙"), "select", 0.2]);
   c.push([at("n38", "小さく"), "select", 0.18]);
   c.push([DONE_T + 0.25, "success", 0.34]);
   // 紙の問題が解けた印
-  c.push([at("n28", "見えてくる"), "select", 0.16], [S("n35"), "select", 0.16], [at("n39", "送る"), "select", 0.16]);
+  c.push([at("n28", "見えてくる"), "select", 0.16], [S("n35"), "select", 0.16], [at("n39", "書く"), "select", 0.16]);
   // ⑤ 送れた（チャット）
   c.push([W(147.3) + 0.35, "drop", 0.24]);
   // ⑥ 締め

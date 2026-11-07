@@ -77,7 +77,7 @@ export const EndLines: React.FC<SceneProps> = ({ from }) => {
   return (
     <AbsoluteFill style={{ background: "#F4EEE3" }}>
       <AbsoluteFill style={{ scale: (1 + 0.02 * P(t, from, 180, EASE.lin)).toFixed(4) }}>
-        <div className="core" style={{ top: 250, fontSize: 44, color: "var(--ink-2)", opacity: nm }}>【アプリ名】</div>
+        <div className="core" style={{ top: 250, fontSize: 44, color: "var(--ink-2)", opacity: nm }}>ポケット問題解決</div>
         <CoreLine t={t} ids={["n49", "n50"]} top={400} />
       </AbsoluteFill>
       <div id="thanks" style={{ opacity: thanks }}>ありがとうございました</div>

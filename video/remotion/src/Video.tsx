@@ -1,4 +1,4 @@
-// 3分の発表動画（台本 v5：上司に相談できない／紙の問題。初見で分かりにくい所を直した版）。場面は TransitionSeries でつなぎ、
+// 3分の発表動画（台本 v5：先延ばし＝月曜締切の企画書／紙の問題）。場面は TransitionSeries でつなぎ、
 // 音（ナレーション・効果音・BGM）と字幕は動画全体の時刻で重ねる。
 import React from "react";
 import { linearTiming, TransitionSeries } from "@remotion/transitions";
@@ -8,7 +8,7 @@ import { AbsoluteFill } from "remotion";
 import { Captions } from "./components/Captions";
 import { Grain, Vignette } from "./components/common";
 import { Bgm, Narration, Sfx } from "./components/Sound";
-import { Chat } from "./scenes/Chat";
+import { Doc } from "./scenes/Doc";
 import { EndLines, EndPapers, Roles } from "./scenes/Closing";
 import { Demo } from "./scenes/Demo";
 import { Sheets } from "./scenes/Sheets";
@@ -27,14 +27,14 @@ type Scene = { name: string; a: number; b: number; render: (from: number) => Rea
 
 // 場面の表示区間（秒）。隣どうしが重なる所がトランジションになる。
 const scenes = (): Scene[] => [
-  { name: "① 困りごと：上司に相談できない", a: 0, b: 15.3, render: (from) => <Chat from={from} mode="before" /> },
+  { name: "① 困りごと：月曜締切の企画書を、開いては閉じて3日", a: 0, b: 15.3, render: (from) => <Doc from={from} mode="before" /> },
   { name: "② 動機：助けられた、でも届かない", a: 14.9, b: 61.3, render: (from) => <Wall from={from} phase="motive" /> },
   { name: "③ 10枚と紙の問題", a: 60.9, b: S("n21") - 0.05, render: (from) => <Sheets from={from} /> },
   { name: "③ 止まった問題に戻る重さ", a: S("n21") - 0.3, b: S("n22") - 0.25, render: (from) => <Wall from={from} phase="heavy" /> },
   { name: "③ だから私は：誰にでも届けたい／ハードルを低くしたい", a: S("n22") - 0.4, b: 94.25, render: (from) => <Maker from={from} /> },
   { name: "④ コンセプト：誰でも。何度でも。", a: 93.95, b: 103.7, render: (from) => <Concept from={from} /> },
   { name: "⑤ デモ", a: 103.4, b: W(147.6), render: (from) => <Demo from={from} />, enter: "slide" },
-  { name: "⑤ 送れた（チャット）", a: W(147.3), b: W(154.3), render: (from) => <Chat from={from} mode="sent" /> },
+  { name: "⑤ 書けた（企画書の見出し3つ）", a: W(147.3), b: W(154.3), render: (from) => <Doc from={from} mode="written" /> },
   { name: "⑥ Claudeは答えを出さない", a: W(153.95), b: S("n48") - 0.3, render: (from) => <Roles from={from} /> },
   { name: "⑥ 止まったままの問題", a: S("n48") - 0.6, b: S("n49") - 0.4, render: (from) => <EndPapers from={from} /> },
   { name: "⑥ 問題解決技法を、誰でも。何度でも。", a: S("n49") - 0.7, b: 180, render: (from) => <EndLines from={from} /> },

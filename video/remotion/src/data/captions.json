@@ -459,123 +459,135 @@
    "id": "n3",
    "sec": "s1",
    "start": 7.275,
-   "end": 9.325,
-   "text": "たとえば、仕事が回らない。",
+   "end": 10.169,
+   "text": "たとえば、月曜締切の企画書。",
    "chars": [
     [
      7.27,
-     7.419
+     7.415
     ],
     [
-     7.419,
-     7.568
+     7.415,
+     7.56
     ],
     [
-     7.568,
-     7.716
+     7.56,
+     7.705
     ],
     [
-     7.716,
-     7.865
+     7.705,
+     7.85
     ],
     [
-     7.865,
-     7.865
+     7.85,
+     7.85
     ],
     [
-     8.06,
-     8.283
+     8.04,
+     8.315
     ],
     [
-     8.283,
-     8.505
+     8.315,
+     8.59
     ],
     [
-     8.505,
-     8.64
+     8.59,
+     8.865
     ],
     [
-     8.64,
-     8.845
+     8.865,
+     9.14
     ],
     [
-     8.845,
-     9.05
+     9.14,
+     9.345
     ],
     [
-     9.05,
-     9.175
+     9.545,
+     9.725
     ],
     [
-     9.175,
-     9.3
+     9.725,
+     9.905
     ],
     [
-     9.3,
-     9.3
+     9.905,
+     10.145
+    ],
+    [
+     10.145,
+     10.145
     ]
    ],
    "pages": [
     {
      "from": 0,
-     "to": 13,
-     "text": "たとえば、仕事が回らない。"
+     "to": 14,
+     "text": "たとえば、月曜締切の企画書。"
     }
    ],
    "tokens": [
     {
      "text": "たとえば",
      "startMs": 7270,
-     "endMs": 7865,
-     "timestampMs": 7568,
+     "endMs": 7850,
+     "timestampMs": 7560,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 7865,
-     "endMs": 7865,
-     "timestampMs": 7865,
+     "startMs": 7850,
+     "endMs": 7850,
+     "timestampMs": 7850,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "仕事",
-     "startMs": 8060,
-     "endMs": 8505,
-     "timestampMs": 8282,
+     "text": "月曜",
+     "startMs": 8040,
+     "endMs": 8590,
+     "timestampMs": 8315,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "が",
-     "startMs": 8505,
-     "endMs": 8640,
-     "timestampMs": 8573,
+     "text": "締切",
+     "startMs": 8590,
+     "endMs": 9140,
+     "timestampMs": 8865,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "回ら",
-     "startMs": 8640,
-     "endMs": 9050,
-     "timestampMs": 8845,
+     "text": "の",
+     "startMs": 9140,
+     "endMs": 9345,
+     "timestampMs": 9242,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "ない",
-     "startMs": 9050,
-     "endMs": 9300,
-     "timestampMs": 9175,
+     "text": "企画",
+     "startMs": 9545,
+     "endMs": 9905,
+     "timestampMs": 9725,
+     "confidence": null,
+     "pageBreakAfter": false
+    },
+    {
+     "text": "書",
+     "startMs": 9905,
+     "endMs": 10145,
+     "timestampMs": 10025,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 9300,
-     "endMs": 9300,
-     "timestampMs": 9300,
+     "startMs": 10145,
+     "endMs": 10145,
+     "timestampMs": 10145,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -584,258 +596,140 @@
   {
    "id": "n4",
    "sec": "s1",
-   "start": 9.645,
-   "end": 10.999,
-   "text": "上司に相談したい。",
+   "start": 10.669,
+   "end": 13.238,
+   "text": "開いては閉じて、もう3日。",
    "chars": [
     [
-     9.672,
-     9.864
+     10.689,
+     10.922
     ],
     [
-     9.864,
-     10.057
+     10.922,
+     11.039
     ],
     [
-     10.057,
-     10.182
+     11.039,
+     11.184
     ],
     [
-     10.182,
-     10.387
+     11.184,
+     11.364
     ],
     [
-     10.387,
-     10.592
+     11.364,
+     11.719
     ],
     [
-     10.592,
-     10.712
+     11.719,
+     11.869
     ],
     [
-     10.712,
-     10.844
-    ],
-    [
-     10.844,
-     10.977
-    ],
-    [
-     10.977,
-     10.977
-    ]
-   ],
-   "pages": [
-    {
-     "from": 0,
-     "to": 9,
-     "text": "上司に相談したい。"
-    }
-   ],
-   "tokens": [
-    {
-     "text": "上司",
-     "startMs": 9672,
-     "endMs": 10057,
-     "timestampMs": 9864,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "に",
-     "startMs": 10057,
-     "endMs": 10182,
-     "timestampMs": 10120,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "相談",
-     "startMs": 10182,
-     "endMs": 10592,
-     "timestampMs": 10387,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "し",
-     "startMs": 10592,
-     "endMs": 10712,
-     "timestampMs": 10652,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "たい",
-     "startMs": 10712,
-     "endMs": 10977,
-     "timestampMs": 10844,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "。",
-     "startMs": 10977,
-     "endMs": 10977,
-     "timestampMs": 10977,
-     "confidence": null,
-     "pageBreakAfter": true
-    }
-   ]
-  },
-  {
-   "id": "n5",
-   "sec": "s1",
-   "start": 11.319,
-   "end": 14.048,
-   "text": "でも、言い出せないまま、もう3日。",
-   "chars": [
-    [
-     11.339,
-     11.499
-    ],
-    [
-     11.499,
-     11.659
-    ],
-    [
-     11.659,
-     11.659
-    ],
-    [
-     11.849,
-     11.959
-    ],
-    [
-     11.959,
+     11.869,
      12.069
     ],
     [
      12.069,
-     12.179
+     12.069
     ],
     [
-     12.179,
-     12.289
+     12.244,
+     12.404
     ],
     [
-     12.289,
-     12.414
+     12.404,
+     12.564
     ],
     [
-     12.414,
-     12.539
+     12.564,
+     12.889
     ],
     [
-     12.539,
-     12.709
+     12.889,
+     13.214
     ],
     [
-     12.709,
-     12.879
-    ],
-    [
-     12.879,
-     12.879
-    ],
-    [
-     13.069,
-     13.226
-    ],
-    [
-     13.226,
-     13.384
-    ],
-    [
-     13.384,
-     13.704
-    ],
-    [
-     13.704,
-     14.024
-    ],
-    [
-     14.024,
-     14.024
+     13.214,
+     13.214
     ]
    ],
    "pages": [
     {
      "from": 0,
-     "to": 17,
-     "text": "でも、言い出せないまま、もう3日。"
+     "to": 13,
+     "text": "開いては閉じて、もう3日。"
     }
    ],
    "tokens": [
     {
-     "text": "でも",
-     "startMs": 11339,
-     "endMs": 11659,
-     "timestampMs": 11499,
+     "text": "開い",
+     "startMs": 10689,
+     "endMs": 11039,
+     "timestampMs": 10864,
+     "confidence": null,
+     "pageBreakAfter": false
+    },
+    {
+     "text": "て",
+     "startMs": 11039,
+     "endMs": 11184,
+     "timestampMs": 11112,
+     "confidence": null,
+     "pageBreakAfter": false
+    },
+    {
+     "text": "は",
+     "startMs": 11184,
+     "endMs": 11364,
+     "timestampMs": 11274,
+     "confidence": null,
+     "pageBreakAfter": false
+    },
+    {
+     "text": "閉じ",
+     "startMs": 11364,
+     "endMs": 11869,
+     "timestampMs": 11616,
+     "confidence": null,
+     "pageBreakAfter": false
+    },
+    {
+     "text": "て",
+     "startMs": 11869,
+     "endMs": 12069,
+     "timestampMs": 11969,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 11659,
-     "endMs": 11659,
-     "timestampMs": 11659,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "言い出せ",
-     "startMs": 11849,
-     "endMs": 12289,
+     "startMs": 12069,
+     "endMs": 12069,
      "timestampMs": 12069,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "ない",
-     "startMs": 12289,
-     "endMs": 12539,
-     "timestampMs": 12414,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "まま",
-     "startMs": 12539,
-     "endMs": 12879,
-     "timestampMs": 12709,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "、",
-     "startMs": 12879,
-     "endMs": 12879,
-     "timestampMs": 12879,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
      "text": "もう",
-     "startMs": 13069,
-     "endMs": 13384,
-     "timestampMs": 13227,
+     "startMs": 12244,
+     "endMs": 12564,
+     "timestampMs": 12404,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "3日",
-     "startMs": 13384,
-     "endMs": 14024,
-     "timestampMs": 13704,
+     "startMs": 12564,
+     "endMs": 13214,
+     "timestampMs": 12889,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 14024,
-     "endMs": 14024,
-     "timestampMs": 14024,
+     "startMs": 13214,
+     "endMs": 13214,
+     "timestampMs": 13214,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -5527,83 +5421,83 @@
    "id": "n23",
    "sec": "s4",
    "start": 94.3,
-   "end": 95.5,
-   "text": "【アプリ名】。",
+   "end": 95.907,
+   "text": "ポケット問題解決。",
    "chars": [
     [
-     94.3,
-     95.5
+     94.32,
+     94.453
     ],
     [
-     94.3,
-     95.5
+     94.453,
+     94.585
     ],
     [
-     94.3,
-     95.5
+     94.585,
+     94.718
     ],
     [
-     94.3,
-     95.5
+     94.718,
+     94.85
     ],
     [
-     94.3,
-     95.5
+     94.85,
+     95.109
     ],
     [
-     94.3,
-     95.5
+     95.109,
+     95.368
     ],
     [
-     94.3,
-     95.5
+     95.368,
+     95.626
+    ],
+    [
+     95.626,
+     95.885
+    ],
+    [
+     95.885,
+     95.885
     ]
    ],
    "pages": [
     {
      "from": 0,
-     "to": 7,
-     "text": "【アプリ名】。"
+     "to": 9,
+     "text": "ポケット問題解決。"
     }
    ],
    "tokens": [
     {
-     "text": "【",
-     "startMs": 94300,
-     "endMs": 95500,
-     "timestampMs": 94900,
+     "text": "ポケット",
+     "startMs": 94320,
+     "endMs": 94850,
+     "timestampMs": 94585,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "アプリ",
-     "startMs": 94300,
-     "endMs": 95500,
-     "timestampMs": 94900,
+     "text": "問題",
+     "startMs": 94850,
+     "endMs": 95368,
+     "timestampMs": 95109,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "名",
-     "startMs": 94300,
-     "endMs": 95500,
-     "timestampMs": 94900,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "】",
-     "startMs": 94300,
-     "endMs": 95500,
-     "timestampMs": 94900,
+     "text": "解決",
+     "startMs": 95368,
+     "endMs": 95885,
+     "timestampMs": 95626,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 94300,
-     "endMs": 95500,
-     "timestampMs": 94900,
+     "startMs": 95885,
+     "endMs": 95885,
+     "timestampMs": 95885,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -5612,109 +5506,109 @@
   {
    "id": "n23b",
    "sec": "s4",
-   "start": 95.7,
-   "end": 98.895,
+   "start": 96.107,
+   "end": 99.133,
    "text": "Claudeと一緒に、紙のシートを書くアプリです。",
    "chars": [
     [
-     95.722,
-     95.792
+     96.13,
+     96.2
     ],
     [
-     95.792,
-     95.863
+     96.2,
+     96.27
     ],
     [
-     95.863,
-     95.934
+     96.27,
+     96.34
     ],
     [
-     95.934,
-     96.005
+     96.34,
+     96.41
     ],
     [
-     96.005,
-     96.076
+     96.41,
+     96.48
     ],
     [
-     96.076,
-     96.147
+     96.48,
+     96.55
     ],
     [
-     96.147,
-     96.277
+     96.55,
+     96.68
     ],
     [
-     96.277,
-     96.444
+     96.68,
+     96.843
     ],
     [
-     96.444,
-     96.612
+     96.843,
+     97.005
     ],
     [
-     96.612,
-     96.777
+     97.005,
+     97.165
     ],
     [
-     96.777,
-     96.777
+     97.165,
+     97.165
     ],
     [
-     96.872,
-     97.137
+     97.195,
+     97.455
     ],
     [
-     97.137,
-     97.282
+     97.455,
+     97.6
     ],
     [
-     97.282,
-     97.42
+     97.6,
+     97.733
     ],
     [
-     97.42,
-     97.558
+     97.733,
+     97.867
     ],
     [
-     97.558,
-     97.697
+     97.867,
+     98.0
     ],
     [
-     97.697,
-     97.817
+     98.0,
+     98.115
     ],
     [
-     97.817,
-     97.977
+     98.115,
+     98.272
     ],
     [
-     97.977,
-     98.137
+     98.272,
+     98.43
     ],
     [
-     98.252,
-     98.363
+     98.495,
+     98.607
     ],
     [
-     98.363,
-     98.475
+     98.607,
+     98.718
     ],
     [
-     98.475,
-     98.587
+     98.718,
+     98.83
     ],
     [
-     98.587,
-     98.739
+     98.83,
+     98.98
     ],
     [
-     98.739,
-     98.892
+     98.98,
+     99.13
     ],
     [
-     98.892,
-     98.892
+     99.13,
+     99.13
     ]
    ],
    "pages": [
@@ -5727,105 +5621,105 @@
    "tokens": [
     {
      "text": "Claude",
-     "startMs": 95722,
-     "endMs": 96147,
-     "timestampMs": 95934,
+     "startMs": 96130,
+     "endMs": 96550,
+     "timestampMs": 96340,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "と",
-     "startMs": 96147,
-     "endMs": 96277,
-     "timestampMs": 96212,
+     "startMs": 96550,
+     "endMs": 96680,
+     "timestampMs": 96615,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "一緒",
-     "startMs": 96277,
-     "endMs": 96612,
-     "timestampMs": 96444,
+     "startMs": 96680,
+     "endMs": 97005,
+     "timestampMs": 96842,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "に",
-     "startMs": 96612,
-     "endMs": 96777,
-     "timestampMs": 96694,
+     "startMs": 97005,
+     "endMs": 97165,
+     "timestampMs": 97085,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 96777,
-     "endMs": 96777,
-     "timestampMs": 96777,
+     "startMs": 97165,
+     "endMs": 97165,
+     "timestampMs": 97165,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "紙",
-     "startMs": 96872,
-     "endMs": 97137,
-     "timestampMs": 97004,
+     "startMs": 97195,
+     "endMs": 97455,
+     "timestampMs": 97325,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "の",
-     "startMs": 97137,
-     "endMs": 97282,
-     "timestampMs": 97209,
+     "startMs": 97455,
+     "endMs": 97600,
+     "timestampMs": 97528,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "シート",
-     "startMs": 97282,
-     "endMs": 97697,
-     "timestampMs": 97489,
+     "startMs": 97600,
+     "endMs": 98000,
+     "timestampMs": 97800,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "を",
-     "startMs": 97697,
-     "endMs": 97817,
-     "timestampMs": 97757,
+     "startMs": 98000,
+     "endMs": 98115,
+     "timestampMs": 98058,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "書く",
-     "startMs": 97817,
-     "endMs": 98137,
-     "timestampMs": 97977,
+     "startMs": 98115,
+     "endMs": 98430,
+     "timestampMs": 98273,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "アプリ",
-     "startMs": 98252,
-     "endMs": 98587,
-     "timestampMs": 98420,
+     "startMs": 98495,
+     "endMs": 98830,
+     "timestampMs": 98662,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "です",
-     "startMs": 98587,
-     "endMs": 98892,
-     "timestampMs": 98739,
+     "startMs": 98830,
+     "endMs": 99130,
+     "timestampMs": 98980,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 98892,
-     "endMs": 98892,
-     "timestampMs": 98892,
+     "startMs": 99130,
+     "endMs": 99130,
+     "timestampMs": 99130,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -5834,57 +5728,57 @@
   {
    "id": "n24",
    "sec": "s4",
-   "start": 99.395,
-   "end": 101.423,
+   "start": 99.633,
+   "end": 101.559,
    "text": "問題解決技法を、誰でも。",
    "chars": [
     [
-     99.428,
-     99.641
+     99.667,
+     99.872
     ],
     [
-     99.641,
-     99.853
+     99.872,
+     100.077
     ],
     [
-     99.853,
-     100.103
+     100.077,
+     100.322
     ],
     [
-     100.103,
-     100.353
+     100.322,
+     100.567
     ],
     [
-     100.353,
-     100.508
+     100.567,
+     100.717
     ],
     [
-     100.508,
-     100.663
+     100.717,
+     100.867
     ],
     [
-     100.663,
-     100.788
+     100.867,
+     100.967
     ],
     [
-     100.788,
-     100.788
+     100.967,
+     100.967
     ],
     [
-     100.858,
-     101.093
+     101.022,
+     101.247
     ],
     [
-     101.093,
-     101.241
+     101.247,
+     101.39
     ],
     [
-     101.241,
-     101.388
+     101.39,
+     101.532
     ],
     [
-     101.388,
-     101.388
+     101.532,
+     101.532
     ]
    ],
    "pages": [
@@ -5897,65 +5791,65 @@
    "tokens": [
     {
      "text": "問題",
-     "startMs": 99428,
-     "endMs": 99853,
-     "timestampMs": 99640,
+     "startMs": 99667,
+     "endMs": 100077,
+     "timestampMs": 99872,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "解決",
-     "startMs": 99853,
-     "endMs": 100353,
-     "timestampMs": 100103,
+     "startMs": 100077,
+     "endMs": 100567,
+     "timestampMs": 100322,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "技法",
-     "startMs": 100353,
-     "endMs": 100663,
-     "timestampMs": 100508,
+     "startMs": 100567,
+     "endMs": 100867,
+     "timestampMs": 100717,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "を",
-     "startMs": 100663,
-     "endMs": 100788,
-     "timestampMs": 100726,
+     "startMs": 100867,
+     "endMs": 100967,
+     "timestampMs": 100917,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 100788,
-     "endMs": 100788,
-     "timestampMs": 100788,
+     "startMs": 100967,
+     "endMs": 100967,
+     "timestampMs": 100967,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "誰",
-     "startMs": 100858,
-     "endMs": 101093,
-     "timestampMs": 100976,
+     "startMs": 101022,
+     "endMs": 101247,
+     "timestampMs": 101134,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "でも",
-     "startMs": 101093,
-     "endMs": 101388,
-     "timestampMs": 101240,
+     "startMs": 101247,
+     "endMs": 101532,
+     "timestampMs": 101390,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 101388,
-     "endMs": 101388,
-     "timestampMs": 101388,
+     "startMs": 101532,
+     "endMs": 101532,
+     "timestampMs": 101532,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -5964,45 +5858,45 @@
   {
    "id": "n25",
    "sec": "s4",
-   "start": 101.923,
-   "end": 103.102,
+   "start": 102.059,
+   "end": 103.195,
    "text": "そして、何度でも。",
    "chars": [
     [
-     101.94,
-     102.093
+     102.076,
+     102.224
     ],
     [
-     102.093,
-     102.246
+     102.224,
+     102.372
     ],
     [
-     102.246,
-     102.4
+     102.372,
+     102.521
     ],
     [
-     102.4,
-     102.4
+     102.521,
+     102.521
     ],
     [
-     102.46,
-     102.66
+     102.571,
+     102.766
     ],
     [
-     102.66,
-     102.765
+     102.766,
+     102.871
     ],
     [
-     102.765,
-     102.915
+     102.871,
+     103.018
     ],
     [
-     102.915,
-     103.065
+     103.018,
+     103.166
     ],
     [
-     103.065,
-     103.065
+     103.166,
+     103.166
     ]
    ],
    "pages": [
@@ -6015,49 +5909,49 @@
    "tokens": [
     {
      "text": "そして",
-     "startMs": 101940,
-     "endMs": 102400,
-     "timestampMs": 102170,
+     "startMs": 102076,
+     "endMs": 102521,
+     "timestampMs": 102298,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 102400,
-     "endMs": 102400,
-     "timestampMs": 102400,
+     "startMs": 102521,
+     "endMs": 102521,
+     "timestampMs": 102521,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "何",
-     "startMs": 102460,
-     "endMs": 102660,
-     "timestampMs": 102560,
+     "startMs": 102571,
+     "endMs": 102766,
+     "timestampMs": 102668,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "度",
-     "startMs": 102660,
-     "endMs": 102765,
-     "timestampMs": 102712,
+     "startMs": 102766,
+     "endMs": 102871,
+     "timestampMs": 102818,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "でも",
-     "startMs": 102765,
-     "endMs": 103065,
-     "timestampMs": 102915,
+     "startMs": 102871,
+     "endMs": 103166,
+     "timestampMs": 103018,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 103065,
-     "endMs": 103065,
-     "timestampMs": 103065,
+     "startMs": 103166,
+     "endMs": 103166,
+     "timestampMs": 103166,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -6067,195 +5961,183 @@
    "id": "n26",
    "sec": "s5a",
    "start": 103.75,
-   "end": 106.154,
-   "text": "上司への相談を、アプリで書いてみます。",
+   "end": 105.984,
+   "text": "この企画書を、アプリで書いてみます。",
    "chars": [
     [
-     103.776,
-     103.956
+     103.771,
+     103.901
     ],
     [
-     103.956,
-     104.136
+     103.901,
+     104.031
     ],
     [
-     104.136,
-     104.206
+     104.031,
+     104.193
     ],
     [
-     104.206,
-     104.336
+     104.193,
+     104.356
     ],
     [
-     104.336,
-     104.529
+     104.356,
+     104.516
     ],
     [
-     104.529,
-     104.721
+     104.516,
+     104.636
     ],
     [
-     104.721,
-     104.836
+     104.636,
+     104.636
     ],
     [
-     104.836,
-     104.836
+     104.696,
+     104.808
     ],
     [
-     104.891,
-     105.0
+     104.808,
+     104.919
     ],
     [
-     105.0,
-     105.108
+     104.919,
+     105.031
     ],
     [
-     105.108,
-     105.216
+     105.031,
+     105.181
     ],
     [
-     105.216,
-     105.366
+     105.181,
+     105.288
     ],
     [
-     105.366,
-     105.471
+     105.288,
+     105.396
     ],
     [
-     105.471,
-     105.576
+     105.396,
+     105.516
     ],
     [
-     105.576,
-     105.696
+     105.516,
+     105.656
     ],
     [
-     105.696,
-     105.831
+     105.656,
+     105.818
     ],
     [
-     105.831,
-     105.991
+     105.818,
+     105.981
     ],
     [
-     105.991,
-     106.151
-    ],
-    [
-     106.151,
-     106.151
+     105.981,
+     105.981
     ]
    ],
    "pages": [
     {
      "from": 0,
-     "to": 19,
-     "text": "上司への相談を、アプリで書いてみます。"
+     "to": 18,
+     "text": "この企画書を、アプリで書いてみます。"
     }
    ],
    "tokens": [
     {
-     "text": "上司",
-     "startMs": 103776,
-     "endMs": 104136,
-     "timestampMs": 103956,
+     "text": "この",
+     "startMs": 103771,
+     "endMs": 104031,
+     "timestampMs": 103901,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "へ",
-     "startMs": 104136,
-     "endMs": 104206,
-     "timestampMs": 104171,
+     "text": "企画",
+     "startMs": 104031,
+     "endMs": 104356,
+     "timestampMs": 104194,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "の",
-     "startMs": 104206,
-     "endMs": 104336,
-     "timestampMs": 104271,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "相談",
-     "startMs": 104336,
-     "endMs": 104721,
-     "timestampMs": 104529,
+     "text": "書",
+     "startMs": 104356,
+     "endMs": 104516,
+     "timestampMs": 104436,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "を",
-     "startMs": 104721,
-     "endMs": 104836,
-     "timestampMs": 104779,
+     "startMs": 104516,
+     "endMs": 104636,
+     "timestampMs": 104576,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 104836,
-     "endMs": 104836,
-     "timestampMs": 104836,
+     "startMs": 104636,
+     "endMs": 104636,
+     "timestampMs": 104636,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "アプリ",
-     "startMs": 104891,
-     "endMs": 105216,
-     "timestampMs": 105054,
+     "startMs": 104696,
+     "endMs": 105031,
+     "timestampMs": 104864,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "で",
-     "startMs": 105216,
-     "endMs": 105366,
-     "timestampMs": 105291,
+     "startMs": 105031,
+     "endMs": 105181,
+     "timestampMs": 105106,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "書い",
-     "startMs": 105366,
-     "endMs": 105576,
-     "timestampMs": 105471,
+     "startMs": 105181,
+     "endMs": 105396,
+     "timestampMs": 105288,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "て",
-     "startMs": 105576,
-     "endMs": 105696,
-     "timestampMs": 105636,
+     "startMs": 105396,
+     "endMs": 105516,
+     "timestampMs": 105456,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "み",
-     "startMs": 105696,
-     "endMs": 105831,
-     "timestampMs": 105764,
+     "startMs": 105516,
+     "endMs": 105656,
+     "timestampMs": 105586,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "ます",
-     "startMs": 105831,
-     "endMs": 106151,
-     "timestampMs": 105991,
+     "startMs": 105656,
+     "endMs": 105981,
+     "timestampMs": 105818,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 106151,
-     "endMs": 106151,
-     "timestampMs": 106151,
+     "startMs": 105981,
+     "endMs": 105981,
+     "timestampMs": 105981,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -6264,168 +6146,180 @@
   {
    "id": "n27",
    "sec": "s5a",
-   "start": 106.474,
-   "end": 108.702,
-   "text": "最初は、「仕事が回らない」だけ。",
+   "start": 106.304,
+   "end": 108.731,
+   "text": "最初は、「企画書が進まない」だけ。",
    "chars": [
     [
-     106.497,
-     106.705
+     106.328,
+     106.535
     ],
     [
-     106.705,
-     106.912
+     106.535,
+     106.743
     ],
     [
-     106.912,
-     107.082
+     106.743,
+     106.918
     ],
     [
-     107.082,
-     107.082
+     106.918,
+     106.918
     ],
     [
-     107.082,
-     107.082
+     106.918,
+     106.918
     ],
     [
-     107.112,
-     107.325
+     106.948,
+     107.11
     ],
     [
-     107.325,
-     107.537
+     107.11,
+     107.273
     ],
     [
-     107.537,
-     107.662
+     107.273,
+     107.448
     ],
     [
-     107.662,
-     107.855
+     107.448,
+     107.583
     ],
     [
-     107.855,
-     108.047
+     107.583,
+     107.82
     ],
     [
-     108.047,
-     108.167
+     107.82,
+     108.058
     ],
     [
-     108.167,
-     108.287
+     108.058,
+     108.178
     ],
     [
-     108.287,
-     108.287
+     108.178,
+     108.298
     ],
     [
-     108.347,
-     108.51
+     108.298,
+     108.298
     ],
     [
-     108.51,
-     108.672
+     108.373,
+     108.538
     ],
     [
-     108.672,
-     108.672
+     108.538,
+     108.703
+    ],
+    [
+     108.703,
+     108.703
     ]
    ],
    "pages": [
     {
      "from": 0,
-     "to": 16,
-     "text": "最初は、「仕事が回らない」だけ。"
+     "to": 17,
+     "text": "最初は、「企画書が進まない」だけ。"
     }
    ],
    "tokens": [
     {
      "text": "最初",
-     "startMs": 106497,
-     "endMs": 106912,
-     "timestampMs": 106704,
+     "startMs": 106328,
+     "endMs": 106743,
+     "timestampMs": 106536,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "は",
-     "startMs": 106912,
-     "endMs": 107082,
-     "timestampMs": 106997,
+     "startMs": 106743,
+     "endMs": 106918,
+     "timestampMs": 106830,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 107082,
-     "endMs": 107082,
-     "timestampMs": 107082,
+     "startMs": 106918,
+     "endMs": 106918,
+     "timestampMs": 106918,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "「",
-     "startMs": 107082,
-     "endMs": 107082,
-     "timestampMs": 107082,
+     "startMs": 106918,
+     "endMs": 106918,
+     "timestampMs": 106918,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "仕事",
-     "startMs": 107112,
-     "endMs": 107537,
-     "timestampMs": 107324,
+     "text": "企画",
+     "startMs": 106948,
+     "endMs": 107273,
+     "timestampMs": 107110,
+     "confidence": null,
+     "pageBreakAfter": false
+    },
+    {
+     "text": "書",
+     "startMs": 107273,
+     "endMs": 107448,
+     "timestampMs": 107360,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "が",
-     "startMs": 107537,
-     "endMs": 107662,
-     "timestampMs": 107600,
+     "startMs": 107448,
+     "endMs": 107583,
+     "timestampMs": 107516,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "回ら",
-     "startMs": 107662,
-     "endMs": 108047,
-     "timestampMs": 107854,
+     "text": "進ま",
+     "startMs": 107583,
+     "endMs": 108058,
+     "timestampMs": 107821,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "ない",
-     "startMs": 108047,
-     "endMs": 108287,
-     "timestampMs": 108167,
+     "startMs": 108058,
+     "endMs": 108298,
+     "timestampMs": 108178,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "」",
-     "startMs": 108287,
-     "endMs": 108287,
-     "timestampMs": 108287,
+     "startMs": 108298,
+     "endMs": 108298,
+     "timestampMs": 108298,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "だけ",
-     "startMs": 108347,
-     "endMs": 108672,
-     "timestampMs": 108510,
+     "startMs": 108373,
+     "endMs": 108703,
+     "timestampMs": 108538,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 108672,
-     "endMs": 108672,
-     "timestampMs": 108672,
+     "startMs": 108703,
+     "endMs": 108703,
+     "timestampMs": 108703,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -6434,237 +6328,257 @@
   {
    "id": "n28",
    "sec": "s5a",
-   "start": 109.022,
-   "end": 116.922,
-   "text": "教わる場所に行けなくても、Claudeの問いに答えるうちに、「締切が3つ重なって、1つ間に合わない」と見えてくる。",
+   "start": 109.051,
+   "end": 116.948,
+   "text": "教わる場所に行けなくても、Claudeの問いに答えるうちに、「何から書けばいいか分からず、最初の1行で止まる」と見えてくる。",
    "chars": [
     [
-     109.062,
-     109.215
+     109.089,
+     109.243
     ],
     [
-     109.215,
-     109.369
+     109.243,
+     109.396
     ],
     [
-     109.369,
-     109.522
+     109.396,
+     109.549
     ],
     [
-     109.522,
-     109.665
+     109.549,
+     109.687
     ],
     [
-     109.665,
-     109.807
+     109.687,
+     109.824
     ],
     [
-     109.807,
-     109.957
+     109.824,
+     109.969
     ],
     [
-     109.957,
-     110.082
+     109.969,
+     110.092
     ],
     [
-     110.082,
-     110.207
+     110.092,
+     110.214
     ],
     [
-     110.207,
-     110.33
+     110.214,
+     110.337
     ],
     [
-     110.33,
-     110.452
+     110.337,
+     110.459
     ],
     [
-     110.452,
-     110.602
+     110.459,
+     110.604
     ],
     [
-     110.602,
-     110.797
+     110.604,
+     110.784
     ],
     [
-     110.797,
-     110.797
+     110.784,
+     110.784
     ],
     [
-     110.857,
-     110.924
+     110.824,
+     110.889
     ],
     [
-     110.924,
-     110.992
+     110.889,
+     110.954
     ],
     [
-     110.992,
-     111.059
+     110.954,
+     111.019
     ],
     [
-     111.059,
-     111.127
+     111.019,
+     111.084
     ],
     [
-     111.127,
-     111.195
+     111.084,
+     111.149
     ],
     [
-     111.195,
-     111.262
+     111.149,
+     111.214
     ],
     [
-     111.262,
-     111.427
+     111.214,
+     111.374
     ],
     [
-     111.427,
-     111.547
+     111.374,
+     111.492
     ],
     [
-     111.547,
-     111.667
+     111.492,
+     111.609
     ],
     [
-     111.667,
-     111.837
+     111.609,
+     111.779
     ],
     [
-     111.837,
-     111.989
+     111.779,
+     111.927
     ],
     [
-     111.989,
-     112.14
+     111.927,
+     112.076
     ],
     [
-     112.14,
-     112.292
+     112.076,
+     112.224
     ],
     [
-     112.292,
-     112.405
+     112.224,
+     112.334
     ],
     [
-     112.405,
-     112.517
+     112.334,
+     112.444
     ],
     [
-     112.517,
-     112.677
+     112.444,
+     112.604
     ],
     [
-     112.677,
-     112.677
+     112.604,
+     112.604
     ],
     [
-     112.677,
-     112.677
+     112.604,
+     112.604
     ],
     [
-     112.737,
-     113.01
+     112.684,
+     112.954
     ],
     [
-     113.01,
-     113.282
+     112.954,
+     113.104
     ],
     [
-     113.282,
-     113.447
+     113.104,
+     113.254
     ],
     [
-     113.447,
-     113.797
+     113.254,
+     113.397
     ],
     [
-     113.797,
-     113.932
+     113.397,
+     113.539
     ],
     [
-     113.932,
-     114.112
+     113.539,
+     113.659
     ],
     [
-     114.112,
-     114.292
+     113.659,
+     113.747
     ],
     [
-     114.292,
-     114.472
+     113.747,
+     113.834
     ],
     [
-     114.472,
-     114.672
+     113.834,
+     113.964
     ],
     [
-     114.672,
-     114.672
+     113.964,
+     114.099
     ],
     [
-     114.752,
-     115.049
+     114.099,
+     114.234
     ],
     [
-     115.049,
-     115.197
+     114.234,
+     114.369
     ],
     [
-     115.292,
-     115.413
+     114.369,
+     114.549
     ],
     [
-     115.413,
-     115.535
+     114.549,
+     114.549
     ],
     [
-     115.535,
-     115.656
+     114.589,
+     114.794
     ],
     [
-     115.656,
-     115.777
+     114.794,
+     114.999
     ],
     [
-     115.777,
-     115.907
+     114.999,
+     115.154
     ],
     [
-     115.907,
-     116.037
+     115.154,
+     115.342
     ],
     [
-     116.037,
-     116.037
+     115.342,
+     115.529
     ],
     [
-     116.097,
-     116.197
+     115.529,
+     115.689
     ],
     [
-     116.197,
-     116.327
+     115.689,
+     115.829
     ],
     [
-     116.327,
-     116.457
+     115.829,
+     115.969
     ],
     [
-     116.457,
-     116.617
+     115.969,
+     116.109
     ],
     [
-     116.617,
-     116.762
+     116.109,
+     116.109
     ],
     [
-     116.762,
-     116.907
+     116.149,
+     116.249
     ],
     [
-     116.907,
-     116.907
+     116.249,
+     116.374
+    ],
+    [
+     116.374,
+     116.499
+    ],
+    [
+     116.499,
+     116.654
+    ],
+    [
+     116.654,
+     116.794
+    ],
+    [
+     116.794,
+     116.934
+    ],
+    [
+     116.934,
+     116.934
     ]
    ],
    "pages": [
@@ -6675,264 +6589,312 @@
     },
     {
      "from": 30,
-     "to": 57,
-     "text": "「締切が3つ重なって、1つ間に合わない」と見えてくる。"
+     "to": 62,
+     "text": "「何から書けばいいか分からず、最初の1行で止まる」と見えてくる。"
     }
    ],
    "tokens": [
     {
      "text": "教わる",
-     "startMs": 109062,
-     "endMs": 109522,
-     "timestampMs": 109292,
+     "startMs": 109089,
+     "endMs": 109549,
+     "timestampMs": 109319,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "場所",
-     "startMs": 109522,
-     "endMs": 109807,
-     "timestampMs": 109664,
+     "startMs": 109549,
+     "endMs": 109824,
+     "timestampMs": 109686,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "に",
-     "startMs": 109807,
-     "endMs": 109957,
-     "timestampMs": 109882,
+     "startMs": 109824,
+     "endMs": 109969,
+     "timestampMs": 109896,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "行け",
-     "startMs": 109957,
-     "endMs": 110207,
-     "timestampMs": 110082,
+     "startMs": 109969,
+     "endMs": 110214,
+     "timestampMs": 110092,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "なく",
-     "startMs": 110207,
-     "endMs": 110452,
-     "timestampMs": 110330,
+     "startMs": 110214,
+     "endMs": 110459,
+     "timestampMs": 110336,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "て",
-     "startMs": 110452,
-     "endMs": 110602,
-     "timestampMs": 110527,
+     "startMs": 110459,
+     "endMs": 110604,
+     "timestampMs": 110532,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "も",
-     "startMs": 110602,
-     "endMs": 110797,
-     "timestampMs": 110700,
+     "startMs": 110604,
+     "endMs": 110784,
+     "timestampMs": 110694,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 110797,
-     "endMs": 110797,
-     "timestampMs": 110797,
+     "startMs": 110784,
+     "endMs": 110784,
+     "timestampMs": 110784,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "Claude",
-     "startMs": 110857,
-     "endMs": 111262,
-     "timestampMs": 111060,
+     "startMs": 110824,
+     "endMs": 111214,
+     "timestampMs": 111019,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "の",
-     "startMs": 111262,
-     "endMs": 111427,
-     "timestampMs": 111345,
+     "startMs": 111214,
+     "endMs": 111374,
+     "timestampMs": 111294,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "問い",
-     "startMs": 111427,
-     "endMs": 111667,
-     "timestampMs": 111547,
+     "startMs": 111374,
+     "endMs": 111609,
+     "timestampMs": 111492,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "に",
-     "startMs": 111667,
-     "endMs": 111837,
-     "timestampMs": 111752,
+     "startMs": 111609,
+     "endMs": 111779,
+     "timestampMs": 111694,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "答える",
-     "startMs": 111837,
-     "endMs": 112292,
-     "timestampMs": 112065,
+     "startMs": 111779,
+     "endMs": 112224,
+     "timestampMs": 112002,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "うち",
-     "startMs": 112292,
-     "endMs": 112517,
-     "timestampMs": 112404,
+     "startMs": 112224,
+     "endMs": 112444,
+     "timestampMs": 112334,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "に",
-     "startMs": 112517,
-     "endMs": 112677,
-     "timestampMs": 112597,
+     "startMs": 112444,
+     "endMs": 112604,
+     "timestampMs": 112524,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 112677,
-     "endMs": 112677,
-     "timestampMs": 112677,
+     "startMs": 112604,
+     "endMs": 112604,
+     "timestampMs": 112604,
      "confidence": null,
      "pageBreakAfter": true
     },
     {
      "text": "「",
-     "startMs": 112677,
-     "endMs": 112677,
-     "timestampMs": 112677,
+     "startMs": 112604,
+     "endMs": 112604,
+     "timestampMs": 112604,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "締切",
-     "startMs": 112737,
-     "endMs": 113282,
-     "timestampMs": 113010,
+     "text": "何",
+     "startMs": 112684,
+     "endMs": 112954,
+     "timestampMs": 112819,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "が",
-     "startMs": 113282,
-     "endMs": 113447,
-     "timestampMs": 113364,
+     "text": "から",
+     "startMs": 112954,
+     "endMs": 113254,
+     "timestampMs": 113104,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "3つ",
-     "startMs": 113447,
-     "endMs": 113932,
-     "timestampMs": 113690,
+     "text": "書け",
+     "startMs": 113254,
+     "endMs": 113539,
+     "timestampMs": 113396,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "重なっ",
-     "startMs": 113932,
-     "endMs": 114472,
-     "timestampMs": 114202,
+     "text": "ば",
+     "startMs": 113539,
+     "endMs": 113659,
+     "timestampMs": 113599,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "て",
-     "startMs": 114472,
-     "endMs": 114672,
-     "timestampMs": 114572,
+     "text": "いい",
+     "startMs": 113659,
+     "endMs": 113834,
+     "timestampMs": 113746,
+     "confidence": null,
+     "pageBreakAfter": false
+    },
+    {
+     "text": "か",
+     "startMs": 113834,
+     "endMs": 113964,
+     "timestampMs": 113899,
+     "confidence": null,
+     "pageBreakAfter": false
+    },
+    {
+     "text": "分から",
+     "startMs": 113964,
+     "endMs": 114369,
+     "timestampMs": 114166,
+     "confidence": null,
+     "pageBreakAfter": false
+    },
+    {
+     "text": "ず",
+     "startMs": 114369,
+     "endMs": 114549,
+     "timestampMs": 114459,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 114672,
-     "endMs": 114672,
-     "timestampMs": 114672,
+     "startMs": 114549,
+     "endMs": 114549,
+     "timestampMs": 114549,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "1つ",
-     "startMs": 114752,
-     "endMs": 115197,
-     "timestampMs": 114974,
+     "text": "最初",
+     "startMs": 114589,
+     "endMs": 114999,
+     "timestampMs": 114794,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "間に合わ",
-     "startMs": 115292,
-     "endMs": 115777,
-     "timestampMs": 115535,
+     "text": "の",
+     "startMs": 114999,
+     "endMs": 115154,
+     "timestampMs": 115076,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "ない",
-     "startMs": 115777,
-     "endMs": 116037,
-     "timestampMs": 115907,
+     "text": "1",
+     "startMs": 115154,
+     "endMs": 115342,
+     "timestampMs": 115248,
+     "confidence": null,
+     "pageBreakAfter": false
+    },
+    {
+     "text": "行",
+     "startMs": 115342,
+     "endMs": 115529,
+     "timestampMs": 115435,
+     "confidence": null,
+     "pageBreakAfter": false
+    },
+    {
+     "text": "で",
+     "startMs": 115529,
+     "endMs": 115689,
+     "timestampMs": 115609,
+     "confidence": null,
+     "pageBreakAfter": false
+    },
+    {
+     "text": "止まる",
+     "startMs": 115689,
+     "endMs": 116109,
+     "timestampMs": 115899,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "」",
-     "startMs": 116037,
-     "endMs": 116037,
-     "timestampMs": 116037,
+     "startMs": 116109,
+     "endMs": 116109,
+     "timestampMs": 116109,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "と",
-     "startMs": 116097,
-     "endMs": 116197,
-     "timestampMs": 116147,
+     "startMs": 116149,
+     "endMs": 116249,
+     "timestampMs": 116199,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "見え",
-     "startMs": 116197,
-     "endMs": 116457,
-     "timestampMs": 116327,
+     "startMs": 116249,
+     "endMs": 116499,
+     "timestampMs": 116374,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "て",
-     "startMs": 116457,
-     "endMs": 116617,
-     "timestampMs": 116537,
+     "startMs": 116499,
+     "endMs": 116654,
+     "timestampMs": 116576,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "くる",
-     "startMs": 116617,
-     "endMs": 116907,
-     "timestampMs": 116762,
+     "startMs": 116654,
+     "endMs": 116934,
+     "timestampMs": 116794,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 116907,
-     "endMs": 116907,
-     "timestampMs": 116907,
+     "startMs": 116934,
+     "endMs": 116934,
+     "timestampMs": 116934,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -6942,8 +6904,8 @@
    "id": "n29",
    "sec": "s5b",
    "start": 117.7,
-   "end": 120.036,
-   "text": "案を出して、1回目の一歩を決める。",
+   "end": 119.831,
+   "text": "案を出して、最初の一歩を決める。",
    "chars": [
     [
      117.741,
@@ -6955,70 +6917,66 @@
     ],
     [
      117.971,
-     118.081
+     118.084
     ],
     [
-     118.081,
-     118.191
+     118.084,
+     118.196
     ],
     [
-     118.191,
-     118.376
+     118.196,
+     118.381
     ],
     [
-     118.376,
-     118.376
+     118.381,
+     118.381
     ],
     [
-     118.431,
-     118.613
+     118.421,
+     118.626
     ],
     [
-     118.613,
-     118.795
+     118.626,
+     118.831
     ],
     [
-     118.795,
-     118.976
+     118.831,
+     118.986
     ],
     [
-     118.976,
-     119.151
+     118.986,
+     119.131
     ],
     [
-     119.151,
-     119.324
+     119.131,
+     119.276
     ],
     [
-     119.324,
-     119.496
+     119.276,
+     119.391
     ],
     [
-     119.496,
-     119.611
+     119.391,
+     119.531
     ],
     [
-     119.611,
-     119.75
+     119.531,
+     119.671
     ],
     [
-     119.75,
-     119.888
+     119.671,
+     119.811
     ],
     [
-     119.888,
-     120.026
-    ],
-    [
-     120.026,
-     120.026
+     119.811,
+     119.811
     ]
    ],
    "pages": [
     {
      "from": 0,
-     "to": 17,
-     "text": "案を出して、1回目の一歩を決める。"
+     "to": 16,
+     "text": "案を出して、最初の一歩を決める。"
     }
    ],
    "tokens": [
@@ -7041,96 +6999,80 @@
     {
      "text": "出し",
      "startMs": 117971,
-     "endMs": 118191,
-     "timestampMs": 118081,
+     "endMs": 118196,
+     "timestampMs": 118084,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "て",
-     "startMs": 118191,
-     "endMs": 118376,
-     "timestampMs": 118284,
+     "startMs": 118196,
+     "endMs": 118381,
+     "timestampMs": 118288,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 118376,
-     "endMs": 118376,
-     "timestampMs": 118376,
+     "startMs": 118381,
+     "endMs": 118381,
+     "timestampMs": 118381,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "1",
-     "startMs": 118431,
-     "endMs": 118613,
-     "timestampMs": 118522,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "回",
-     "startMs": 118613,
-     "endMs": 118795,
-     "timestampMs": 118704,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "目",
-     "startMs": 118795,
-     "endMs": 118976,
-     "timestampMs": 118886,
+     "text": "最初",
+     "startMs": 118421,
+     "endMs": 118831,
+     "timestampMs": 118626,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "の",
-     "startMs": 118976,
-     "endMs": 119151,
-     "timestampMs": 119064,
+     "startMs": 118831,
+     "endMs": 118986,
+     "timestampMs": 118908,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "一",
-     "startMs": 119151,
-     "endMs": 119324,
-     "timestampMs": 119238,
+     "startMs": 118986,
+     "endMs": 119131,
+     "timestampMs": 119059,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "歩",
-     "startMs": 119324,
-     "endMs": 119496,
-     "timestampMs": 119410,
+     "startMs": 119131,
+     "endMs": 119276,
+     "timestampMs": 119203,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "を",
-     "startMs": 119496,
-     "endMs": 119611,
-     "timestampMs": 119554,
+     "startMs": 119276,
+     "endMs": 119391,
+     "timestampMs": 119334,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "決める",
-     "startMs": 119611,
-     "endMs": 120026,
-     "timestampMs": 119818,
+     "startMs": 119391,
+     "endMs": 119811,
+     "timestampMs": 119601,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 120026,
-     "endMs": 120026,
-     "timestampMs": 120026,
+     "startMs": 119811,
+     "endMs": 119811,
+     "timestampMs": 119811,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -7139,176 +7081,164 @@
   {
    "id": "n30",
    "sec": "s5b",
-   "start": 120.536,
-   "end": 122.734,
-   "text": "「来週の1on1で、全部話す」。",
+   "start": 120.331,
+   "end": 122.567,
+   "text": "「土曜に、企画書を全部書く」。",
    "chars": [
     [
-     120.565,
-     120.565
+     120.349,
+     120.505
     ],
     [
-     120.565,
-     120.77
+     120.505,
+     120.662
     ],
     [
-     120.77,
-     120.975
+     120.662,
+     120.819
     ],
     [
-     120.975,
-     121.155
+     120.819,
+     120.979
     ],
     [
-     121.155,
-     121.302
+     120.979,
+     120.979
     ],
     [
-     121.302,
-     121.45
+     121.074,
+     121.239
     ],
     [
-     121.45,
-     121.597
+     121.239,
+     121.404
     ],
     [
-     121.597,
-     121.745
+     121.404,
+     121.569
     ],
     [
-     121.745,
-     121.9
+     121.569,
+     121.719
     ],
     [
-     121.9,
-     121.9
+     121.844,
+     122.019
     ],
     [
-     121.96,
-     122.112
+     122.019,
+     122.194
     ],
     [
-     122.112,
-     122.265
+     122.194,
+     122.371
     ],
     [
-     122.265,
-     122.48
+     122.371,
+     122.549
     ],
     [
-     122.48,
-     122.695
+     122.549,
+     122.549
     ],
     [
-     122.695,
-     122.695
-    ],
-    [
-     122.695,
-     122.695
+     122.549,
+     122.549
     ]
    ],
    "pages": [
     {
      "from": 0,
-     "to": 16,
-     "text": "「来週の1on1で、全部話す」。"
+     "to": 15,
+     "text": "「土曜に、企画書を全部書く」。"
     }
    ],
    "tokens": [
     {
      "text": "「",
-     "startMs": 120565,
-     "endMs": 120565,
-     "timestampMs": 120565,
+     "startMs": 120349,
+     "endMs": 120505,
+     "timestampMs": 120427,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "来週",
-     "startMs": 120565,
-     "endMs": 120975,
-     "timestampMs": 120770,
+     "text": "土曜",
+     "startMs": 120505,
+     "endMs": 120819,
+     "timestampMs": 120662,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "の",
-     "startMs": 120975,
-     "endMs": 121155,
-     "timestampMs": 121065,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "1",
-     "startMs": 121155,
-     "endMs": 121302,
-     "timestampMs": 121228,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "on",
-     "startMs": 121302,
-     "endMs": 121597,
-     "timestampMs": 121450,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "1",
-     "startMs": 121597,
-     "endMs": 121745,
-     "timestampMs": 121671,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "で",
-     "startMs": 121745,
-     "endMs": 121900,
-     "timestampMs": 121822,
+     "text": "に",
+     "startMs": 120819,
+     "endMs": 120979,
+     "timestampMs": 120899,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 121900,
-     "endMs": 121900,
-     "timestampMs": 121900,
+     "startMs": 120979,
+     "endMs": 120979,
+     "timestampMs": 120979,
+     "confidence": null,
+     "pageBreakAfter": false
+    },
+    {
+     "text": "企画",
+     "startMs": 121074,
+     "endMs": 121404,
+     "timestampMs": 121239,
+     "confidence": null,
+     "pageBreakAfter": false
+    },
+    {
+     "text": "書",
+     "startMs": 121404,
+     "endMs": 121569,
+     "timestampMs": 121486,
+     "confidence": null,
+     "pageBreakAfter": false
+    },
+    {
+     "text": "を",
+     "startMs": 121569,
+     "endMs": 121719,
+     "timestampMs": 121644,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "全部",
-     "startMs": 121960,
-     "endMs": 122265,
-     "timestampMs": 122112,
+     "startMs": 121844,
+     "endMs": 122194,
+     "timestampMs": 122019,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "話す",
-     "startMs": 122265,
-     "endMs": 122695,
-     "timestampMs": 122480,
+     "text": "書く",
+     "startMs": 122194,
+     "endMs": 122549,
+     "timestampMs": 122372,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "」",
-     "startMs": 122695,
-     "endMs": 122695,
-     "timestampMs": 122695,
+     "startMs": 122549,
+     "endMs": 122549,
+     "timestampMs": 122549,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 122695,
-     "endMs": 122695,
-     "timestampMs": 122695,
+     "startMs": 122549,
+     "endMs": 122549,
+     "timestampMs": 122549,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -7318,272 +7248,224 @@
    "id": "n31",
    "sec": "s5c",
    "start": 123.6,
-   "end": 126.802,
-   "text": "1on1の次の日、アプリが聞きます。「今、どう？」",
+   "end": 126.395,
+   "text": "土曜の朝、アプリが聞きます。「今、どう？」",
    "chars": [
     [
-     123.63,
-     123.766
+     123.62,
+     123.795
     ],
     [
-     123.766,
-     123.902
+     123.795,
+     123.97
     ],
     [
-     123.902,
-     124.038
+     123.97,
+     124.12
     ],
     [
-     124.038,
-     124.175
+     124.12,
+     124.415
     ],
     [
-     124.175,
-     124.325
+     124.415,
+     124.415
     ],
     [
-     124.325,
-     124.6
+     124.535,
+     124.645
     ],
     [
-     124.6,
-     124.745
+     124.645,
+     124.755
     ],
     [
-     124.745,
-     124.95
+     124.755,
+     124.865
     ],
     [
-     124.95,
-     124.95
+     124.865,
+     125.05
     ],
     [
-     125.035,
-     125.143
+     125.05,
+     125.16
     ],
     [
-     125.143,
-     125.251
+     125.16,
+     125.27
     ],
     [
-     125.251,
-     125.36
+     125.27,
+     125.435
     ],
     [
-     125.36,
-     125.54
+     125.435,
+     125.6
     ],
     [
-     125.54,
-     125.65
+     125.6,
+     125.6
     ],
     [
-     125.65,
-     125.76
+     125.72,
+     125.865
     ],
     [
-     125.76,
-     125.925
+     125.865,
+     126.01
     ],
     [
-     125.925,
-     126.09
+     126.01,
+     126.01
     ],
     [
-     126.09,
-     126.09
+     126.13,
+     126.252
     ],
     [
-     126.175,
-     126.317
+     126.252,
+     126.375
     ],
     [
-     126.317,
-     126.46
+     126.375,
+     126.375
     ],
     [
-     126.46,
-     126.46
-    ],
-    [
-     126.545,
-     126.662
-    ],
-    [
-     126.662,
-     126.78
-    ],
-    [
-     126.78,
-     126.78
-    ],
-    [
-     126.78,
-     126.78
+     126.375,
+     126.375
     ]
    ],
    "pages": [
     {
      "from": 0,
-     "to": 18,
-     "text": "1on1の次の日、アプリが聞きます。"
+     "to": 14,
+     "text": "土曜の朝、アプリが聞きます。"
     },
     {
-     "from": 18,
-     "to": 25,
+     "from": 14,
+     "to": 21,
      "text": "「今、どう？」"
     }
    ],
    "tokens": [
     {
-     "text": "1",
-     "startMs": 123630,
-     "endMs": 123766,
-     "timestampMs": 123698,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "on",
-     "startMs": 123766,
-     "endMs": 124038,
-     "timestampMs": 123902,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "1",
-     "startMs": 124038,
-     "endMs": 124175,
-     "timestampMs": 124106,
+     "text": "土曜",
+     "startMs": 123620,
+     "endMs": 123970,
+     "timestampMs": 123795,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "の",
-     "startMs": 124175,
-     "endMs": 124325,
-     "timestampMs": 124250,
+     "startMs": 123970,
+     "endMs": 124120,
+     "timestampMs": 124045,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "次",
-     "startMs": 124325,
-     "endMs": 124600,
-     "timestampMs": 124462,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "の",
-     "startMs": 124600,
-     "endMs": 124745,
-     "timestampMs": 124672,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "日",
-     "startMs": 124745,
-     "endMs": 124950,
-     "timestampMs": 124848,
+     "text": "朝",
+     "startMs": 124120,
+     "endMs": 124415,
+     "timestampMs": 124268,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 124950,
-     "endMs": 124950,
-     "timestampMs": 124950,
+     "startMs": 124415,
+     "endMs": 124415,
+     "timestampMs": 124415,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "アプリ",
-     "startMs": 125035,
-     "endMs": 125360,
-     "timestampMs": 125197,
+     "startMs": 124535,
+     "endMs": 124865,
+     "timestampMs": 124700,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "が",
-     "startMs": 125360,
-     "endMs": 125540,
-     "timestampMs": 125450,
+     "startMs": 124865,
+     "endMs": 125050,
+     "timestampMs": 124958,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "聞き",
-     "startMs": 125540,
-     "endMs": 125760,
-     "timestampMs": 125650,
+     "startMs": 125050,
+     "endMs": 125270,
+     "timestampMs": 125160,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "ます",
-     "startMs": 125760,
-     "endMs": 126090,
-     "timestampMs": 125925,
+     "startMs": 125270,
+     "endMs": 125600,
+     "timestampMs": 125435,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 126090,
-     "endMs": 126090,
-     "timestampMs": 126090,
+     "startMs": 125600,
+     "endMs": 125600,
+     "timestampMs": 125600,
      "confidence": null,
      "pageBreakAfter": true
     },
     {
      "text": "「",
-     "startMs": 126175,
-     "endMs": 126317,
-     "timestampMs": 126246,
+     "startMs": 125720,
+     "endMs": 125865,
+     "timestampMs": 125792,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "今",
-     "startMs": 126317,
-     "endMs": 126460,
-     "timestampMs": 126388,
+     "startMs": 125865,
+     "endMs": 126010,
+     "timestampMs": 125938,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 126460,
-     "endMs": 126460,
-     "timestampMs": 126460,
+     "startMs": 126010,
+     "endMs": 126010,
+     "timestampMs": 126010,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "どう",
-     "startMs": 126545,
-     "endMs": 126780,
-     "timestampMs": 126662,
+     "startMs": 126130,
+     "endMs": 126375,
+     "timestampMs": 126252,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "？",
-     "startMs": 126780,
-     "endMs": 126780,
-     "timestampMs": 126780,
+     "startMs": 126375,
+     "endMs": 126375,
+     "timestampMs": 126375,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "」",
-     "startMs": 126780,
-     "endMs": 126780,
-     "timestampMs": 126780,
+     "startMs": 126375,
+     "endMs": 126375,
+     "timestampMs": 126375,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -7592,168 +7474,152 @@
   {
    "id": "n32",
    "sec": "s5c",
-   "start": 127.122,
-   "end": 129.119,
-   "text": "1回目は、言い出せませんでした。",
+   "start": 126.715,
+   "end": 128.468,
+   "text": "手が、つけられませんでした。",
    "chars": [
     [
-     127.157,
-     127.327
+     126.735,
+     126.84
     ],
     [
-     127.327,
-     127.497
+     126.84,
+     127.035
     ],
     [
-     127.497,
-     127.667
+     127.035,
+     127.035
     ],
     [
-     127.667,
-     127.847
+     127.095,
+     127.232
     ],
     [
-     127.847,
-     127.847
+     127.232,
+     127.37
     ],
     [
-     127.902,
-     128.004
+     127.37,
+     127.492
     ],
     [
-     128.004,
-     128.107
+     127.492,
+     127.615
     ],
     [
-     128.107,
-     128.209
+     127.615,
+     127.767
     ],
     [
-     128.209,
-     128.312
+     127.767,
+     127.92
     ],
     [
-     128.312,
-     128.457
+     127.92,
+     128.01
     ],
     [
-     128.457,
-     128.602
+     128.01,
+     128.125
     ],
     [
-     128.602,
-     128.687
+     128.125,
+     128.24
     ],
     [
-     128.687,
-     128.792
+     128.24,
+     128.445
     ],
     [
-     128.792,
-     128.897
-    ],
-    [
-     128.897,
-     129.092
-    ],
-    [
-     129.092,
-     129.092
+     128.445,
+     128.445
     ]
    ],
    "pages": [
     {
      "from": 0,
-     "to": 16,
-     "text": "1回目は、言い出せませんでした。"
+     "to": 14,
+     "text": "手が、つけられませんでした。"
     }
    ],
    "tokens": [
     {
-     "text": "1",
-     "startMs": 127157,
-     "endMs": 127327,
-     "timestampMs": 127242,
+     "text": "手",
+     "startMs": 126735,
+     "endMs": 126840,
+     "timestampMs": 126788,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "回",
-     "startMs": 127327,
-     "endMs": 127497,
-     "timestampMs": 127412,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "目",
-     "startMs": 127497,
-     "endMs": 127667,
-     "timestampMs": 127582,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "は",
-     "startMs": 127667,
-     "endMs": 127847,
-     "timestampMs": 127757,
+     "text": "が",
+     "startMs": 126840,
+     "endMs": 127035,
+     "timestampMs": 126938,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 127847,
-     "endMs": 127847,
-     "timestampMs": 127847,
+     "startMs": 127035,
+     "endMs": 127035,
+     "timestampMs": 127035,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "言い出せ",
-     "startMs": 127902,
-     "endMs": 128312,
-     "timestampMs": 128107,
+     "text": "つけ",
+     "startMs": 127095,
+     "endMs": 127370,
+     "timestampMs": 127232,
+     "confidence": null,
+     "pageBreakAfter": false
+    },
+    {
+     "text": "られ",
+     "startMs": 127370,
+     "endMs": 127615,
+     "timestampMs": 127492,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "ませ",
-     "startMs": 128312,
-     "endMs": 128602,
-     "timestampMs": 128457,
+     "startMs": 127615,
+     "endMs": 127920,
+     "timestampMs": 127768,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "ん",
-     "startMs": 128602,
-     "endMs": 128687,
-     "timestampMs": 128644,
+     "startMs": 127920,
+     "endMs": 128010,
+     "timestampMs": 127965,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "でし",
-     "startMs": 128687,
-     "endMs": 128897,
-     "timestampMs": 128792,
+     "startMs": 128010,
+     "endMs": 128240,
+     "timestampMs": 128125,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "た",
-     "startMs": 128897,
-     "endMs": 129092,
-     "timestampMs": 128995,
+     "startMs": 128240,
+     "endMs": 128445,
+     "timestampMs": 128342,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 129092,
-     "endMs": 129092,
-     "timestampMs": 129092,
+     "startMs": 128445,
+     "endMs": 128445,
+     "timestampMs": 128445,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -7762,97 +7628,97 @@
   {
    "id": "n33",
    "sec": "s5c",
-   "start": 129.439,
-   "end": 132.228,
+   "start": 128.788,
+   "end": 131.769,
    "text": "紙なら、「できなかった」と書いて終わりです。",
    "chars": [
     [
-     129.464,
-     129.724
+     128.813,
+     129.078
     ],
     [
-     129.724,
-     129.874
+     129.078,
+     129.23
     ],
     [
-     129.874,
-     130.024
+     129.23,
+     129.383
     ],
     [
-     130.024,
-     130.024
+     129.383,
+     129.383
     ],
     [
-     130.024,
-     130.024
+     129.383,
+     129.383
     ],
     [
-     130.099,
-     130.226
+     129.513,
+     129.64
     ],
     [
-     130.226,
-     130.354
+     129.64,
+     129.768
     ],
     [
-     130.354,
-     130.494
+     129.768,
+     129.908
     ],
     [
-     130.494,
-     130.634
+     129.908,
+     130.048
     ],
     [
-     130.634,
-     130.774
+     130.048,
+     130.188
     ],
     [
-     130.774,
-     130.939
+     130.188,
+     130.353
     ],
     [
-     130.939,
-     130.939
+     130.353,
+     130.353
     ],
     [
-     130.989,
-     131.124
+     130.448,
+     130.593
     ],
     [
-     131.124,
-     131.236
+     130.593,
+     130.71
     ],
     [
-     131.236,
-     131.349
+     130.71,
+     130.828
     ],
     [
-     131.349,
-     131.529
+     130.828,
+     131.008
     ],
     [
-     131.584,
-     131.694
+     131.123,
+     131.233
     ],
     [
-     131.694,
-     131.804
+     131.233,
+     131.343
     ],
     [
-     131.804,
-     131.914
+     131.343,
+     131.453
     ],
     [
-     131.914,
-     132.069
+     131.453,
+     131.61
     ],
     [
-     132.069,
-     132.224
+     131.61,
+     131.768
     ],
     [
-     132.224,
-     132.224
+     131.768,
+     131.768
     ]
    ],
    "pages": [
@@ -7865,113 +7731,113 @@
    "tokens": [
     {
      "text": "紙",
-     "startMs": 129464,
-     "endMs": 129724,
-     "timestampMs": 129594,
+     "startMs": 128813,
+     "endMs": 129078,
+     "timestampMs": 128945,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "なら",
-     "startMs": 129724,
-     "endMs": 130024,
-     "timestampMs": 129874,
+     "startMs": 129078,
+     "endMs": 129383,
+     "timestampMs": 129230,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 130024,
-     "endMs": 130024,
-     "timestampMs": 130024,
+     "startMs": 129383,
+     "endMs": 129383,
+     "timestampMs": 129383,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "「",
-     "startMs": 130024,
-     "endMs": 130024,
-     "timestampMs": 130024,
+     "startMs": 129383,
+     "endMs": 129383,
+     "timestampMs": 129383,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "でき",
-     "startMs": 130099,
-     "endMs": 130354,
-     "timestampMs": 130226,
+     "startMs": 129513,
+     "endMs": 129768,
+     "timestampMs": 129640,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "なかっ",
-     "startMs": 130354,
-     "endMs": 130774,
-     "timestampMs": 130564,
+     "startMs": 129768,
+     "endMs": 130188,
+     "timestampMs": 129978,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "た",
-     "startMs": 130774,
-     "endMs": 130939,
-     "timestampMs": 130856,
+     "startMs": 130188,
+     "endMs": 130353,
+     "timestampMs": 130270,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "」",
-     "startMs": 130939,
-     "endMs": 130939,
-     "timestampMs": 130939,
+     "startMs": 130353,
+     "endMs": 130353,
+     "timestampMs": 130353,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "と",
-     "startMs": 130989,
-     "endMs": 131124,
-     "timestampMs": 131056,
+     "startMs": 130448,
+     "endMs": 130593,
+     "timestampMs": 130520,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "書い",
-     "startMs": 131124,
-     "endMs": 131349,
-     "timestampMs": 131236,
+     "startMs": 130593,
+     "endMs": 130828,
+     "timestampMs": 130710,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "て",
-     "startMs": 131349,
-     "endMs": 131529,
-     "timestampMs": 131439,
+     "startMs": 130828,
+     "endMs": 131008,
+     "timestampMs": 130918,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "終わり",
-     "startMs": 131584,
-     "endMs": 131914,
-     "timestampMs": 131749,
+     "startMs": 131123,
+     "endMs": 131453,
+     "timestampMs": 131288,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "です",
-     "startMs": 131914,
-     "endMs": 132224,
-     "timestampMs": 132069,
+     "startMs": 131453,
+     "endMs": 131768,
+     "timestampMs": 131610,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 132224,
-     "endMs": 132224,
-     "timestampMs": 132224,
+     "startMs": 131768,
+     "endMs": 131768,
+     "timestampMs": 131768,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -7980,125 +7846,125 @@
   {
    "id": "n34",
    "sec": "s5c",
-   "start": 132.728,
-   "end": 136.125,
+   "start": 132.269,
+   "end": 135.863,
    "text": "でも、Claudeがこれまでの紙を読んで、見つけてくれる。",
    "chars": [
     [
-     132.746,
-     132.893
+     132.288,
+     132.438
     ],
     [
-     132.893,
-     133.041
+     132.438,
+     132.588
     ],
     [
-     133.041,
-     133.041
+     132.588,
+     132.588
     ],
     [
-     133.071,
-     133.135
+     132.683,
+     132.749
     ],
     [
-     133.135,
-     133.199
+     132.749,
+     132.814
     ],
     [
-     133.199,
-     133.263
+     132.814,
+     132.88
     ],
     [
-     133.263,
-     133.327
+     132.88,
+     132.946
     ],
     [
-     133.327,
-     133.391
+     132.946,
+     133.012
     ],
     [
-     133.391,
-     133.456
+     133.012,
+     133.078
     ],
     [
-     133.456,
-     133.626
+     133.078,
+     133.258
     ],
     [
-     133.626,
-     133.743
+     133.258,
+     133.385
     ],
     [
-     133.743,
-     133.861
+     133.385,
+     133.513
     ],
     [
-     133.861,
-     133.993
+     133.513,
+     133.65
     ],
     [
-     133.993,
-     134.126
+     133.65,
+     133.788
     ],
     [
-     134.126,
-     134.286
+     133.788,
+     133.953
     ],
     [
-     134.286,
-     134.551
+     133.953,
+     134.233
     ],
     [
-     134.551,
-     134.656
+     134.233,
+     134.338
     ],
     [
-     134.656,
-     134.796
+     134.338,
+     134.478
     ],
     [
-     134.796,
-     134.936
+     134.478,
+     134.618
     ],
     [
-     134.936,
-     135.096
+     134.618,
+     134.778
     ],
     [
-     135.096,
-     135.096
+     134.778,
+     134.778
     ],
     [
-     135.171,
-     135.306
+     134.883,
+     135.019
     ],
     [
-     135.306,
-     135.441
+     135.019,
+     135.156
     ],
     [
-     135.441,
-     135.576
+     135.156,
+     135.293
     ],
     [
-     135.576,
-     135.726
+     135.293,
+     135.448
     ],
     [
-     135.726,
-     135.854
+     135.448,
+     135.581
     ],
     [
-     135.854,
-     135.982
+     135.581,
+     135.714
     ],
     [
-     135.982,
-     136.111
+     135.714,
+     135.848
     ],
     [
-     136.111,
-     136.111
+     135.848,
+     135.848
     ]
    ],
    "pages": [
@@ -8111,129 +7977,129 @@
    "tokens": [
     {
      "text": "でも",
-     "startMs": 132746,
-     "endMs": 133041,
-     "timestampMs": 132894,
+     "startMs": 132288,
+     "endMs": 132588,
+     "timestampMs": 132438,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 133041,
-     "endMs": 133041,
-     "timestampMs": 133041,
+     "startMs": 132588,
+     "endMs": 132588,
+     "timestampMs": 132588,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "Claude",
-     "startMs": 133071,
-     "endMs": 133456,
-     "timestampMs": 133264,
+     "startMs": 132683,
+     "endMs": 133078,
+     "timestampMs": 132880,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "が",
-     "startMs": 133456,
-     "endMs": 133626,
-     "timestampMs": 133541,
+     "startMs": 133078,
+     "endMs": 133258,
+     "timestampMs": 133168,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "これ",
-     "startMs": 133626,
-     "endMs": 133861,
-     "timestampMs": 133743,
+     "startMs": 133258,
+     "endMs": 133513,
+     "timestampMs": 133386,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "まで",
-     "startMs": 133861,
-     "endMs": 134126,
-     "timestampMs": 133993,
+     "startMs": 133513,
+     "endMs": 133788,
+     "timestampMs": 133651,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "の",
-     "startMs": 134126,
-     "endMs": 134286,
-     "timestampMs": 134206,
+     "startMs": 133788,
+     "endMs": 133953,
+     "timestampMs": 133870,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "紙",
-     "startMs": 134286,
-     "endMs": 134551,
-     "timestampMs": 134418,
+     "startMs": 133953,
+     "endMs": 134233,
+     "timestampMs": 134093,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "を",
-     "startMs": 134551,
-     "endMs": 134656,
-     "timestampMs": 134604,
+     "startMs": 134233,
+     "endMs": 134338,
+     "timestampMs": 134286,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "読ん",
-     "startMs": 134656,
-     "endMs": 134936,
-     "timestampMs": 134796,
+     "startMs": 134338,
+     "endMs": 134618,
+     "timestampMs": 134478,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "で",
-     "startMs": 134936,
-     "endMs": 135096,
-     "timestampMs": 135016,
+     "startMs": 134618,
+     "endMs": 134778,
+     "timestampMs": 134698,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 135096,
-     "endMs": 135096,
-     "timestampMs": 135096,
+     "startMs": 134778,
+     "endMs": 134778,
+     "timestampMs": 134778,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "見つけ",
-     "startMs": 135171,
-     "endMs": 135576,
-     "timestampMs": 135373,
+     "startMs": 134883,
+     "endMs": 135293,
+     "timestampMs": 135088,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "て",
-     "startMs": 135576,
-     "endMs": 135726,
-     "timestampMs": 135651,
+     "startMs": 135293,
+     "endMs": 135448,
+     "timestampMs": 135370,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "くれる",
-     "startMs": 135726,
-     "endMs": 136111,
-     "timestampMs": 135918,
+     "startMs": 135448,
+     "endMs": 135848,
+     "timestampMs": 135648,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 136111,
-     "endMs": 136111,
-     "timestampMs": 136111,
+     "startMs": 135848,
+     "endMs": 135848,
+     "timestampMs": 135848,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -8242,77 +8108,77 @@
   {
    "id": "n35",
    "sec": "s5c",
-   "start": 136.445,
-   "end": 139.042,
+   "start": 136.183,
+   "end": 138.915,
    "text": "動けた時は、一歩が5分以内だった。",
    "chars": [
     [
-     136.482,
-     136.664
+     136.219,
+     136.407
     ],
     [
-     136.664,
-     136.847
+     136.407,
+     136.594
     ],
     [
-     136.847,
-     137.002
+     136.594,
+     136.759
     ],
     [
-     137.002,
-     137.247
+     136.759,
+     137.019
     ],
     [
-     137.247,
-     137.422
+     137.019,
+     137.194
     ],
     [
-     137.422,
-     137.422
+     137.194,
+     137.194
     ],
     [
-     137.477,
-     137.619
+     137.279,
+     137.429
     ],
     [
-     137.619,
-     137.762
+     137.429,
+     137.579
     ],
     [
-     137.762,
-     137.937
+     137.579,
+     137.759
     ],
     [
-     137.937,
-     138.124
+     137.759,
+     137.967
     ],
     [
-     138.124,
-     138.312
+     137.967,
+     138.174
     ],
     [
-     138.312,
-     138.462
+     138.174,
+     138.324
     ],
     [
-     138.462,
-     138.612
+     138.324,
+     138.474
     ],
     [
-     138.612,
-     138.727
+     138.474,
+     138.592
     ],
     [
-     138.727,
-     138.842
+     138.592,
+     138.709
     ],
     [
-     138.842,
-     139.022
+     138.709,
+     138.894
     ],
     [
-     139.022,
-     139.022
+     138.894,
+     138.894
     ]
    ],
    "pages": [
@@ -8325,113 +8191,113 @@
    "tokens": [
     {
      "text": "動け",
-     "startMs": 136482,
-     "endMs": 136847,
-     "timestampMs": 136664,
+     "startMs": 136219,
+     "endMs": 136594,
+     "timestampMs": 136406,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "た",
-     "startMs": 136847,
-     "endMs": 137002,
-     "timestampMs": 136925,
+     "startMs": 136594,
+     "endMs": 136759,
+     "timestampMs": 136676,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "時",
-     "startMs": 137002,
-     "endMs": 137247,
-     "timestampMs": 137124,
+     "startMs": 136759,
+     "endMs": 137019,
+     "timestampMs": 136889,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "は",
-     "startMs": 137247,
-     "endMs": 137422,
-     "timestampMs": 137334,
+     "startMs": 137019,
+     "endMs": 137194,
+     "timestampMs": 137106,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 137422,
-     "endMs": 137422,
-     "timestampMs": 137422,
+     "startMs": 137194,
+     "endMs": 137194,
+     "timestampMs": 137194,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "一",
-     "startMs": 137477,
-     "endMs": 137619,
-     "timestampMs": 137548,
+     "startMs": 137279,
+     "endMs": 137429,
+     "timestampMs": 137354,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "歩",
-     "startMs": 137619,
-     "endMs": 137762,
-     "timestampMs": 137690,
+     "startMs": 137429,
+     "endMs": 137579,
+     "timestampMs": 137504,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "が",
-     "startMs": 137762,
-     "endMs": 137937,
-     "timestampMs": 137850,
+     "startMs": 137579,
+     "endMs": 137759,
+     "timestampMs": 137669,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "5",
-     "startMs": 137937,
-     "endMs": 138124,
-     "timestampMs": 138031,
+     "startMs": 137759,
+     "endMs": 137967,
+     "timestampMs": 137863,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "分",
-     "startMs": 138124,
-     "endMs": 138312,
-     "timestampMs": 138218,
+     "startMs": 137967,
+     "endMs": 138174,
+     "timestampMs": 138070,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "以内",
-     "startMs": 138312,
-     "endMs": 138612,
-     "timestampMs": 138462,
+     "startMs": 138174,
+     "endMs": 138474,
+     "timestampMs": 138324,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "だっ",
-     "startMs": 138612,
-     "endMs": 138842,
-     "timestampMs": 138727,
+     "startMs": 138474,
+     "endMs": 138709,
+     "timestampMs": 138592,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "た",
-     "startMs": 138842,
-     "endMs": 139022,
-     "timestampMs": 138932,
+     "startMs": 138709,
+     "endMs": 138894,
+     "timestampMs": 138802,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 139022,
-     "endMs": 139022,
-     "timestampMs": 139022,
+     "startMs": 138894,
+     "endMs": 138894,
+     "timestampMs": 138894,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -8441,44 +8307,44 @@
    "id": "n36",
    "sec": "s5d",
    "start": 140.0,
-   "end": 141.129,
+   "end": 141.134,
    "text": "だから、もう一度。",
    "chars": [
     [
-     140.02,
-     140.166
+     140.018,
+     140.167
     ],
     [
-     140.166,
-     140.313
+     140.167,
+     140.315
     ],
     [
-     140.313,
-     140.46
+     140.315,
+     140.463
     ],
     [
-     140.46,
-     140.46
+     140.463,
+     140.463
     ],
     [
-     140.515,
-     140.661
+     140.523,
+     140.67
     ],
     [
-     140.661,
-     140.807
+     140.67,
+     140.816
     ],
     [
-     140.807,
-     140.953
+     140.816,
+     140.962
     ],
     [
-     140.953,
-     141.1
+     140.962,
+     141.108
     ],
     [
-     141.1,
-     141.1
+     141.108,
+     141.108
     ]
    ],
    "pages": [
@@ -8491,33 +8357,33 @@
    "tokens": [
     {
      "text": "だから",
-     "startMs": 140020,
-     "endMs": 140460,
+     "startMs": 140018,
+     "endMs": 140463,
      "timestampMs": 140240,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 140460,
-     "endMs": 140460,
-     "timestampMs": 140460,
+     "startMs": 140463,
+     "endMs": 140463,
+     "timestampMs": 140463,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "もう一度",
-     "startMs": 140515,
-     "endMs": 141100,
-     "timestampMs": 140808,
+     "startMs": 140523,
+     "endMs": 141108,
+     "timestampMs": 140816,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 141100,
-     "endMs": 141100,
-     "timestampMs": 141100,
+     "startMs": 141108,
+     "endMs": 141108,
+     "timestampMs": 141108,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -8526,172 +8392,184 @@
   {
    "id": "n37",
    "sec": "s5d",
-   "start": 141.449,
-   "end": 143.891,
-   "text": "白紙には戻らず、同じ紙の上で。",
+   "start": 141.454,
+   "end": 144.432,
+   "text": "白紙には戻らず、前の紙に重ねて。",
    "chars": [
     [
-     141.468,
-     141.66
+     141.473,
+     141.666
     ],
     [
-     141.66,
-     141.853
+     141.666,
+     141.858
     ],
     [
-     141.853,
-     141.988
+     141.858,
+     141.998
     ],
     [
-     141.988,
-     142.138
+     141.998,
+     142.153
     ],
     [
-     142.138,
-     142.32
+     142.153,
+     142.338
     ],
     [
-     142.32,
-     142.503
+     142.338,
+     142.523
     ],
     [
-     142.503,
-     142.683
+     142.523,
+     142.703
     ],
     [
-     142.683,
-     142.683
+     142.703,
+     142.703
     ],
     [
-     142.748,
-     143.008
+     142.803,
+     143.018
     ],
     [
-     143.008,
-     143.138
+     143.018,
+     143.213
     ],
     [
-     143.138,
-     143.418
+     143.213,
+     143.548
     ],
     [
-     143.418,
-     143.558
+     143.548,
+     143.708
     ],
     [
-     143.558,
-     143.698
+     143.773,
+     143.991
     ],
     [
-     143.698,
-     143.863
+     143.991,
+     144.208
     ],
     [
-     143.863,
-     143.863
+     144.208,
+     144.398
+    ],
+    [
+     144.398,
+     144.398
     ]
    ],
    "pages": [
     {
      "from": 0,
-     "to": 15,
-     "text": "白紙には戻らず、同じ紙の上で。"
+     "to": 16,
+     "text": "白紙には戻らず、前の紙に重ねて。"
     }
    ],
    "tokens": [
     {
      "text": "白紙",
-     "startMs": 141468,
-     "endMs": 141853,
-     "timestampMs": 141660,
+     "startMs": 141473,
+     "endMs": 141858,
+     "timestampMs": 141666,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "に",
-     "startMs": 141853,
-     "endMs": 141988,
-     "timestampMs": 141920,
+     "startMs": 141858,
+     "endMs": 141998,
+     "timestampMs": 141928,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "は",
-     "startMs": 141988,
-     "endMs": 142138,
-     "timestampMs": 142063,
+     "startMs": 141998,
+     "endMs": 142153,
+     "timestampMs": 142075,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "戻ら",
-     "startMs": 142138,
-     "endMs": 142503,
-     "timestampMs": 142320,
+     "startMs": 142153,
+     "endMs": 142523,
+     "timestampMs": 142338,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "ず",
-     "startMs": 142503,
-     "endMs": 142683,
-     "timestampMs": 142593,
+     "startMs": 142523,
+     "endMs": 142703,
+     "timestampMs": 142613,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 142683,
-     "endMs": 142683,
-     "timestampMs": 142683,
+     "startMs": 142703,
+     "endMs": 142703,
+     "timestampMs": 142703,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "同じ",
-     "startMs": 142748,
-     "endMs": 143138,
-     "timestampMs": 142943,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "紙",
-     "startMs": 143138,
-     "endMs": 143418,
-     "timestampMs": 143278,
+     "text": "前",
+     "startMs": 142803,
+     "endMs": 143018,
+     "timestampMs": 142910,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "の",
-     "startMs": 143418,
-     "endMs": 143558,
-     "timestampMs": 143488,
+     "startMs": 143018,
+     "endMs": 143213,
+     "timestampMs": 143116,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "上",
-     "startMs": 143558,
-     "endMs": 143698,
+     "text": "紙",
+     "startMs": 143213,
+     "endMs": 143548,
+     "timestampMs": 143380,
+     "confidence": null,
+     "pageBreakAfter": false
+    },
+    {
+     "text": "に",
+     "startMs": 143548,
+     "endMs": 143708,
      "timestampMs": 143628,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "で",
-     "startMs": 143698,
-     "endMs": 143863,
-     "timestampMs": 143781,
+     "text": "重ね",
+     "startMs": 143773,
+     "endMs": 144208,
+     "timestampMs": 143990,
+     "confidence": null,
+     "pageBreakAfter": false
+    },
+    {
+     "text": "て",
+     "startMs": 144208,
+     "endMs": 144398,
+     "timestampMs": 144303,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 143863,
-     "endMs": 143863,
-     "timestampMs": 143863,
+     "startMs": 144398,
+     "endMs": 144398,
+     "timestampMs": 144398,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -8700,125 +8578,125 @@
   {
    "id": "n38",
    "sec": "s5d",
-   "start": 144.211,
-   "end": 148.404,
+   "start": 144.752,
+   "end": 149.018,
    "text": "前の一歩を、本人の言葉のまま、小さくした案を出してくれる。",
    "chars": [
     [
-     144.246,
-     144.446
+     144.785,
+     145.0
     ],
     [
-     144.446,
-     144.596
+     145.0,
+     145.15
     ],
     [
-     144.596,
-     144.741
+     145.15,
+     145.297
     ],
     [
-     144.741,
-     144.886
+     145.297,
+     145.445
     ],
     [
-     144.886,
-     145.021
+     145.445,
+     145.585
     ],
     [
-     145.021,
-     145.021
+     145.585,
+     145.585
     ],
     [
-     145.061,
-     145.271
+     145.63,
+     145.842
     ],
     [
-     145.271,
-     145.481
+     145.842,
+     146.055
     ],
     [
-     145.481,
-     145.626
+     146.055,
+     146.2
     ],
     [
-     145.626,
-     145.813
+     146.2,
+     146.39
     ],
     [
-     145.813,
-     146.001
+     146.39,
+     146.58
     ],
     [
-     146.001,
-     146.131
+     146.58,
+     146.71
     ],
     [
-     146.131,
-     146.288
+     146.71,
+     146.867
     ],
     [
-     146.288,
-     146.446
+     146.867,
+     147.025
     ],
     [
-     146.446,
-     146.446
+     147.025,
+     147.025
     ],
     [
-     146.486,
-     146.659
+     147.07,
+     147.243
     ],
     [
-     146.659,
-     146.833
+     147.243,
+     147.416
     ],
     [
-     146.833,
-     147.006
+     147.416,
+     147.59
     ],
     [
-     147.006,
-     147.126
+     147.59,
+     147.71
     ],
     [
-     147.126,
-     147.256
+     147.71,
+     147.845
     ],
     [
-     147.256,
-     147.406
+     147.845,
+     148.0
     ],
     [
-     147.406,
-     147.541
+     148.0,
+     148.135
     ],
     [
-     147.621,
-     147.731
+     148.225,
+     148.335
     ],
     [
-     147.731,
-     147.841
+     148.335,
+     148.445
     ],
     [
-     147.841,
-     147.996
+     148.445,
+     148.6
     ],
     [
-     147.996,
-     148.128
+     148.6,
+     148.733
     ],
     [
-     148.128,
-     148.259
+     148.733,
+     148.866
     ],
     [
-     148.259,
-     148.391
+     148.866,
+     149.0
     ],
     [
-     148.391,
-     148.391
+     149.0,
+     149.0
     ]
    ],
    "pages": [
@@ -8836,169 +8714,169 @@
    "tokens": [
     {
      "text": "前",
-     "startMs": 144246,
-     "endMs": 144446,
-     "timestampMs": 144346,
+     "startMs": 144785,
+     "endMs": 145000,
+     "timestampMs": 144892,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "の",
-     "startMs": 144446,
-     "endMs": 144596,
-     "timestampMs": 144521,
+     "startMs": 145000,
+     "endMs": 145150,
+     "timestampMs": 145075,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "一",
-     "startMs": 144596,
-     "endMs": 144741,
-     "timestampMs": 144668,
+     "startMs": 145150,
+     "endMs": 145297,
+     "timestampMs": 145224,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "歩",
-     "startMs": 144741,
-     "endMs": 144886,
-     "timestampMs": 144814,
+     "startMs": 145297,
+     "endMs": 145445,
+     "timestampMs": 145371,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "を",
-     "startMs": 144886,
-     "endMs": 145021,
-     "timestampMs": 144954,
+     "startMs": 145445,
+     "endMs": 145585,
+     "timestampMs": 145515,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 145021,
-     "endMs": 145021,
-     "timestampMs": 145021,
+     "startMs": 145585,
+     "endMs": 145585,
+     "timestampMs": 145585,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "本人",
-     "startMs": 145061,
-     "endMs": 145481,
-     "timestampMs": 145271,
+     "startMs": 145630,
+     "endMs": 146055,
+     "timestampMs": 145842,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "の",
-     "startMs": 145481,
-     "endMs": 145626,
-     "timestampMs": 145554,
+     "startMs": 146055,
+     "endMs": 146200,
+     "timestampMs": 146128,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "言葉",
-     "startMs": 145626,
-     "endMs": 146001,
-     "timestampMs": 145814,
+     "startMs": 146200,
+     "endMs": 146580,
+     "timestampMs": 146390,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "の",
-     "startMs": 146001,
-     "endMs": 146131,
-     "timestampMs": 146066,
+     "startMs": 146580,
+     "endMs": 146710,
+     "timestampMs": 146645,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "まま",
-     "startMs": 146131,
-     "endMs": 146446,
-     "timestampMs": 146288,
+     "startMs": 146710,
+     "endMs": 147025,
+     "timestampMs": 146868,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 146446,
-     "endMs": 146446,
-     "timestampMs": 146446,
+     "startMs": 147025,
+     "endMs": 147025,
+     "timestampMs": 147025,
      "confidence": null,
      "pageBreakAfter": true
     },
     {
      "text": "小さく",
-     "startMs": 146486,
-     "endMs": 147006,
-     "timestampMs": 146746,
+     "startMs": 147070,
+     "endMs": 147590,
+     "timestampMs": 147330,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "し",
-     "startMs": 147006,
-     "endMs": 147126,
-     "timestampMs": 147066,
+     "startMs": 147590,
+     "endMs": 147710,
+     "timestampMs": 147650,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "た",
-     "startMs": 147126,
-     "endMs": 147256,
-     "timestampMs": 147191,
+     "startMs": 147710,
+     "endMs": 147845,
+     "timestampMs": 147778,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "案",
-     "startMs": 147256,
-     "endMs": 147406,
-     "timestampMs": 147331,
+     "startMs": 147845,
+     "endMs": 148000,
+     "timestampMs": 147922,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "を",
-     "startMs": 147406,
-     "endMs": 147541,
-     "timestampMs": 147474,
+     "startMs": 148000,
+     "endMs": 148135,
+     "timestampMs": 148068,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "出し",
-     "startMs": 147621,
-     "endMs": 147841,
-     "timestampMs": 147731,
+     "startMs": 148225,
+     "endMs": 148445,
+     "timestampMs": 148335,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "て",
-     "startMs": 147841,
-     "endMs": 147996,
-     "timestampMs": 147918,
+     "startMs": 148445,
+     "endMs": 148600,
+     "timestampMs": 148522,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "くれる",
-     "startMs": 147996,
-     "endMs": 148391,
-     "timestampMs": 148194,
+     "startMs": 148600,
+     "endMs": 149000,
+     "timestampMs": 148800,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 148391,
-     "endMs": 148391,
-     "timestampMs": 148391,
+     "startMs": 149000,
+     "endMs": 149000,
+     "timestampMs": 149000,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -9007,212 +8885,132 @@
   {
    "id": "n39",
    "sec": "s5d",
-   "start": 148.724,
-   "end": 151.26,
-   "text": "「相談したいことがあります」とだけ、送る。",
+   "start": 149.338,
+   "end": 151.112,
+   "text": "「見出しを3つだけ書く」。",
    "chars": [
     [
-     148.741,
-     148.741
+     149.371,
+     149.462
     ],
     [
-     148.741,
-     148.933
+     149.462,
+     149.553
     ],
     [
-     148.933,
-     149.126
+     149.553,
+     149.644
     ],
     [
-     149.126,
-     149.241
+     149.644,
+     149.781
     ],
     [
-     149.241,
-     149.358
+     149.781,
+     149.901
     ],
     [
-     149.358,
-     149.476
+     149.901,
+     150.241
     ],
     [
-     149.476,
-     149.598
+     150.241,
+     150.376
     ],
     [
-     149.598,
-     149.721
+     150.376,
+     150.551
     ],
     [
-     149.721,
-     149.851
+     150.551,
+     150.726
     ],
     [
-     149.851,
-     149.941
+     150.771,
+     150.933
     ],
     [
-     149.941,
-     150.031
+     150.933,
+     151.096
     ],
     [
-     150.031,
-     150.191
+     151.096,
+     151.096
     ],
     [
-     150.191,
-     150.351
-    ],
-    [
-     150.351,
-     150.351
-    ],
-    [
-     150.381,
-     150.481
-    ],
-    [
-     150.481,
-     150.648
-    ],
-    [
-     150.648,
-     150.816
-    ],
-    [
-     150.816,
-     150.816
-    ],
-    [
-     150.881,
-     151.063
-    ],
-    [
-     151.063,
-     151.246
-    ],
-    [
-     151.246,
-     151.246
+     151.096,
+     151.096
     ]
    ],
    "pages": [
     {
      "from": 0,
-     "to": 21,
-     "text": "「相談したいことがあります」とだけ、送る。"
+     "to": 13,
+     "text": "「見出しを3つだけ書く」。"
     }
    ],
    "tokens": [
     {
      "text": "「",
-     "startMs": 148741,
-     "endMs": 148741,
-     "timestampMs": 148741,
+     "startMs": 149371,
+     "endMs": 149462,
+     "timestampMs": 149416,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "相談",
-     "startMs": 148741,
-     "endMs": 149126,
-     "timestampMs": 148934,
+     "text": "見出し",
+     "startMs": 149462,
+     "endMs": 149781,
+     "timestampMs": 149622,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "し",
-     "startMs": 149126,
-     "endMs": 149241,
-     "timestampMs": 149184,
+     "text": "を",
+     "startMs": 149781,
+     "endMs": 149901,
+     "timestampMs": 149841,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "たい",
-     "startMs": 149241,
-     "endMs": 149476,
-     "timestampMs": 149358,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "こと",
-     "startMs": 149476,
-     "endMs": 149721,
-     "timestampMs": 149598,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "が",
-     "startMs": 149721,
-     "endMs": 149851,
-     "timestampMs": 149786,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "あり",
-     "startMs": 149851,
-     "endMs": 150031,
-     "timestampMs": 149941,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "ます",
-     "startMs": 150031,
-     "endMs": 150351,
-     "timestampMs": 150191,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "」",
-     "startMs": 150351,
-     "endMs": 150351,
-     "timestampMs": 150351,
-     "confidence": null,
-     "pageBreakAfter": false
-    },
-    {
-     "text": "と",
-     "startMs": 150381,
-     "endMs": 150481,
-     "timestampMs": 150431,
+     "text": "3つ",
+     "startMs": 149901,
+     "endMs": 150376,
+     "timestampMs": 150139,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "だけ",
-     "startMs": 150481,
-     "endMs": 150816,
-     "timestampMs": 150648,
+     "startMs": 150376,
+     "endMs": 150726,
+     "timestampMs": 150551,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "、",
-     "startMs": 150816,
-     "endMs": 150816,
-     "timestampMs": 150816,
+     "text": "書く",
+     "startMs": 150771,
+     "endMs": 151096,
+     "timestampMs": 150933,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "送る",
-     "startMs": 150881,
-     "endMs": 151246,
-     "timestampMs": 151064,
+     "text": "」",
+     "startMs": 151096,
+     "endMs": 151096,
+     "timestampMs": 151096,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 151246,
-     "endMs": 151246,
-     "timestampMs": 151246,
+     "startMs": 151096,
+     "endMs": 151096,
+     "timestampMs": 151096,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -9222,8 +9020,8 @@
    "id": "n40",
    "sec": "s5e",
    "start": 153.0,
-   "end": 155.187,
-   "text": "これが、2回目の一歩です。",
+   "end": 155.173,
+   "text": "これが、2枚目の一歩です。",
    "chars": [
     [
      152.996,
@@ -9243,46 +9041,46 @@
     ],
     [
      153.621,
-     153.804
+     153.798
     ],
     [
-     153.804,
-     153.988
+     153.798,
+     153.974
     ],
     [
-     153.988,
-     154.171
+     153.974,
+     154.151
     ],
     [
-     154.171,
-     154.366
+     154.151,
+     154.351
     ],
     [
-     154.366,
-     154.619
+     154.351,
+     154.604
     ],
     [
-     154.619,
-     154.871
+     154.604,
+     154.856
     ],
     [
-     154.871,
-     155.029
+     154.856,
+     155.014
     ],
     [
-     155.029,
-     155.186
+     155.014,
+     155.171
     ],
     [
-     155.186,
-     155.186
+     155.171,
+     155.171
     ]
    ],
    "pages": [
     {
      "from": 0,
      "to": 13,
-     "text": "これが、2回目の一歩です。"
+     "text": "これが、2枚目の一歩です。"
     }
    ],
    "tokens": [
@@ -9313,64 +9111,64 @@
     {
      "text": "2",
      "startMs": 153621,
-     "endMs": 153804,
-     "timestampMs": 153712,
+     "endMs": 153798,
+     "timestampMs": 153710,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
-     "text": "回",
-     "startMs": 153804,
-     "endMs": 153988,
-     "timestampMs": 153896,
+     "text": "枚",
+     "startMs": 153798,
+     "endMs": 153974,
+     "timestampMs": 153886,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "目",
-     "startMs": 153988,
-     "endMs": 154171,
-     "timestampMs": 154080,
+     "startMs": 153974,
+     "endMs": 154151,
+     "timestampMs": 154062,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "の",
-     "startMs": 154171,
-     "endMs": 154366,
-     "timestampMs": 154269,
+     "startMs": 154151,
+     "endMs": 154351,
+     "timestampMs": 154251,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "一",
-     "startMs": 154366,
-     "endMs": 154619,
-     "timestampMs": 154492,
+     "startMs": 154351,
+     "endMs": 154604,
+     "timestampMs": 154478,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "歩",
-     "startMs": 154619,
-     "endMs": 154871,
-     "timestampMs": 154745,
+     "startMs": 154604,
+     "endMs": 154856,
+     "timestampMs": 154730,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "です",
-     "startMs": 154871,
-     "endMs": 155186,
-     "timestampMs": 155028,
+     "startMs": 154856,
+     "endMs": 155171,
+     "timestampMs": 155014,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 155186,
-     "endMs": 155186,
-     "timestampMs": 155186,
+     "startMs": 155171,
+     "endMs": 155171,
+     "timestampMs": 155171,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -9379,65 +9177,65 @@
   {
    "id": "n41",
    "sec": "s5e",
-   "start": 155.507,
-   "end": 157.543,
+   "start": 155.493,
+   "end": 157.529,
    "text": "一回でうまくいかなくていい。",
    "chars": [
     [
-     155.543,
-     155.756
+     155.529,
+     155.742
     ],
     [
-     155.756,
-     155.968
+     155.742,
+     155.954
     ],
     [
-     155.968,
-     156.143
+     155.954,
+     156.129
     ],
     [
-     156.308,
-     156.43
+     156.294,
+     156.416
     ],
     [
-     156.43,
-     156.551
+     156.416,
+     156.537
     ],
     [
-     156.551,
-     156.673
+     156.537,
+     156.659
     ],
     [
-     156.673,
-     156.793
+     156.659,
+     156.779
     ],
     [
-     156.793,
-     156.913
+     156.779,
+     156.899
     ],
     [
-     156.913,
-     157.033
+     156.899,
+     157.019
     ],
     [
-     157.033,
-     157.153
+     157.019,
+     157.139
     ],
     [
-     157.153,
-     157.293
+     157.139,
+     157.279
     ],
     [
-     157.293,
-     157.406
+     157.279,
+     157.392
     ],
     [
-     157.406,
-     157.518
+     157.392,
+     157.504
     ],
     [
-     157.518,
-     157.518
+     157.504,
+     157.504
     ]
    ],
    "pages": [
@@ -9450,73 +9248,73 @@
    "tokens": [
     {
      "text": "一",
-     "startMs": 155543,
-     "endMs": 155756,
-     "timestampMs": 155650,
+     "startMs": 155529,
+     "endMs": 155742,
+     "timestampMs": 155635,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "回",
-     "startMs": 155756,
-     "endMs": 155968,
-     "timestampMs": 155862,
+     "startMs": 155742,
+     "endMs": 155954,
+     "timestampMs": 155848,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "で",
-     "startMs": 155968,
-     "endMs": 156143,
-     "timestampMs": 156056,
+     "startMs": 155954,
+     "endMs": 156129,
+     "timestampMs": 156041,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "うまく",
-     "startMs": 156308,
-     "endMs": 156673,
-     "timestampMs": 156490,
+     "startMs": 156294,
+     "endMs": 156659,
+     "timestampMs": 156476,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "いか",
-     "startMs": 156673,
-     "endMs": 156913,
-     "timestampMs": 156793,
+     "startMs": 156659,
+     "endMs": 156899,
+     "timestampMs": 156779,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "なく",
-     "startMs": 156913,
-     "endMs": 157153,
-     "timestampMs": 157033,
+     "startMs": 156899,
+     "endMs": 157139,
+     "timestampMs": 157019,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "て",
-     "startMs": 157153,
-     "endMs": 157293,
-     "timestampMs": 157223,
+     "startMs": 157139,
+     "endMs": 157279,
+     "timestampMs": 157209,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "いい",
-     "startMs": 157293,
-     "endMs": 157518,
-     "timestampMs": 157406,
+     "startMs": 157279,
+     "endMs": 157504,
+     "timestampMs": 157392,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 157518,
-     "endMs": 157518,
-     "timestampMs": 157518,
+     "startMs": 157504,
+     "endMs": 157504,
+     "timestampMs": 157504,
      "confidence": null,
      "pageBreakAfter": true
     }
@@ -9525,85 +9323,85 @@
   {
    "id": "n42",
    "sec": "s5e",
-   "start": 157.863,
-   "end": 160.665,
+   "start": 157.849,
+   "end": 160.65,
    "text": "止まっても、そこから続きを書けばいい。",
    "chars": [
     [
-     157.859,
-     157.996
+     157.845,
+     157.982
     ],
     [
-     157.996,
-     158.132
+     157.982,
+     158.118
     ],
     [
-     158.132,
-     158.269
+     158.118,
+     158.255
     ],
     [
-     158.269,
-     158.399
+     158.255,
+     158.385
     ],
     [
-     158.399,
-     158.594
+     158.385,
+     158.58
     ],
     [
-     158.594,
-     158.594
+     158.58,
+     158.58
     ],
     [
-     158.784,
-     158.949
+     158.77,
+     158.935
     ],
     [
-     158.949,
-     159.114
+     158.935,
+     159.1
     ],
     [
-     159.114,
-     159.269
+     159.1,
+     159.255
     ],
     [
-     159.269,
-     159.424
+     159.255,
+     159.41
     ],
     [
-     159.424,
-     159.642
+     159.41,
+     159.628
     ],
     [
-     159.642,
-     159.859
+     159.628,
+     159.845
     ],
     [
-     159.859,
-     159.994
+     159.845,
+     159.98
     ],
     [
-     159.994,
-     160.137
+     159.98,
+     160.123
     ],
     [
-     160.137,
-     160.279
+     160.123,
+     160.265
     ],
     [
-     160.279,
-     160.414
+     160.265,
+     160.4
     ],
     [
-     160.414,
-     160.534
+     160.4,
+     160.52
     ],
     [
-     160.534,
-     160.654
+     160.52,
+     160.64
     ],
     [
-     160.654,
-     160.654
+     160.64,
+     160.64
     ]
    ],
    "pages": [
@@ -9616,97 +9414,97 @@
    "tokens": [
     {
      "text": "止まっ",
-     "startMs": 157859,
-     "endMs": 158269,
-     "timestampMs": 158064,
+     "startMs": 157845,
+     "endMs": 158255,
+     "timestampMs": 158050,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "て",
-     "startMs": 158269,
-     "endMs": 158399,
-     "timestampMs": 158334,
+     "startMs": 158255,
+     "endMs": 158385,
+     "timestampMs": 158320,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "も",
-     "startMs": 158399,
-     "endMs": 158594,
-     "timestampMs": 158496,
+     "startMs": 158385,
+     "endMs": 158580,
+     "timestampMs": 158483,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "、",
-     "startMs": 158594,
-     "endMs": 158594,
-     "timestampMs": 158594,
+     "startMs": 158580,
+     "endMs": 158580,
+     "timestampMs": 158580,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "そこ",
-     "startMs": 158784,
-     "endMs": 159114,
-     "timestampMs": 158949,
+     "startMs": 158770,
+     "endMs": 159100,
+     "timestampMs": 158935,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "から",
-     "startMs": 159114,
-     "endMs": 159424,
-     "timestampMs": 159269,
+     "startMs": 159100,
+     "endMs": 159410,
+     "timestampMs": 159255,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "続き",
-     "startMs": 159424,
-     "endMs": 159859,
-     "timestampMs": 159642,
+     "startMs": 159410,
+     "endMs": 159845,
+     "timestampMs": 159628,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "を",
-     "startMs": 159859,
-     "endMs": 159994,
-     "timestampMs": 159926,
+     "startMs": 159845,
+     "endMs": 159980,
+     "timestampMs": 159912,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "書け",
-     "startMs": 159994,
-     "endMs": 160279,
-     "timestampMs": 160136,
+     "startMs": 159980,
+     "endMs": 160265,
+     "timestampMs": 160122,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "ば",
-     "startMs": 160279,
-     "endMs": 160414,
-     "timestampMs": 160346,
+     "startMs": 160265,
+     "endMs": 160400,
+     "timestampMs": 160332,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "いい",
-     "startMs": 160414,
-     "endMs": 160654,
-     "timestampMs": 160534,
+     "startMs": 160400,
+     "endMs": 160640,
+     "timestampMs": 160520,
      "confidence": null,
      "pageBreakAfter": false
     },
     {
      "text": "。",
-     "startMs": 160654,
-     "endMs": 160654,
-     "timestampMs": 160654,
+     "startMs": 160640,
+     "endMs": 160640,
+     "timestampMs": 160640,
      "confidence": null,
      "pageBreakAfter": true
     }

@@ -1,4 +1,4 @@
-// ⑤ デモ：上司への相談が、もう一度動くまで（書く → 決める → 止まる → もう一度 → 動けた）
+// ⑤ デモ：止まった企画書が、もう一度動くまで（書く → 決める → 止まる → もう一度 → 動けた）
 import React from "react";
 import { Circle, Highlight } from "@remotion/rough-notation";
 import { AbsoluteFill } from "remotion";
@@ -8,34 +8,34 @@ import { W } from "../lib/warp";
 
 // ---- 中身（台本 v5「画面録画で入力する内容」に合わせたダミー） ----
 const FR = ["いま困っていること", "目標", "案を出す", "一歩を決める", "いつ・どこで", "最初の2分", "やってみた"];
-const PROBLEM2 = "上司に相談したいが、言い出せていない。";
-const PAPER1 = ["締切が3つ重なって1つ間に合わない。上司に言い出せていない", "上司に相談して、締切を1つずらしてもらう", "1on1で全部話す／先に一言送る／先輩に聞く",
-  "来週の1on1で、全部話す（30分）", "月曜 15:00 ・ 1on1", "話すことをメモに書く", ""];
-const NEW_STEP = "「相談したいことがあります」とだけ、チャットで送る（1分）";
-const PAPER2 = [PAPER1[0], PAPER1[1], PAPER1[2], NEW_STEP, "今日 18:00 ・ 自分の席", "チャットを開く", "「相談したいことがあります」と送れた"];
-const A1 = "締切が重なってる";
-const A2 = "水木金。金曜のが無理";
-const GOAL = "上司に相談して、締切を1つずらしてもらう";
-const IDEAS: [string, number, number][] = [["来週の1on1で全部話す", W(106.8), W(107.2)], ["チャットで先に一言送る", W(107.7), W(108.05)], ["先輩に相談の仕方を聞く", W(108.55), W(108.9)]];
-const EVIDENCE: [string, string, boolean][] = [["10/03", "一歩 3分", true], ["10/08", "一歩 30分", false], ["10/12", "一歩 5分", true], ["10/17", "一歩 1時間", false], ["10/21", "一歩 2分", true], ["10/24", "一歩 5分", true], ["11/09", "一歩 30分", false]];
+const PROBLEM2 = "月曜までに出さないといけない。";
+const PAPER1 = ["何から書けばいいか分からず、最初の1行で止まる", "月曜までに企画書を出す", "土曜に全部書く／見出しだけ先に作る／先輩の企画書を見る",
+  "土曜に、企画書を全部書く（3時間）", "土曜 10:00 ・ 自宅の机", "企画書のファイルを開く", ""];
+const NEW_STEP = "見出しを3つだけ書く（5分）";
+const PAPER2 = [PAPER1[0], PAPER1[1], PAPER1[2], NEW_STEP, "土曜 15:00 ・ 自宅の机", "ファイルを開いて「1.」と打つ", "見出しを3つ書けた"];
+const A1 = "何を書けばいいか分からない";
+const A2 = "最初の1行";
+const GOAL = "月曜までに企画書を出す";
+const IDEAS: [string, number, number][] = [["土曜に全部書く", W(106.8), W(107.2)], ["見出しだけ先に作る", W(107.7), W(108.05)], ["先輩の企画書を見せてもらう", W(108.55), W(108.9)]];
+const EVIDENCE: [string, string, boolean][] = [["10/03", "一歩 3分", true], ["10/08", "一歩 30分", false], ["10/12", "一歩 5分", true], ["10/17", "一歩 1時間", false], ["10/21", "一歩 2分", true], ["10/24", "一歩 5分", true], ["11/14", "一歩 3時間", false]];
 const STAGES: [string, string, number, number, string][] = [
   ["書く", "困りごとを、そのまま", 60, W(106.5), "#2E7672"],
-  ["決める", "案を出して、1回目の一歩", W(106.5), W(113.0), "#2E7672"],
+  ["決める", "案を出して、最初の一歩", W(106.5), W(113.0), "#2E7672"],
   ["止まる", "できなかった日", W(113.0), W(129.4), "#DE5440"],
-  ["もう一度", "同じ紙で、一歩を小さく", W(129.4), W(143.0), "#DE5440"],
-  ["動けた", "2回目の挑戦で", W(143.0), 200, "#2E7672"],
+  ["もう一度", "前の紙に重ねて、一歩を小さく", W(129.4), W(143.0), "#DE5440"],
+  ["動けた", "2枚目の紙で", W(143.0), 200, "#2E7672"],
 ];
 
 // ---- 時刻（効果音からも使う） ----
 export const Q1 = () => S("n28") + 0.1;
 export const SEND1 = () => Q1() + 1.0;
 export const Q2 = () => SEND1() + 0.05;
-export const SEND2 = () => at("n28", "締切") - 0.05;
+export const SEND2 = () => at("n28", "何から") - 0.05;
 export const IDEA_LAND = (k: number) => IDEAS[k][2] + 0.15 + 0.45;
 const TAP_AGAIN = () => at("n36", "もう一度") + 0.1;
 const TAP_GO = () => En("n39") + 0.25;
 export const DEMO_TAPS = (): [number, number, number][] => [
-  [at("n30", "来週"), 120, 251], [at("n31", "今") - 0.15, 198, 330], [at("n32", "言い出せ") + 0.3, 198, 607],
+  [at("n30", "土曜"), 120, 251], [at("n31", "今") - 0.15, 198, 330], [at("n32", "つけられ") + 0.3, 198, 607],
   [TAP_AGAIN(), 198, 551], [TAP_GO(), 198, 772], [W(144.0), 198, 686],
 ];
 export const NOTIFY_T = () => at("n31", "アプリが聞きます") - 0.1;
@@ -136,7 +136,7 @@ export const Demo: React.FC<SceneProps> = ({ from }) => {
         <div className="clabel" style={{ top: PY(160) - 40, ...label(at("n34", "Claude") - 0.1, W(129.6)) }}><i /><small>Claude</small>これまでの紙を読む</div>
         <div className="clabel" style={{ top: PY(560) - 40, ...label(at("n38", "本人の言葉") - 0.25, En("n39") + 0.4) }}><i /><small>Claude</small>あなたの言葉のまま、小さくする</div>
         <div id="rail" style={{ opacity: 1 - zoom }}>
-          <div className="eyebrow">上司への相談が、もう一度動くまで</div>
+          <div className="eyebrow">止まった企画書が、もう一度動くまで</div>
           {STAGES.map(([tt, dd, a, b, color], k) => {
             const act = win(t, a, b, 0.35);
             const done = t > b;
@@ -156,7 +156,7 @@ export const Demo: React.FC<SceneProps> = ({ from }) => {
       </div>
       <ProblemChip t={t} n={1} text="一人だと、具体的にできない" answer="問いに答えて、具体的に" a={S("n27")} ok={at("n28", "見えてくる")} b={W(106.4)} zoom={zoom} />
       <ProblemChip t={t} n={2} text="「できなかった」と書くのが、つらい" answer="できなかった日が、手がかりになる" a={S("n33")} ok={S("n35")} b={W(129.3)} zoom={zoom} />
-      <ProblemChip t={t} n={3} text="もう一度向き合うのは、もっとつらい" answer="同じ紙の上で、一歩を小さく" a={S("n36")} ok={at("n39", "送る")} b={W(142.9)} red zoom={zoom} />
+      <ProblemChip t={t} n={3} text="もう一度向き合うのは、もっとつらい" answer="前の紙に重ねて、一歩を小さく" a={S("n36")} ok={at("n39", "書く")} b={W(142.9)} red zoom={zoom} />
       <div className="ff-chip" style={{ left: 770, top: 34, opacity: fastForward(t) }}>▶▶ 早送り</div>
       <PhTag label="仮画面" right opacity={P(t, W(94.4), W(94.9))}>アプリの画面録画（iPhone）に差し替え</PhTag>
     </AbsoluteFill>
@@ -170,7 +170,7 @@ const fastForward = (t: number) => {
 
 const StatusBar: React.FC<{ t: number }> = ({ t }) => (
   <div className="statusbar">
-    <span>{t < W(113.3) ? "20:15" : t < at("n31", "今") ? "" : t < W(129.4) ? "15:30" : "18:00"}</span>
+    <span>{t < W(113.3) ? "20:15" : t < at("n31", "今") ? "" : t < W(129.4) ? "10:00" : "15:00"}</span>
     <span className="icons">
       <i style={{ width: 18, height: 11 }} />
       <i style={{ width: 16, height: 11, borderRadius: 6 }} />
@@ -198,19 +198,19 @@ const PaperScreen: React.FC<{ t: number }> = ({ t }) => {
   if (o <= 0) return null;
   const tFail = at("n33", "できなかった");
   const fill = (i: number) => {
-    if (t > 112 && t < 114) return i < 2 ? 1 : i < 6 ? P(t, W(112.6) + (i - 2) * 0.12, W(112.75) + (i - 2) * 0.12, EASE.lin) : 0;
-    if (t > 114) return i < 6 ? 1 : P(t, tFail - 0.05, tFail + 0.1, EASE.lin);
+    if (t > W(112) && t < W(114)) return i < 2 ? 1 : i < 6 ? P(t, W(112.6) + (i - 2) * 0.12, W(112.75) + (i - 2) * 0.12, EASE.lin) : 0;
+    if (t > W(114)) return i < 6 ? 1 : P(t, tFail - 0.05, tFail + 0.1, EASE.lin);
     return 0;
   };
-  const stopped = t > 114 ? P(t, STOP_T() - 0.2, STOP_T() + 0.2, EASE.lin) : 0;
-  const ps = t > 114 ? P(t, STOP_T(), STOP_T() + 0.16, EASE.out) : 0;
-  const pulse = t < 97 ? win(t, W(95.0), W(96.6), 0.3) * (0.5 + 0.5 * Math.sin((t - W(95.0)) * 7)) : 0;
+  const stopped = t > W(114) ? P(t, STOP_T() - 0.2, STOP_T() + 0.2, EASE.lin) : 0;
+  const ps = t > W(114) ? P(t, STOP_T(), STOP_T() + 0.16, EASE.out) : 0;
+  const pulse = t < W(97) ? win(t, W(95.0), W(96.6), 0.3) * (0.5 + 0.5 * Math.sin((t - W(95.0)) * 7)) : 0;
   return (
     <Screen o={o}>
-      <div className="scr-head"><span className="chev">‹</span><span>新しい紙</span><span className="pill">1回目</span></div>
+      <div className="scr-head"><span className="chev">‹</span><span>新しい紙</span><span className="pill">1枚目</span></div>
       <div className="apaper" style={{ filter: stopped > 0 ? `saturate(${1 - 0.8 * stopped}) brightness(${1 - 0.08 * stopped})` : undefined }}>
         {FR.map((_, i) => (
-          <Frame key={i} i={i} text={PAPER1[i]} fill={fill(i)} hand={i === 6} typedText={i === 6 ? (t > 114 ? typed("できなかった", P(t, tFail, tFail + 0.6, EASE.lin)) : "") : undefined} />
+          <Frame key={i} i={i} text={PAPER1[i]} fill={fill(i)} hand={i === 6} typedText={i === 6 ? (t > W(114) ? typed("できなかった", P(t, tFail, tFail + 0.6, EASE.lin)) : "") : undefined} />
         ))}
       </div>
       {pulse > 0 && <div style={{ position: "absolute", left: 74, right: 32, top: 172, height: 40, borderRadius: 10, border: `2px solid ${mix("#E1D9CB", "#3F8F8A", pulse)}` }} />}
@@ -226,15 +226,14 @@ const DumpScreen: React.FC<{ t: number }> = ({ t }) => {
   const o = win(t, at("n27", "最初") - 0.2, W(106.75), 0.25);
   if (o <= 0) return null;
   const z = settle(t, at("n27", "最初") - 0.2, 0.55);
-  const tProb = at("n28", "締切");
-  let txt = spokenTyped(t, "n27", "仕事が回らない");
-  if (t > SEND1()) txt = "仕事が回らない。締切が重なっている。";
-  if (t > SEND2()) txt = spokenTyped(t, "n28", "締切が3つ重なって、1つ間に合わない") + (t > atEnd("n28", "間に合わない") ? "。" : "");
-  const extra = t > atEnd("n28", "間に合わない") + 0.1 ? typed(PROBLEM2, P(t, atEnd("n28", "間に合わない") + 0.1, atEnd("n28", "間に合わない") + 0.8, EASE.lin)) : "";
+  let txt = spokenTyped(t, "n27", "企画書が進まない");
+  if (t > SEND1()) txt = "企画書が進まない。何を書けばいいか分からない。";
+  if (t > SEND2()) txt = spokenTyped(t, "n28", "何から書けばいいか分からず、最初の1行で止まる") + (t > atEnd("n28", "止まる") ? "。" : "");
+  const extra = t > atEnd("n28", "止まる") + 0.1 ? typed(PROBLEM2, P(t, atEnd("n28", "止まる") + 0.1, atEnd("n28", "止まる") + 0.8, EASE.lin)) : "";
   let a = "";
   if (t < SEND1()) a = typed(A1, P(t, Q1() + 0.25, SEND1() - 0.1, EASE.lin));
   else if (t < SEND2()) a = typed(A2, P(t, Q2() + 0.3, SEND2() - 0.1, EASE.lin));
-  const hl = P(t, tProb, atEnd("n28", "間に合わない") + 0.2, EASE.io);
+  const hl = P(t, at("n28", "最初の1行"), atEnd("n28", "止まる") + 0.2, EASE.io);
   return (
     <Screen o={o} style={{ scale: lerp(0.3, 1, z).toFixed(4), transformOrigin: "198px 185px" }}>
       <div className="scr-head"><span className="chev">‹</span><span>1 いま困っていること</span></div>
@@ -242,9 +241,14 @@ const DumpScreen: React.FC<{ t: number }> = ({ t }) => {
         <div className="lbl">{t > SEND1() ? "場面" : "そのまま書いて大丈夫"}</div>
         <div className="txt">
           {t > SEND2() ? (
-            <Highlight progress={hl} color="rgba(222, 84, 64, 0.22)" iterations={1} padding={{ left: 2, right: 2, top: 1, bottom: 1 }}>
-              {txt}
-            </Highlight>
+            <>
+              {txt.slice(0, 14)}
+              {txt.length > 14 && (
+                <Highlight progress={hl} color="rgba(222, 84, 64, 0.22)" iterations={1} padding={{ left: 2, right: 2, top: 1, bottom: 1 }}>
+                  {txt.slice(14)}
+                </Highlight>
+              )}
+            </>
           ) : (
             txt
           )}
@@ -252,7 +256,7 @@ const DumpScreen: React.FC<{ t: number }> = ({ t }) => {
         </div>
       </div>
       <Bubble t={t} a={Q1()} b={SEND1()} dx={6} style={{ left: 22, top: 440 }}>何が一番困ってる？</Bubble>
-      <Bubble t={t} a={Q2()} b={SEND2()} dx={8} style={{ left: 70, top: 440 }}>いつまでに何がある？</Bubble>
+      <Bubble t={t} a={Q2()} b={SEND2()} dx={8} style={{ left: 70, top: 440 }}>どこで手が止まる？</Bubble>
       <div className="input" style={{ top: 700, opacity: P(t, Q1(), Q1() + 0.3, EASE.lin) * (1 - P(t, SEND2(), SEND2() + 0.3, EASE.lin)) }}>{a}</div>
     </Screen>
   );
@@ -272,7 +276,7 @@ const IdeasScreen: React.FC<{ t: number }> = ({ t }) => {
       ball = <div className="ball" style={{ opacity: 1, translate: `${(lerp(330, 40, p) - 17).toFixed(1)}px ${(lerp(788, 251 + k * 60, p) - 150 * Math.sin(Math.PI * p) - 17).toFixed(1)}px` }} />;
     }
   });
-  const tSel = at("n30", "来週");
+  const tSel = at("n30", "土曜");
   const ps = settle(t, tSel + 0.35, 0.4);
   return (
     <Screen o={o} style={{ translate: `${(40 * (1 - settle(t, W(106.55), 0.4))).toFixed(1)}px 0px` }}>
@@ -289,7 +293,7 @@ const IdeasScreen: React.FC<{ t: number }> = ({ t }) => {
           </div>
         );
       })}
-      {["5分だけなら、何をする？", "だれかに頼むなら？", "先に伝えるとしたら？"].map((q, k) => {
+      {["5分だけなら、何をする？", "だれかに聞くなら？", "先に決められることは？"].map((q, k) => {
         const u = t - W(106.5);
         return (
           <div key={q} className="bubble" style={{ left: [30, 150, 60][k], top: [470, 560, 640][k], fontSize: 17, opacity: P(t, W(106.7) + k * 0.25, W(107.1) + k * 0.25, EASE.out), translate: `${(10 * Math.sin(u * 0.7 + k)).toFixed(1)}px ${(-16 * Math.sin(u * 0.9 + k * 1.7) - u * 5).toFixed(1)}px` }}>
@@ -301,10 +305,10 @@ const IdeasScreen: React.FC<{ t: number }> = ({ t }) => {
       {ball}
       <div className="sheet-up" style={{ height: 380, translate: `0px ${(400 * (1 - ps)).toFixed(1)}px` }}>
         <div className="grab" />
-        <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 12 }}>一歩：来週の1on1で、全部話す（30分）</div>
-        <div className="ev" style={{ opacity: 1 }}><span className="d">いつ</span><span className="s">{typed("来週月曜 15:00", P(t, tSel + 0.8, tSel + 1.0, EASE.lin))}</span></div>
-        <div className="ev" style={{ opacity: 1 }}><span className="d">どこで</span><span className="s">{typed("1on1", P(t, tSel + 1.0, tSel + 1.15, EASE.lin))}</span></div>
-        <div className="ev" style={{ opacity: 1 }}><span className="d" style={{ flexBasis: 96 }}>最初の2分</span><span className="s">{typed("話すことをメモに書く", P(t, tSel + 1.15, tSel + 1.45, EASE.lin))}</span></div>
+        <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 12 }}>一歩：土曜に、企画書を全部書く（3時間）</div>
+        <div className="ev" style={{ opacity: 1 }}><span className="d">いつ</span><span className="s">{typed("土曜 10:00", P(t, tSel + 0.8, tSel + 1.0, EASE.lin))}</span></div>
+        <div className="ev" style={{ opacity: 1 }}><span className="d">どこで</span><span className="s">{typed("自宅の机", P(t, tSel + 1.0, tSel + 1.15, EASE.lin))}</span></div>
+        <div className="ev" style={{ opacity: 1 }}><span className="d" style={{ flexBasis: 96 }}>最初の2分</span><span className="s">{typed("企画書のファイルを開く", P(t, tSel + 1.15, tSel + 1.45, EASE.lin))}</span></div>
       </div>
     </Screen>
   );
@@ -316,14 +320,14 @@ const LockScreen: React.FC<{ t: number }> = ({ t }) => {
   const pn = settle(t, NOTIFY_T(), 0.45);
   return (
     <Screen o={o} id="scr-lock">
-      <div className="lock-date">11月9日 月曜日</div>
-      <div className="lock-time">15:30</div>
+      <div className="lock-date">11月14日 土曜日</div>
+      <div className="lock-time">10:00</div>
       <div className="notif" style={{ opacity: pn, translate: `0px ${(-140 * (1 - pn)).toFixed(1)}px` }}>
         <div className="app-ico" />
         <div style={{ flex: 1 }}>
-          <div className="nt"><span>【アプリ名】</span><span>いま</span></div>
+          <div className="nt"><span>ポケット問題解決</span><span>いま</span></div>
           <div className="nh">今、どう？</div>
-          <div className="nb">今日は「1on1で全部話す」の日です</div>
+          <div className="nb">今日は「企画書を全部書く」日です</div>
         </div>
       </div>
     </Screen>
@@ -333,11 +337,11 @@ const LockScreen: React.FC<{ t: number }> = ({ t }) => {
 const CheckScreen: React.FC<{ t: number }> = ({ t }) => {
   const o = win(t, at("n31", "今") - 0.2, at("n33", "紙") - 0.2, 0.25);
   if (o <= 0) return null;
-  const pressed = t > at("n32", "言い出せ") + 0.35;
+  const pressed = t > at("n32", "つけられ") + 0.35;
   return (
     <Screen o={o}>
       <div style={{ position: "absolute", left: 0, right: 0, top: 170, textAlign: "center", fontSize: 46, fontWeight: 700 }}>今、どう？</div>
-      <div style={{ position: "absolute", left: 0, right: 0, top: 240, textAlign: "center", fontSize: 18, color: "var(--ink-2)" }}>1on1で全部話す ・ 昨日 15:00</div>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 240, textAlign: "center", fontSize: 18, color: "var(--ink-2)" }}>企画書を全部書く ・ 今日 10:00</div>
       <div className="btn" style={{ top: 420, opacity: 1 }}>やった</div>
       <div className="btn outline" style={{ top: 498, opacity: 1 }}>まだこれから</div>
       <div className="btn outline" style={{ top: 576, opacity: 1, background: pressed ? "#ECE6DB" : "#fff", borderColor: pressed ? "#9A9284" : "#D9D0C0" }}>できなかった</div>
@@ -378,7 +382,7 @@ const RecordScreen: React.FC<{ t: number }> = ({ t }) => {
           だった。
         </div>
       </div>
-      <div className="btn red" style={{ top: 520, opacity: ba, translate: `0px ${(20 * (1 - ba)).toFixed(1)}px`, scale: t > TAP_AGAIN() && t < TAP_AGAIN() + 0.25 ? "0.96" : "1" }}>↻ この紙で、もう一度</div>
+      <div className="btn red" style={{ top: 520, opacity: ba, translate: `0px ${(20 * (1 - ba)).toFixed(1)}px`, scale: t > TAP_AGAIN() && t < TAP_AGAIN() + 0.25 ? "0.96" : "1" }}>↻ これで、もう一度</div>
       <div className="sheet-up" style={{ height: 560, translate: `0px ${(600 * (1 - ev)).toFixed(1)}px` }}>
         <div className="grab" />
         <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 6 }}>根拠：これまでの紙</div>
@@ -394,19 +398,19 @@ const RecordScreen: React.FC<{ t: number }> = ({ t }) => {
   );
 };
 
-// 同じ紙の上で、もう一度 → 一歩を小さく → 動けた
+// 前の紙に重ねて、もう一度 → 一歩を小さく → 動けた
 const StackScreen: React.FC<{ t: number }> = ({ t }) => {
   const o = t >= TAP_AGAIN() + 0.15 ? 1 : 0;
   if (o <= 0) return null;
   const pf = settle(t, STACK_T(), 0.9);
-  const tSame = at("n37", "同じ紙");
+  const tSame = at("n37", "前の紙");
   const pc = pop(t, tSame, 11);
   // 下書きのシート
   const sh = settle(t, S("n38") - 0.2, 0.5) * (1 - P(t, TAP_GO() + 0.2, TAP_GO() + 0.6, EASE.io));
   const tSmall = at("n38", "小さく");
   const arrow = P(t, tSmall - 0.3, tSmall + 0.05, EASE.out);
   const draft = pop(t, tSmall, 12);
-  const circ = P(t, at("n39", "とだけ"), atEnd("n39", "とだけ") + 0.3, EASE.io);
+  const circ = P(t, at("n39", "3つだけ"), atEnd("n39", "3つだけ") + 0.3, EASE.io);
   const go = settle(t, En("n39") - 0.3, 0.35);
   const updated = t > TAP_GO() + 0.3;
   // 動けた
@@ -416,11 +420,11 @@ const StackScreen: React.FC<{ t: number }> = ({ t }) => {
   const push = settle(t, TAP_AGAIN() + 0.15, 0.45); // 記録の画面を押し出して入る
   return (
     <Screen o={Math.max(o, push > 0 ? 1 : 0)} style={{ translate: `${(396 * (1 - push)).toFixed(1)}px 0px`, boxShadow: push < 1 ? "-12px 0 30px rgba(0,0,0,.12)" : undefined }}>
-      <div className="scr-head"><span className="chev">‹</span><span>上司に相談して、締切を…</span></div>
+      <div className="scr-head"><span className="chev">‹</span><span>月曜までに企画書を出す</span></div>
       <div className="stack-paper back" style={{ translate: "14px -20px", rotate: "2.6deg" }}>
         {FR.map((_, i) => <Frame key={i} i={i} text={PAPER1[i]} fill={i < 6 ? 1 : 1} hand={i === 6} typedText={i === 6 ? "できなかった" : undefined} />)}
       </div>
-      <div className="back-tab" style={{ left: 40, top: 104, opacity: P(t, STACK_T(), STACK_T() + 0.4, EASE.lin) }}>1回目 ・ 11/9</div>
+      <div className="back-tab" style={{ left: 40, top: 104, opacity: P(t, STACK_T(), STACK_T() + 0.4, EASE.lin) }}>1枚目 ・ 11/14</div>
       <div className="stack-paper" style={{ translate: `0px ${lerp(-760, 8, pf).toFixed(1)}px`, rotate: `${lerp(-4, 0, pf).toFixed(2)}deg`, background: mix("#FFFFFF", "#FFF4DA", glow), boxShadow: `0 0 0 ${(5 * glow).toFixed(1)}px rgba(240,190,94,${(0.6 * glow).toFixed(2)}), 0 6px 20px rgba(60,40,10,.14), 0 0 ${(40 * glow).toFixed(0)}px rgba(240,190,94,${(0.45 * glow).toFixed(2)})` }}>
         {FR.map((_, i) => (
           <Frame
@@ -433,7 +437,7 @@ const StackScreen: React.FC<{ t: number }> = ({ t }) => {
           />
         ))}
       </div>
-      <div className="count-pill" style={{ right: 30, top: 112, opacity: Math.min(1, pc * 2), scale: pc.toFixed(4) }}>2回目の挑戦</div>
+      <div className="count-pill" style={{ right: 30, top: 112, opacity: Math.min(1, pc * 2), scale: pc.toFixed(4) }}>2枚目</div>
       <Sparkles t={t} />
       {sh > 0 && (
         <div className="sheet-up" style={{ height: 560, translate: `0px ${(600 * (1 - sh)).toFixed(1)}px` }}>
@@ -441,7 +445,7 @@ const StackScreen: React.FC<{ t: number }> = ({ t }) => {
           <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 12 }}>もう一度：前の一歩を、小さく</div>
           <div className="again-blk old" style={{ position: "relative", left: 0, right: 0, opacity: 1 }}>
             <div className="lbl">前回の一歩</div>
-            <div className="txt">来週の1on1で全部話す（30分）</div>
+            <div className="txt">土曜に、企画書を全部書く（3時間）</div>
           </div>
           <div style={{ position: "relative", height: 56 }}>
             <div className="arrow-down" style={{ top: 6, height: 30 * arrow, opacity: Math.min(1, arrow * 3) }} />
@@ -449,11 +453,11 @@ const StackScreen: React.FC<{ t: number }> = ({ t }) => {
           <div className="again-blk draft" style={{ position: "relative", left: 0, right: 0, opacity: Math.min(1, draft * 2), scale: lerp(0.92, 1, draft).toFixed(4) }}>
             <div className="lbl" style={{ color: "var(--accent)" }}>小さくした下書き</div>
             <div className="txt">
-              「相談したいことがあります」
+              見出しを
               <Circle progress={circ} color="#DE5440" strokeWidth={2.5} iterations={1} padding={{ left: 6, right: 6, top: 4, bottom: 4 }}>
-                とだけ
+                3つだけ
               </Circle>
-              、チャットで送る（1分）
+              書く（5分）
             </div>
           </div>
           <div className="btn" style={{ position: "absolute", left: 18, right: 18, top: 445, opacity: go, scale: t > TAP_GO() && t < TAP_GO() + 0.25 ? "0.96" : "1" }}>この一歩でいく</div>
