@@ -69,7 +69,7 @@ const zoomKeys = (heavy: boolean): [number, number, number, number][] =>
     : [
         [14.9, 760, 560, 1.0], [T_WALK() - 0.25, 760, 560, 1.07], [T_WALK() + 1.9, 960, 540, 1.0],
         [T_WALK() + 3.0, 1100, 500, 1.0], [T_WIDE(), 1100, 500, 1.06], [T_WIDE() + 1.8, 1100, 500, 1.0],
-        [T_D0(), 760, 600, 1.035], [T_D1(), 960, 540, 1.0], [64, 1120, 430, 1.05],
+        [T_D0(), 760, 600, 1.035], [T_D1(), 960, 540, 1.0], [62, 1120, 430, 1.05],
       ];
 
 export const Wall3D: React.FC<SceneProps & { phase: "motive" | "heavy" }> = ({ from, phase }) => {

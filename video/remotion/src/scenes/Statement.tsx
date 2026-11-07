@@ -1,9 +1,9 @@
-// ③ の最後の一文と、④ コンセプト
+// ③ の最後（応募者としての私の意思）と、④ コンセプト
 import React from "react";
 import { Highlight } from "@remotion/rough-notation";
 import { AbsoluteFill } from "remotion";
 import { PhTag, SceneProps, useT } from "../components/common";
-import { at, atEnd, EASE, lerp, line, P, pop, S } from "../lib/time";
+import { at, atEnd, EASE, En, lerp, line, P, pop, S } from "../lib/time";
 
 /** 話した所から文字が出てくる（文字ごとの時刻を使う） */
 export const Spoken: React.FC<{ t: number; id: string; text: string; lead?: number }> = ({ t, id, text, lead = 0.06 }) => {
@@ -27,15 +27,34 @@ export const Spoken: React.FC<{ t: number; id: string; text: string; lead?: numb
 
 export const Maker: React.FC<SceneProps> = ({ from }) => {
   const t = useT(from);
-  const hl = P(t, at("n22", "当事者"), atEnd("n22", "私") + 0.25, EASE.io);
+  // 応募者としての私の意思：誰にでも届けたい（→ 誰でも）／向き合うハードルを低くしたい（→ 何度でも）
+  const hl1 = P(t, at("n22", "誰にでも届く"), atEnd("n22", "誰にでも届く") + 0.25, EASE.io);
+  const hl2 = P(t, at("n22b", "もっと低く"), atEnd("n22b", "もっと低く") + 0.25, EASE.io);
+  const up = P(t, S("n22b") - 0.35, S("n22b") + 0.25, EASE.io);
   return (
     <AbsoluteFill style={{ background: "#F4EEE3" }}>
-      <div id="maker" style={{ opacity: 1, scale: (1 + 0.025 * P(t, S("n22"), 87.2, EASE.lin)).toFixed(4) }}>
-        <Spoken t={t} id="n22" text="だから、" />
-        <Highlight progress={hl} color="rgba(222, 84, 64, 0.26)" iterations={1} padding={{ left: 6, right: 6, top: 4, bottom: 4 }}>
-          <Spoken t={t} id="n22" text="当事者の私" />
-        </Highlight>
-        <Spoken t={t} id="n22" text="が作りました。" />
+      <div style={{ position: "absolute", inset: 0, scale: (1 + 0.02 * P(t, S("n22"), En("n22b") + 0.6, EASE.lin)).toFixed(4) }}>
+        <div className="will" style={{ top: 330 - 70 * up }}>
+          <div style={{ fontSize: 50, color: "var(--ink-2)", marginBottom: 18 }}>
+            <Spoken t={t} id="n22" text="だから私は、" />
+          </div>
+          <div style={{ fontSize: 74 }}>
+            <Spoken t={t} id="n22" text="問題解決を、" />
+            <Highlight progress={hl1} color="rgba(63, 143, 138, 0.26)" iterations={1} padding={{ left: 6, right: 6, top: 4, bottom: 4 }}>
+              <Spoken t={t} id="n22" text="誰にでも届く" />
+            </Highlight>
+            <Spoken t={t} id="n22" text="ものにしたい。" />
+          </div>
+          <div style={{ fontSize: 58, marginTop: 64, color: "var(--ink-2)" }}>
+            <Spoken t={t} id="n22b" text="できなかった問題に向き合うハードルを、" />
+          </div>
+          <div style={{ fontSize: 90, marginTop: 8 }}>
+            <Highlight progress={hl2} color="rgba(222, 84, 64, 0.24)" iterations={1} padding={{ left: 6, right: 6, top: 4, bottom: 4 }}>
+              <Spoken t={t} id="n22b" text="もっと低く" />
+            </Highlight>
+            <Spoken t={t} id="n22b" text="したい。" />
+          </div>
+        </div>
       </div>
     </AbsoluteFill>
   );

@@ -52,7 +52,7 @@ def F(sec):
 
 
 # 場面の区間（Video.tsx と同じ）
-MOTIVE = (14.9, 63.5)
+MOTIVE = (14.9, 61.3)
 HEAVY = (S("n21") - 0.3, S("n22") - 0.25)
 T_WALL_UP = 15.0
 T_ME = at("n6", "ADHD") - 0.3
@@ -216,14 +216,13 @@ def build():
     key(wall, "scale", F(HEAVY[0]), 3.3, index=2)
 
     # 扉（ちょうつがいで開く）と、内側からの光
-    bpy.ops.object.empty_add(location=(0.12, 0.65, 0))
+    # 入口と同じアーチ形で少し大きく作り、壁の日常側の面に重ねて付ける（閉じても隙間がなく、開いても壁に食い込まない）
+    bpy.ops.object.empty_add(location=(DOOR_X, DOOR_HALF, 0))
     hinge = bpy.context.object
     hinge.name = "ちょうつがい"
-    bpy.ops.mesh.primitive_cube_add(size=1, location=(0, -0.65, 1.3), scale=(0.08, 1.28, 2.6))
-    door = bpy.context.object
+    door = make_door()
     door.parent = hinge
-    door.data.materials.append(mat("扉", "#8E6B4E", 0.7))
-    for t, r in ((MOTIVE[0], 0), (T_DOOR, 0), (T_DOOR + 0.7, -112), (T_DOOR + 0.85, -106)):
+    for t, r in ((MOTIVE[0], 0), (T_DOOR, 0), (T_DOOR + 0.7, -104), (T_DOOR + 0.85, -100)):
         key(hinge, "rotation_euler", F(t), math.radians(r), index=2)
     for t, h in ((MOTIVE[0], 0.001), (T_WALL_UP, 0.001), (T_WALL_UP + 0.5, 1.0)):
         key(hinge, "scale", F(t), h, index=2)
@@ -398,6 +397,46 @@ CAMERA = [
     (HEAVY[0], *POSE_C),
     (HEAVY[1], *POSE_C),
 ]
+
+
+DOOR_X = -0.222        # 壁の日常側の面（x = -0.21）のすぐ外
+DOOR_HALF = 0.71       # 入口（半幅 0.65）より少し大きく
+DOOR_RECT = 2.1        # 四角の部分の高さ（入口と同じ）。上に半径 DOOR_HALF の半円
+DOOR_T = 0.06
+
+
+def make_door():
+    """アーチ形の扉。ちょうつがいを原点に、y は 0 → -2*DOOR_HALF、厚みは x の -DOOR_T → 0"""
+    import bmesh
+    w = 2 * DOOR_HALF
+    outline = [(0.0, 0.0), (-w, 0.0), (-w, DOOR_RECT)]
+    for k in range(1, 24):
+        a = math.pi - math.pi * k / 24
+        outline.append((-DOOR_HALF + DOOR_HALF * math.cos(a), DOOR_RECT + DOOR_HALF * math.sin(a)))
+    outline.append((0.0, DOOR_RECT))
+    me = bpy.data.meshes.new("扉")
+    bm = bmesh.new()
+    verts = [bm.verts.new((0.0, y, z)) for y, z in outline]
+    face = bm.faces.new(verts)
+    ext = bmesh.ops.extrude_face_region(bm, geom=[face])
+    for v in ext["geom"]:
+        if isinstance(v, bmesh.types.BMVert):
+            v.co.x -= DOOR_T
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    bm.to_mesh(me)
+    bm.free()
+    door = bpy.data.objects.new("扉", me)
+    bpy.context.scene.collection.objects.link(door)
+    bv = door.modifiers.new("角", "BEVEL")
+    bv.width = 0.012
+    bv.segments = 2
+    door.data.materials.append(mat("扉", "#8E6B4E", 0.7))
+    # 取っ手（日常の側）
+    bpy.ops.mesh.primitive_uv_sphere_add(radius=0.05, location=(-DOOR_T - 0.04, -w + 0.16, 1.05), segments=16, ring_count=8)
+    knob = bpy.context.object
+    knob.parent = door
+    knob.data.materials.append(mat("取っ手", "#D9C38C", 0.35))
+    return door
 
 
 def vis_keys(root, keys):

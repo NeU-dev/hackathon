@@ -36,7 +36,7 @@ const posB = (i: number) => {
 };
 
 // 効果音と合わせる時刻（Audio 側からも使う）
-export const SHEET_T0 = 63.1;
+export const SHEET_T0 = 60.9;
 export const sheetDealTime = (i: number) => SHEET_T0 + 0.5 + i * 0.3;
 export const sheetStampTime = (di: number) => at("n16", "5枚") - 0.55 + di * 0.1;
 export const sheetSplitTime = () => at("n16", "5枚") + 0.1;

@@ -87,16 +87,28 @@ const speaking = (t: number) => {
   return v;
 };
 
-/** 分散和音の濃さ：①〜③は無し、④から入り、止まるで消え、もう一度で戻り、動けたで一番濃く */
-const arpLevel = (t: number) => {
-  const keys: [number, number][] = [
-    [0, 0], [S("n23") - 0.4, 0], [S("n23") + 0.6, 0.85], [W(112.6), 0.7], [W(113.8), 0], [W(129.2), 0], [W(130.4), 0.6],
-    [W(143.0), 0.6], [W(145.2), 1.0], [W(153.0), 0.9], [W(154.5), 0.45], [En("n45") + 0.6, 0.45], [S("n48") - 0.2, 0.2], [S("n49") - 0.6, 0.95], [178.5, 0.95], [180, 0],
-  ];
+/** キーフレーム [秒, 値] をなめらかにつなぐ */
+const level = (keys: [number, number][], t: number) => {
   let k = 0;
   while (k < keys.length - 2 && t > keys[k + 1][0]) k++;
   return lerp(keys[k][1], keys[k + 1][1], P(t, keys[k][0], keys[k + 1][0], EASE.io));
 };
+
+/** 明るい粒の音：最初から軽く鳴り、③の「重さ」と⑤の「止まる」で少し引き、意思・④・動けたで一番濃く */
+const arpLevel = (t: number) =>
+  level([
+    [0, 0], [1.2, 0.6], [15, 0.7], [S("n21") - 1.0, 0.7], [S("n21") - 0.3, 0.3], [En("n21") + 0.3, 0.3], [S("n22") - 0.2, 0.85],
+    [S("n23") - 0.4, 0.9], [S("n23") + 0.6, 1.0], [103.5, 0.85], [W(112.6), 0.8], [W(113.8), 0.35], [W(129.2), 0.35], [W(130.4), 0.85],
+    [W(143.0), 0.85], [W(145.2), 1.0], [W(154.5), 0.8], [S("n48") - 0.2, 0.55], [S("n49") - 0.6, 1.0], [178.5, 1.0], [180, 0],
+  ], t);
+
+/** 軽いリズム：②から入る。引く所は粒の音と同じ */
+const percLevel = (t: number) =>
+  level([
+    [0, 0], [S("n6") - 0.6, 0], [S("n6") + 0.6, 0.6], [S("n21") - 1.0, 0.6], [S("n21") - 0.3, 0], [En("n21") + 0.3, 0], [S("n22") - 0.2, 0.5],
+    [S("n23") - 0.4, 0.7], [S("n23") + 0.6, 0.9], [103.5, 0.7], [W(112.6), 0.7], [W(113.8), 0], [W(129.2), 0], [W(130.4), 0.7],
+    [W(145.2), 1.0], [W(154.5), 0.7], [S("n48") - 0.2, 0.3], [S("n49") - 0.6, 0.9], [178.5, 0.9], [180, 0],
+  ], t);
 
 export const Bgm: React.FC = () => (
   <Sequence name="BGM" layout="none">
@@ -106,7 +118,7 @@ export const Bgm: React.FC = () => (
       volume={(fr) => {
         const t = fr / FPS;
         const fade = P(t, 0, 2.5, EASE.lin) * (1 - P(t, 177.5, 180, EASE.lin));
-        return 0.54 * fade * lerp(1, 0.42, speaking(t));
+        return 0.42 * fade * lerp(1, 0.45, speaking(t));
       }}
     />
     <Audio
@@ -114,7 +126,15 @@ export const Bgm: React.FC = () => (
       src={staticFile("bgm/arp.wav")}
       volume={(fr) => {
         const t = fr / FPS;
-        return 0.47 * arpLevel(t) * lerp(1, 0.4, speaking(t));
+        return 0.5 * arpLevel(t) * lerp(1, 0.45, speaking(t));
+      }}
+    />
+    <Audio
+      name="BGM リズム"
+      src={staticFile("bgm/perc.wav")}
+      volume={(fr) => {
+        const t = fr / FPS;
+        return 0.45 * percLevel(t) * lerp(1, 0.55, speaking(t));
       }}
     />
   </Sequence>

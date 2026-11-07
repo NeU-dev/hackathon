@@ -16,7 +16,7 @@ cp "$V"/assets/fonts/*.ttf public/fonts/
 cp "$V"/build/tts/n*.wav public/narration/
 cp "$V"/build/captions.json src/data/
 cp "$V"/assets/noise.png public/
-if [ ! -f public/bgm/pad.wav ] || [ ! -f public/bgm/arp.wav ]; then
+if [ ! -f public/bgm/pad.wav ] || [ ! -f public/bgm/arp.wav ] || [ ! -f public/bgm/perc.wav ]; then
   python3 "$V/gen_bgm.py"
 fi
 if [ ! -f public/wall3d/f00447.jpg ]; then

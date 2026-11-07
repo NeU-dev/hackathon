@@ -28,10 +28,10 @@ type Scene = { name: string; a: number; b: number; render: (from: number) => Rea
 // 場面の表示区間（秒）。隣どうしが重なる所がトランジションになる。
 const scenes = (): Scene[] => [
   { name: "① 困りごと：上司に相談できない", a: 0, b: 15.3, render: (from) => <Chat from={from} mode="before" /> },
-  { name: "② 動機：助けられた、でも届かない", a: 14.9, b: 63.5, render: (from) => <Wall from={from} phase="motive" /> },
-  { name: "③ 10枚と紙の問題", a: 63.1, b: S("n21") - 0.05, render: (from) => <Sheets from={from} /> },
+  { name: "② 動機：助けられた、でも届かない", a: 14.9, b: 61.3, render: (from) => <Wall from={from} phase="motive" /> },
+  { name: "③ 10枚と紙の問題", a: 60.9, b: S("n21") - 0.05, render: (from) => <Sheets from={from} /> },
   { name: "③ 止まった問題に戻る重さ", a: S("n21") - 0.3, b: S("n22") - 0.25, render: (from) => <Wall from={from} phase="heavy" /> },
-  { name: "③ だから、当事者の私が作りました", a: S("n22") - 0.4, b: 94.25, render: (from) => <Maker from={from} /> },
+  { name: "③ だから私は：誰にでも届けたい／ハードルを低くしたい", a: S("n22") - 0.4, b: 94.25, render: (from) => <Maker from={from} /> },
   { name: "④ コンセプト：誰でも。何度でも。", a: 93.95, b: 103.7, render: (from) => <Concept from={from} /> },
   { name: "⑤ デモ", a: 103.4, b: W(147.6), render: (from) => <Demo from={from} />, enter: "slide" },
   { name: "⑤ 送れた（チャット）", a: W(147.3), b: W(154.3), render: (from) => <Chat from={from} mode="sent" /> },
