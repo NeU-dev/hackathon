@@ -11,3 +11,6 @@ public/bgm/
 public/fonts/
 public/narration/
 public/wall3d/
+
+# モックの画面録画のコマ（mockrec/record_demo.cjs で撮る。約190MB）
+public/mockrec/

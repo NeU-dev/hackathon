@@ -4,7 +4,7 @@ import { Audio } from "@remotion/media";
 import { Sequence, staticFile } from "remotion";
 import { at, EASE, En, FPS, lerp, LINES, P, S, win } from "../lib/time";
 import { problemTimes, sheetDealTime, sheetSplitTime, sheetStampTime } from "../scenes/Sheets";
-import { DEMO_TAPS, DONE_T, IDEA_LAND, NOTIFY_T, Q1, Q2, STACK_T, STOP_T } from "../scenes/Demo";
+import { demoCues } from "../scenes/Demo";
 import { W } from "../lib/warp";
 import { chipTimes, noteTimes, qTimes } from "../scenes/Wall3D";
 
@@ -51,15 +51,7 @@ const cues = (): Cue[] => {
   c.push([S("n23") - 0.2, "notify", 0.22]);
   // ⑤ デモ
   c.push([W(93.9), "swoosh", 0.1]);
-  DEMO_TAPS().forEach(([tt]) => c.push([tt - 0.02, "tap", 0.45]));
-  c.push([Q1(), "bubble", 0.22], [Q2(), "bubble", 0.22]);
-  [0, 1, 2].forEach((k) => c.push([IDEA_LAND(k) - 0.05, "drop", 0.22]));
-  c.push([NOTIFY_T(), "notify", 0.32]);
-  c.push([STOP_T(), "stamp", 0.4]);
-  c.push([STACK_T() + 0.35, "paper1", 0.28]);
-  c.push([at("n37", "前の紙"), "select", 0.2]);
-  c.push([at("n38", "小さく"), "select", 0.18]);
-  c.push([DONE_T + 0.25, "success", 0.34]);
+  c.push(...demoCues()); // 録画の中のタップ・キー・通知など
   // 紙の問題が解けた印
   c.push([at("n28", "見えてくる"), "select", 0.16], [S("n35"), "select", 0.16], [at("n39", "書く"), "select", 0.16]);
   // ⑤ 送れた（チャット）

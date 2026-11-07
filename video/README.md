@@ -13,6 +13,8 @@ cd remotion
 npm i
 ./prepare.sh                         # 素材を用意（ナレーション合成・文字の時刻・BGM・フォント）
 blender -b -P ../blender/wall_scene.py -- render   # 壁の場面（3D）のコマを描く（1時間ほど。描いたコマは飛ばす）
+# ⑤のアプリ画面（モックの画面録画）を撮る。モック（mock ブランチ）を `npx vite build && npx vite preview --port 4173` で開いておく
+(cd ../mockrec && NODE_PATH=$(npm root -g) node record_demo.cjs ../remotion/public/mockrec AB && python3 prep.py)
 npx remotion studio                  # プレビュー（音つきで再生・コマ送りできる）
 npx remotion render HackathonV4 out/video.mp4 --concurrency=4
 ```
@@ -36,6 +38,7 @@ Blender を使わない場合は `src/Video.tsx` の `WALL_3D` を `false` に�
 | 文字ごとの時刻 | `align.py` が音素の時刻から、字幕の文字ごとの読み上げ時刻を出す（`build/captions.json`）。字幕と画面の動きはこれに合わせる |
 | 字幕 | 読まれた所から白くなる。文節に近いまとまりで改行。データは @remotion/captions の Caption 形式 |
 | 場面 | `remotion/src/scenes/`。TransitionSeries でつなぐ。動きは spring と Easing.bezier |
+| ⑤ アプリの画面 | モック（`mock` ブランチ）を Playwright で自動操作し、iPhone と同じ 390×844（2倍の解像度）で1コマずつ撮った画面録画（`mockrec/`）。時計を止めて 1/30 秒ずつ進め、CSS・motion のアニメーションも同じ仮の時刻に合わせるので、コマ落ちがない。撮った画像（`remotion/public/mockrec/`、約190MB）はコミットせず、操作の記録（タップ・キー・キーボードの出入り・画面が動いたコマ）だけを `src/data/mockrecA.json`・`mockrecB.json` に残す。ステータスバー・日本語キーボード（フリック）・指の跡・ロック画面と通知は Remotion 側で描く（`components/MockPhone.tsx`）。ナレーションとの対応は `scenes/Demo.tsx` の `TRACK_A`・`TRACK_B`（[秒, コマ] の並び）で、動いているコマは等速、止まっているコマで時間を合わせ、足りない所だけ「早送り」の札を出す（`lib/mockrec.ts`） |
 | 壁の場面（3D） | ②動機と③の「重さ」。②の終わりは日常の側から壁を見上げ、困りごとの札・壁の貼り紙（受けられる場所が限られる／順番待ち）・扉の前の列・「？」を重ねる。`blender/wall_scene.py` が壁・扉・人・紙のシートを組み、3D の中で動きがあるコマだけを EEVEE で描く（`remotion/public/wall3d/`）。止まっているコマは直前の絵を使い、Remotion 側でゆっくり寄る。紙のシートの四隅の画面上の位置を `src/data/wall3d.json` に書き出し、手順の図は `Wall3D.tsx` が遠近を合わせて（matrix3d）紙に重ねる |
 | 強調 | @remotion/rough-notation の手描き風マーカー |
 | 音 | 効果音（Kenney の CC0 音源）と仮の BGM（`gen_bgm.py` で合成。D メジャー・100BPM の明るい曲で、和音・粒の音・軽いリズムの3本）。BGM は話しているあいだ下がり、③の「重さ」と⑤の「止まる」で少し引き、意思の文・④・動けた場面で一番濃くなる |
@@ -52,10 +55,10 @@ Blender を使わない場合は `src/Video.tsx` の `WALL_3D` を `false` に�
 | 場所 | いまの中身 | 差し替え |
 | --- | --- | --- |
 | ③ 紙の問題 | 描いた10枚のシート | 実物の10枚（職場・人名を塗りつぶし）の撮影 |
-| ⑤ デモ | 仮のアプリ画面（台本の「画面録画で入力する内容」どおり） | iPhone の画面録画 |
+| ⑤ デモ | モックを自動操作して撮った画面録画（ステータスバー・キーボード・ロック画面は動画側で描いたもの） | 実機の画面録画（任意） |
 | 全編 | 合成音声（Open JTalk） | 本人の声で録り直す。`build/subtitles.srt` の時刻が目安 |
 
-①の企画書の画面と、⑤の最後の「見出しが3つ書けた」画面は作り物です（`remotion/src/scenes/Doc.tsx`）。⑤のアプリの画面は、モック（`mock` ブランチ）に企画書の例が入ったら、その画面録画に差し替えます。
+①の企画書の画面と、⑤の最後の「見出しが3つ書けた」画面は作り物です（`remotion/src/scenes/Doc.tsx`）。⑤のアプリの画面は、モック（`mock` ブランチの `?full&rec&demo=kikaku`）の録画です。⑤の「紙なら、ここで終わり」の紙だけは、比べるために動画側で描いています。
 
 ## 時間割
 
