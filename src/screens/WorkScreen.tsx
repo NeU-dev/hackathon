@@ -6,6 +6,7 @@ import { topSheet, usePaper, usePapers } from '../store'
 import { useUI, type Rect } from '../ui'
 import { hasWebGL, useReduced, useVisualViewport } from '../lib/env'
 import { CIRCLED, frameTitle } from '../lib/frames'
+import { REC } from '../lib/rec'
 import { atMost, defaultWhen, formatWhen, uid } from '../lib/format'
 import { juice } from '../lib/juice'
 import { useBack, useDialogFocus } from '../lib/screens'
@@ -23,6 +24,8 @@ import { DUR, EASE } from '../lib/motion'
 type ListKey = 'dump' | 'sceneAnswers' | 'goalNotes' | 'ideas'
 const LIST_KEY: Partial<Record<FrameNo, ListKey>> = { 1: 'dump', 2: 'sceneAnswers', 3: 'goalNotes', 4: 'ideas' }
 const BUBBLE_FRAMES: FrameNo[] = [2, 3, 4, 6]
+/** 泡のヒントのために、帯の上端から空けておく高さ（ヒント 36px＋すき間） */
+const HINT_ROOM = 46
 
 const insetFor = (r: Rect, box: { top: number; left: number; width: number; height: number }) =>
   `inset(${r.top - box.top}px ${box.left + box.width - (r.left + r.width)}px ${box.top + box.height - (r.top + r.height)}px ${r.left - box.left}px round 12px)`
@@ -102,7 +105,7 @@ export function WorkScreen({ paperId, frame, origin }: { paperId: string; frame:
     let alive = true
     ;(async () => {
       const s = sheetNow()
-      const base = { asked: askedFor(s), entries: entriesCount(), refills: s.refills[frame] ?? 0, initial: true }
+      const base = { asked: askedFor(s), entries: entriesCount(), refills: s.refills[frame] ?? 0, initial: true, problem: s.problem }
       const a = await nextQuestions(frame, { ...base, floating: [] })
       const b = await nextQuestions(frame, { ...base, floating: a })
       if (!alive) return
@@ -125,6 +128,7 @@ export function WorkScreen({ paperId, frame, origin }: { paperId: string; frame:
         floating: floatingRef.current.map((q) => q.text),
         entries: entriesCount(),
         refills: s.refills[frame] ?? 0,
+        problem: s.problem,
       })
       if (!alive || got.length === 0) return
       S.patchTop(paperId, (x) => ({ refills: { ...x.refills, [frame]: (x.refills[frame] ?? 0) + 1 } }))
@@ -156,7 +160,7 @@ export function WorkScreen({ paperId, frame, origin }: { paperId: string; frame:
   // 2番：場面の文章を、今ある答えから作る
   useEffect(() => {
     if (frame !== 2 || !sheet || sheet.scene || sheet.sceneAnswers.length === 0) return
-    summarizeScene(sheet.sceneAnswers).then(setScene)
+    summarizeScene(sheet.sceneAnswers, undefined, sheet.problem).then(setScene)
   }, [])
 
   // Esc／戻る で紙へ。開いたらこの画面にフォーカス
@@ -306,7 +310,7 @@ export function WorkScreen({ paperId, frame, origin }: { paperId: string; frame:
     if (frame === 3) setGoalPick(text)
     await flyTo(entry.id, from, layout, text, true)
     // 場面の文章は、いまの文章に新しい答えを足して育てる（作り直して崩れないように）
-    if (frame === 2) setScene(await summarizeScene(sheetNow().sceneAnswers, scene))
+    if (frame === 2) setScene(await summarizeScene(sheetNow().sceneAnswers, scene, sheetNow().problem))
   }
 
   /** 書いた行を直す。目標・選んだ案・場面の文章も、その行から作っていればいっしょに直す */
@@ -347,7 +351,7 @@ export function WorkScreen({ paperId, frame, origin }: { paperId: string; frame:
   // 答えを直したり消したりしたら、場面の文章を答えから作り直す
   const rebuildScene = async () => {
     const answers = sheetNow().sceneAnswers
-    const sc = answers.length ? await summarizeScene(answers) : ''
+    const sc = answers.length ? await summarizeScene(answers, undefined, sheetNow().problem) : ''
     setScene(sc)
     if (sheetNow().scene !== undefined) S.patchTop(paperId, { scene: sc || undefined })
   }
@@ -402,7 +406,7 @@ export function WorkScreen({ paperId, frame, origin }: { paperId: string; frame:
         return
       }
       case 2: {
-        const sc = scene || (await summarizeScene(sheetNow().sceneAnswers))
+        const sc = scene || (await summarizeScene(sheetNow().sceneAnswers, undefined, sheetNow().problem))
         S.patchTop(paperId, { scene: sc })
         return close(true)
       }
@@ -444,6 +448,8 @@ export function WorkScreen({ paperId, frame, origin }: { paperId: string; frame:
   const fieldH = stable.h > 720 ? 200 : stable.h > 560 ? 150 : 112
   // 狭い画面や大きい文字では、上の欄を1行ずつにたたむ（書く欄が泡の後ろに隠れないように）
   const compact = stable.h / textScale < 620
+  // 初めて泡を見た時のヒント（録画モードでは出さない）
+  const showHint = hasBubbles && mode === '3d' && !hintSeen && !REC && floating.length > 0
   // 書くための罫線を出す枠（1〜4番。1番は候補を選んでいる間は出さない）。書く入口はこの1つだけ
   const showPad = frame === 1 ? !cands : frame <= 4
   const listKey = LIST_KEY[frame]
@@ -568,8 +574,10 @@ export function WorkScreen({ paperId, frame, origin }: { paperId: string; frame:
                 // メモ用紙が出てくるあたりではじける（はじけた所から用紙が広がる）
                 popAtY={stable.top + Math.min(170, stable.h * 0.24)}
                 paused={!!writer}
+                // ヒントが出ている間は、帯の上の方を空けておく（ヒントが泡の上に重ならないように）
+                reserveTop={showHint ? HINT_ROOM : 0}
               />
-              {hasBubbles && mode === '3d' && !hintSeen && floating.length > 0 && (
+              {showHint && (
                 <FlingHint onDone={() => S.setSettings({ flingHintSeen: true })} />
               )}
               {undo && (
@@ -1092,11 +1100,17 @@ function Frame6Middle({
                   <p className="flex-1 text-[0.875rem] leading-snug">
                     <span className="text-ink-soft">{s.title}：</span>
                     {s.first}
+                    {/* いつ・どこでも変わる一歩は、押すとそれも下書きに入る（下の欄で確かめてから「書けた」） */}
+                    {(s.where || s.when) && (
+                      <span className="mt-0.5 block text-[0.75rem] text-ink-soft">
+                        {[s.when && `いつ：${formatWhen(s.when)}`, s.where && `どこで：${s.where}`].filter(Boolean).join('　')}
+                      </span>
+                    )}
                   </p>
                   <button
                     type="button"
                     aria-pressed={on}
-                    onClick={() => onChange({ ...plan, first: s.first })}
+                    onClick={() => onChange({ ...plan, first: s.first, ...(s.where ? { where: s.where } : {}), ...(s.when ? { when: s.when } : {}) })}
                     className={`h-11 shrink-0 rounded-full px-3 text-[0.8125rem] ${on ? 'bg-accent-soft text-accent' : 'border border-accent/50 text-accent'}`}
                   >
                     {on ? '使っています' : 'これにする'}
@@ -1149,7 +1163,8 @@ function FlingHint({ onDone }: { onDone: () => void }) {
   }, [onDone])
   return (
     <motion.div
-      className="pointer-events-none absolute inset-x-0 -top-4 z-30 flex justify-center"
+      // 帯の上端に出す。出ている間は、泡がこの場所を避ける（BubbleField の reserveTop）
+      className="pointer-events-none absolute inset-x-0 top-1 z-30 flex justify-center"
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1.2, duration: 0.3 }}

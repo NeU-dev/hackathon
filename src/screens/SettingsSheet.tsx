@@ -31,7 +31,7 @@ const LONG_PRESS_OPTIONS = [
 
 export function SettingsSheet() {
   const settings = usePapers((s) => s.settings)
-  const { setSettings, addExamplePaper, addPastPapers, clearAll } = usePapers.getState()
+  const { setSettings, addExamplePaper, addBossPaper, addPastPapers, clearAll } = usePapers.getState()
   const ui = useUI()
   const [confirmClear, setConfirmClear] = useState(false)
   const present = useIsPresent()
@@ -161,6 +161,17 @@ export function SettingsSheet() {
               }}
             >
               例の紙を1枚つくる（6番まで書いた状態）
+            </button>
+            <button
+              type="button"
+              className="h-11 rounded-xl border border-frame bg-paper-bright/70 text-[0.875rem] text-ink-soft active:bg-white"
+              onClick={() => {
+                const id = addBossPaper()
+                ui.setUI({ settings: false })
+                ui.openPaper(id)
+              }}
+            >
+              上司への相談の例を1枚つくる（6番まで書いた状態）
             </button>
             <button
               type="button"

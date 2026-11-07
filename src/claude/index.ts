@@ -13,6 +13,7 @@ import {
   type Counts,
 } from '../lib/records'
 import * as D from './dummyData'
+import { toLocalInput } from '../lib/format'
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
@@ -44,12 +45,14 @@ export interface QuestionContext {
   refills: number
   /** 画面を開いた時の最初の泡か */
   initial?: boolean
+  /** ①の困りごと（ダミーでは、上司への相談の例だけ②の問いを変える） */
+  problem?: string
 }
 
 /** 次に出す泡の問い（0〜2個）。十分埋まったと判断したら空を返す */
 export async function nextQuestions(step: FrameNo, ctx: QuestionContext): Promise<string[]> {
   await wait(ctx.initial ? 0 : 400)
-  const pool = D.QUESTIONS[step] ?? []
+  const pool = (step === 2 && D.isBossProblem(ctx.problem) ? D.BOSS.questions : D.QUESTIONS[step]) ?? []
   const used = new Set([...ctx.asked, ...ctx.floating])
   const rest = pool.filter((q) => !used.has(q))
   const room = 4 - ctx.floating.length
@@ -70,9 +73,11 @@ export async function nextQuestions(step: FrameNo, ctx: QuestionContext): Promis
  * 場面の答えを一文にまとめる。current があれば、それを土台に新しい答えを足して育てる。
  * （ダミーでは：土台がなければ答えを順につなぎ、あれば最後の答えを1文として足す）
  */
-export async function summarizeScene(answers: { text: string }[], current?: string): Promise<string> {
+export async function summarizeScene(answers: { text: string }[], current?: string, problem?: string): Promise<string> {
   await wait(150)
   if (answers.length === 0) return current ?? ''
+  // 上司への相談の例：2つ答えたら、台本どおりの一文にする
+  if (D.isBossProblem(problem) && answers.length >= 2) return D.BOSS.scene
   const clean = (t: string) => t.trim().replace(/[。.]+$/, '')
   if (current) return `${clean(current)}。${clean(answers[answers.length - 1].text)}。`
   return answers.map((a) => clean(a.text)).join('、') + '。'
@@ -82,6 +87,7 @@ export async function summarizeScene(answers: { text: string }[], current?: stri
 export async function reasonOptions(plan: Plan): Promise<string[]> {
   await wait(400)
   if (plan.where.includes('廊下') || plan.first.includes('メモ')) return D.REASONS_EXAMPLE
+  if (/1on1|チャット/.test(plan.where) || plan.first.includes('相談')) return D.BOSS.reasons
   return ['時間が合わなかった', `「${plan.where}」で始める余裕がなかった`, '始めたけど続かなかった', '気力がなかった']
 }
 
@@ -98,6 +104,25 @@ function firstPart(first: string, part: string): string {
   return `『${first.trim()}』の、${part}だけ`
 }
 
+/** 縮めた一歩で、いつ・どこでも変わるものには、その下書きを付ける */
+function withPlace(s: ShrinkSuggestion): ShrinkSuggestion {
+  const place = D.SHRINK_PLACES[s.first]
+  return place ? { ...s, ...place } : s
+}
+
+/** 次の 21:00（「前の日のうちに」の一歩の、いつの下書き） */
+function eveningSoon(): string {
+  const d = new Date()
+  if (d.getHours() >= 21) d.setDate(d.getDate() + 1)
+  d.setHours(21, 0, 0, 0)
+  return toLocalInput(d.getTime())
+}
+
+/** 「やった」の時に⑦に添えるひとこと（デモの例の一歩だけ。ほかは添えない） */
+export function doneNote(plan?: Plan): string | undefined {
+  return plan ? D.DONE_NOTES[plan.first.trim()] : undefined
+}
+
 export async function shrinkPlan(
   plan: Plan,
   ctx: { reason: string } | { summary: Reflection | null; minutes: number },
@@ -106,16 +131,17 @@ export async function shrinkPlan(
   if ('summary' in ctx) {
     const limit = ctx.summary?.stepLimit ?? 5
     const smaller = D.SHRINK_STEPS[plan.first.trim()]
-    if (ctx.minutes > limit) return [{ title: `${formatMinutes(limit)}以内の一歩に`, first: smaller ?? firstPart(plan.first, `最初の${formatMinutes(limit)}`) }]
-    return [{ title: '最初の30秒に', first: smaller ?? firstPart(plan.first, '最初のひと手') }]
+    if (ctx.minutes > limit) return [withPlace({ title: `${formatMinutes(limit)}以内の一歩に`, first: smaller ?? firstPart(plan.first, `最初の${formatMinutes(limit)}`) })]
+    return [withPlace({ title: '最初の30秒に', first: smaller ?? firstPart(plan.first, '最初のひと手') })]
   }
   const { reason } = ctx
   if (reason === '気力がなかった' && (plan.where.includes('廊下') || plan.first.includes('メモ'))) {
     return D.SHRINK_EXAMPLE
   }
-  const out: ShrinkSuggestion[] = [{ title: '最初の2分を、最初の30秒に', first: D.SHRINK_STEPS[plan.first.trim()] ?? firstPart(plan.first, '最初のひと手') }]
-  if (/時間|余裕|合わなかった/.test(reason)) {
-    out.push({ title: '始める場所を、もっと手前に', first: `前の日のうちに、『${plan.first}』の準備だけする` })
+  const out: ShrinkSuggestion[] = [withPlace({ title: '最初の2分を、最初の30秒に', first: D.SHRINK_STEPS[plan.first.trim()] ?? firstPart(plan.first, '最初のひと手') })]
+  if (/時間|余裕|合わなかった|取れなかった/.test(reason)) {
+    // 前の日のうちにやる一歩は、いつ・どこでも変わるので、その下書きも付ける
+    out.push({ title: '始める場所を、もっと手前に', first: `前の日のうちに、『${plan.first}』の準備だけする`, when: eveningSoon(), where: '家' })
   }
   return out
 }

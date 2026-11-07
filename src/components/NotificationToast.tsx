@@ -5,6 +5,7 @@ import { useUI } from '../ui'
 import { Icon } from './Icon'
 import { juice } from '../lib/juice'
 import { toast } from '../lib/motion'
+import { REC } from '../lib/rec'
 
 /** 通知を鳴らす（モック：画面内の通知バナーを出す） */
 export function ring(paperId: string) {
@@ -101,7 +102,8 @@ function Toast({ paperId, problem }: { paperId: string; problem?: string }) {
           <Icon name="sheet" size={20} />
         </span>
         <span className="min-w-0 flex-1">
-          <span className="block text-[0.75rem] text-ink-soft">通知（モック）</span>
+          {/* 録画モードでは「（モック）」の札を出さない */}
+          {!REC && <span className="block text-[0.75rem] text-ink-soft">通知（モック）</span>}
           <span className="block text-[0.9375rem] font-medium">今、どう？</span>
           {problem && <span className="pen block truncate text-[0.875rem]">{problem}</span>}
         </span>

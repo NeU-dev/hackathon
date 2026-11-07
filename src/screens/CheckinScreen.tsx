@@ -4,7 +4,7 @@ import { topSheet, usePaper, usePapers } from '../store'
 import { useUI } from '../ui'
 import { useReduced } from '../lib/env'
 import { formatWhen, parseWhen, toLocalInput } from '../lib/format'
-import { reasonOptions, shrinkPlan } from '../claude'
+import { doneNote, reasonOptions, shrinkPlan } from '../claude'
 import { juice } from '../lib/juice'
 import { useBack, useDialogFocus } from '../lib/screens'
 import { Icon } from '../components/Icon'
@@ -45,7 +45,7 @@ export function CheckinScreen({ paperId }: { paperId: string }) {
   const closeToPaper = (patch: Parameters<typeof setUI>[0] = {}) => setUI({ checkin: false, ...patch })
 
   const did = () => {
-    S.markDone(paperId)
+    S.markDone(paperId, doneNote(plan))
     juice.didIt()
     closeToPaper({ typing: { sheetId: sheet.id, frame: 7, phase: 'run' }, glowAt: Date.now() })
   }
@@ -357,6 +357,12 @@ function RecordCard({ plan, minutes, onPick }: { plan: Plan; minutes: number; on
             <p className="mt-0.5 text-[0.8125rem] leading-relaxed text-ink-soft">
               最初の一歩の下書き <span className="text-[0.9375rem] text-ink">「{shrink.first}」</span>
             </p>
+            {/* いつ・どこでも変わる一歩は、それも下書きになることを先に伝える（⑥で確かめてから決める） */}
+            {shrink.where && (
+              <p className="mt-0.5 text-[0.8125rem] leading-relaxed text-ink-soft">
+                どこでの下書き <span className="text-[0.9375rem] text-ink">「{shrink.where}」</span>
+              </p>
+            )}
           </>
         )}
       </div>

@@ -3,9 +3,10 @@ import { motion } from 'motion/react'
 import type { FrameNo, Sheet } from '../types'
 import { CIRCLED, FRAMES, brightFrames, frameText, isFilled } from '../lib/frames'
 import { formatWhen } from '../lib/format'
-import { NOT_DONE_TEXT } from '../store'
+import { NOT_DONE_TEXT, isDoneText } from '../store'
 import { useUI } from '../ui'
 import { useReduced } from '../lib/env'
+import { Icon } from './Icon'
 import { TypeText } from './TypeText'
 
 interface Props {
@@ -169,20 +170,39 @@ function FrameBody({ sheet, no, phase, reduced }: { sheet: Sheet; no: FrameNo; p
     }
     case 7: {
       const r = sheet.reflection
-      const done = r === 'できた'
+      const done = isDoneText(r)
       const notDone = !!r && r.startsWith(NOT_DONE_TEXT)
       const reason = notDone ? r.split('理由：')[1] : undefined
+      // やった時のひとこと（「「相談したいことがあります」と送れた」）
+      const note = done ? r?.split('\n')[1] : undefined
       return (
         <>
-          <span className="mt-1.5 flex flex-wrap gap-x-5 gap-y-1 text-[0.8125rem] text-print">
+          <span className="mt-1.5 flex flex-wrap items-center gap-x-5 gap-y-1 text-[0.8125rem] text-print">
             <Check on={done} phase={phase} reduced={reduced} label="できた" />
             <Check on={notDone} phase={phase} reduced={reduced} label="今回は進まなかった" />
+            {done && phase !== 'hold' && <DoneStamp run={phase === 'run' && !reduced} />}
           </span>
-          <SubField label="理由">{pen(reason)}</SubField>
+          {note ? <SubField label="ひとこと">{pen(note)}</SubField> : <SubField label="理由">{pen(reason)}</SubField>}
         </>
       )
     }
   }
+}
+
+/** 「できた」の判子（使い方の6ページと同じ形）。チェックが入ったあとに押される */
+function DoneStamp({ run }: { run: boolean }) {
+  return (
+    <motion.span
+      aria-hidden
+      className="ml-auto flex -rotate-6 items-center gap-1 rounded-full border-2 border-accent px-3 py-0.5 text-[0.9375rem] font-medium text-accent"
+      initial={run ? { scale: 1.6, opacity: 0 } : false}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ type: 'spring', stiffness: 420, damping: 18, delay: run ? 0.55 : 0 }}
+    >
+      <Icon name="check" size={16} />
+      できた
+    </motion.span>
+  )
 }
 
 function SubField({ label, children }: { label: string; children?: ReactNode }) {

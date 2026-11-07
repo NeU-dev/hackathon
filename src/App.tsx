@@ -14,7 +14,8 @@ import { ConsultMemoScreen } from './screens/ConsultMemoScreen'
 import { TutorialScreen } from './screens/TutorialScreen'
 import { PlaneLayer } from './components/Plane'
 import { FxLayer } from './components/Fx'
-import { NotificationToast, useNotifier } from './components/NotificationToast'
+import { NotificationToast, ring, useNotifier } from './components/NotificationToast'
+import { DEMO, REC, listenRingShortcut } from './lib/rec'
 import { preloadBubbles } from './components/bubbles/BubbleField'
 import { FpsMeter } from './components/FpsMeter'
 import { usePapers } from './store'
@@ -33,8 +34,19 @@ export default function App() {
 
   useEffect(() => {
     if (hasWebGL()) preloadBubbles()
-    // はじめて開いた時だけ、使い方を出す
-    if (!usePapers.getState().settings.tutorialSeen) useUI.getState().setUI({ tutorial: true })
+    // はじめて開いた時だけ、使い方を出す（録画モードでは出さない）
+    if (!REC && !usePapers.getState().settings.tutorialSeen) useUI.getState().setUI({ tutorial: true })
+    // ?demo=boss：上司への相談の例の紙を入れなおして始める（前に入れたものは消して、引き出しのいちばん上に1枚）
+    if (DEMO === 'boss') usePapers.getState().addBossPaper(true)
+  }, [])
+
+  // 録画モード：N キー（iPhone では左上の端を長押し）で、開いている紙の通知を出す
+  useEffect(() => {
+    if (!REC) return
+    return listenRingShortcut(() => {
+      const { paperId } = useUI.getState()
+      if (paperId) ring(paperId)
+    })
   }, [])
 
   // CSS 側の演出（インクのにじみ・押した時の沈み）も、動きを減らす設定に合わせる

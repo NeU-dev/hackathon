@@ -23,6 +23,8 @@ interface Props {
   popAtY?: number
   /** 止める（メモ用紙を開いている間など） */
   paused?: boolean
+  /** 帯の上端から空けておく高さ（px）。帯の中にヒントを出している間、泡がその場所を避ける */
+  reserveTop?: number
 }
 
 export function BubbleField(props: Props) {
@@ -51,7 +53,7 @@ const offsetWithin = (el: HTMLElement, host: HTMLElement) => {
   return y
 }
 
-function Bubbles3DField({ questions, height, onPop, onFling, onTapStart, popAtY, paused }: Props) {
+function Bubbles3DField({ questions, height, onPop, onFling, onTapStart, popAtY, paused, reserveTop = 0 }: Props) {
   const anchor = useRef<HTMLDivElement>(null)
   const box = useRef<HTMLDivElement>(null)
   const sim = useMemo(() => new BubbleSim(), [])
@@ -89,13 +91,21 @@ function Bubbles3DField({ questions, height, onPop, onFling, onTapStart, popAtY,
     onPopRef.current(q, at)
   }
   sim.paused = !!paused
+  // ヒントのために空けておく高さ。変わったら、帯の上端の壁をその分だけ下げる（泡は押されて場所を空ける）
+  const reserveRef = useRef(reserveTop)
+  reserveRef.current = reserveTop
+  useLayoutEffect(() => {
+    sim.top = escapeRef.current + reserveTop
+  }, [reserveTop, sim])
 
   useLayoutEffect(() => {
     const el = box.current!
     const measure = () => {
       sim.fontScale = parseFloat(getComputedStyle(document.documentElement).fontSize) / 16 || 1
       sim.setSize(el.clientWidth, el.clientHeight, escapeRef.current)
+      // 泡の数は、ヒントで空けている所を除かずに決める（ヒントが消えたあとに数が変わらないように）
       setCap(sim.capacity())
+      sim.top = escapeRef.current + reserveRef.current
     }
     const ro = new ResizeObserver(measure)
     ro.observe(el)

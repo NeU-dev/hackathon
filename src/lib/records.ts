@@ -1,3 +1,4 @@
+import { isDoneText } from '../store'
 import type { Paper, Sheet } from '../types'
 
 /**
@@ -49,7 +50,7 @@ const moved = (r: StepRecord) => r.result === 'done' || r.result === 'partial'
 function readResult(s: Sheet): { result?: StepResult; reason?: string } {
   const t = s.reflection
   if (!t) return {}
-  if (t === 'できた') return { result: 'done' }
+  if (isDoneText(t)) return { result: 'done' }
   if (t.startsWith('一部')) return { result: 'partial' }
   const reason = t.match(/理由：(.+)/)?.[1]?.trim()
   return { result: 'skipped', reason }

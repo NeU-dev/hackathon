@@ -63,7 +63,8 @@ export interface Paper {
   lastRungAt?: number
   shelvedNote?: string
   /** ふりかえりのデモ用に、最初から入っている過去の紙 */
-  sample?: 'past'
+  /** デモ用の紙：past＝ふりかえり用の過去の紙、boss＝上司への相談の例（?demo=boss で入れなおす） */
+  sample?: 'past' | 'boss'
 }
 
 export interface ProblemCandidate {
@@ -74,6 +75,9 @@ export interface ProblemCandidate {
 export interface ShrinkSuggestion {
   title: string
   first: string
+  /** いつ・どこでも変わる一歩の時だけ。⑥を開いた時に下書きとして入れ、本人が確かめてから決める */
+  where?: string
+  when?: string
 }
 
 /** ふりかえりの根拠になった紙（タップでその紙が開く） */

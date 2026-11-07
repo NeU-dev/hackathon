@@ -16,6 +16,7 @@ import { useBack } from '../lib/screens'
 import { SheetFrames } from '../components/SheetFrames'
 import { ring } from '../components/NotificationToast'
 import { StepSwap, Swap } from '../components/Motion'
+import { REC } from '../lib/rec'
 import { DUR, EASE } from '../lib/motion'
 
 // 動きの値は毎回同じものを渡す（描き直しのたびに動きがやり直されないように）
@@ -236,9 +237,12 @@ export function PaperScreen({ paperId }: { paperId: string }) {
                 <Icon name="clock" size={15} className="text-accent" />
                 {paper.notifyAt ? `あとは当日。${formatAt(paper.notifyAt)} に聞きます` : 'あとで聞きます'}
               </span>
-              <button type="button" className="tactile h-11 rounded-full px-3 text-[0.75rem] text-ink-soft" onClick={() => ring(paperId)}>
-                今すぐ鳴らす
-              </button>
+              {/* デモ用。録画モードでは隠し、N キー（iPhone は左上の端を長押し）で鳴らす */}
+              {!REC && (
+                <button type="button" className="tactile h-11 rounded-full px-3 text-[0.75rem] text-ink-soft" onClick={() => ring(paperId)}>
+                  今すぐ鳴らす
+                </button>
+              )}
             </>
           )}
         </div>

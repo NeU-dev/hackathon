@@ -33,6 +33,14 @@ export function defaultWhen(): string {
   return toLocalInput(d.getTime())
 }
 
+/** 次の月曜の hour:minute（今日が月曜なら、来週の月曜）。デモの例の紙の「いつ」 */
+export function nextMonday(hour: number, minute: number, now = Date.now()): number {
+  const d = new Date(now)
+  d.setDate(d.getDate() + (((1 - d.getDay() + 7) % 7) || 7))
+  d.setHours(hour, minute, 0, 0)
+  return d.getTime()
+}
+
 /** アニメーションが止まっている時（裏に回ったタブなど）も先に進めるよう、待つのは最大 ms まで */
 export const atMost = (p: { then: (done: () => void) => unknown }, ms: number) =>
   new Promise<void>((resolve) => {
