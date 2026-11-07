@@ -173,7 +173,7 @@ function FrameBody({ sheet, no, phase, reduced }: { sheet: Sheet; no: FrameNo; p
       const done = isDoneText(r)
       const notDone = !!r && r.startsWith(NOT_DONE_TEXT)
       const reason = notDone ? r.split('理由：')[1] : undefined
-      // やった時のひとこと（「「相談したいことがあります」と送れた」）
+      // やった時のひとこと（「見出しを3つ書けた」）
       const note = done ? r?.split('\n')[1] : undefined
       return (
         <>

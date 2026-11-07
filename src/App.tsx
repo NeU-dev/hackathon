@@ -36,8 +36,8 @@ export default function App() {
     if (hasWebGL()) preloadBubbles()
     // はじめて開いた時だけ、使い方を出す（録画モードでは出さない）
     if (!REC && !usePapers.getState().settings.tutorialSeen) useUI.getState().setUI({ tutorial: true })
-    // ?demo=boss：上司への相談の例の紙を入れなおして始める（前に入れたものは消して、引き出しのいちばん上に1枚）
-    if (DEMO === 'boss') usePapers.getState().addBossPaper(true)
+    // ?demo=kikaku：企画書の例の紙を入れなおして始める（前に入れたものは消して、引き出しのいちばん上に1枚）
+    if (DEMO === 'kikaku') usePapers.getState().addKikakuPaper(true)
   }, [])
 
   // 録画モード：N キー（iPhone では左上の端を長押し）で、開いている紙の通知を出す

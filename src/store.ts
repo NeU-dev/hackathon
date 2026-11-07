@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type { FrameNo, Paper, Plan, Sheet, ShrinkSuggestion } from './types'
-import { defaultWhen, nextMonday, parseWhen, toLocalInput, uid } from './lib/format'
+import { defaultWhen, nextWeekday, parseWhen, toLocalInput, uid } from './lib/format'
 import * as D from './claude/dummyData'
 
 export type MotionPref = 'system' | 'reduce' | 'full'
@@ -57,8 +57,8 @@ interface PaperState {
   retry: (paperId: string, mode: 'same' | 'other', shrink?: ShrinkSuggestion[], firstDraft?: string) => void
   setSettings: (patch: Partial<Settings>) => void
   addExamplePaper: () => string
-  /** 上司への相談の例（台本⑤）の紙を1枚つくる（6番まで書いた状態）。ほかの「上司への相談の例」を消して入れなおす時は replace */
-  addBossPaper: (replace?: boolean) => string
+  /** 企画書の例（台本⑤）の紙を1枚つくる（6番まで書いた状態）。ほかの「企画書の例」を消して入れなおす時は replace */
+  addKikakuPaper: (replace?: boolean) => string
   /** ふりかえりのデモ用の過去の紙（6枚）を入れなおす */
   addPastPapers: () => void
   clearAll: () => void
@@ -69,7 +69,7 @@ interface PaperState {
 }
 
 export const NOT_DONE_TEXT = '今回は進まなかった。'
-/** やった時の⑦。ひとことがあれば、改行して続ける（「できた\n「相談したいことがあります」と送れた」） */
+/** やった時の⑦。ひとことがあれば、改行して続ける（「できた\n見出しを3つ書けた」） */
 export const DONE_TEXT = 'できた'
 export const isDoneText = (t?: string) => t === DONE_TEXT || !!t?.startsWith(`${DONE_TEXT}\n`)
 export const SHELVED_NOTE = '今は置いておきます。戻りたくなったら、いつでも'
@@ -290,7 +290,7 @@ export const usePapers = create<PaperState>()(
             goal: D.GOAL_EXAMPLE,
             ideas: [e('資料に要点を1行書いておく'), e('同僚に先に話しておく'), e('最初の一言を決めておく')],
             choice: { idea: '資料に要点を1行書いておく', tired: '1行ならできそう' },
-            plan: { when: toLocalInput(nextMonday(D.HARU_TIME.hour, D.HARU_TIME.minute)), ...D.PLAN_EXAMPLE },
+            plan: { when: toLocalInput(nextWeekday(D.HARU_TIME.weekday, D.HARU_TIME.hour, D.HARU_TIME.minute)), ...D.PLAN_EXAMPLE },
           }
           const paper: Paper = {
             id: uid(),
@@ -298,36 +298,37 @@ export const usePapers = create<PaperState>()(
             updatedAt: now,
             status: 'waiting',
             // 話は「月曜の会議」なので、聞くのは次の月曜の朝（土日に作っても）
-            notifyAt: nextMonday(D.HARU_TIME.hour, D.HARU_TIME.minute),
+            notifyAt: nextWeekday(D.HARU_TIME.weekday, D.HARU_TIME.hour, D.HARU_TIME.minute),
             sheets: [sheet],
           }
           set((st) => ({ papers: [paper, ...st.papers] }))
           return paper.id
         },
 
-        addBossPaper: (replace = false) => {
-          const B = D.BOSS
-          const kept = get().papers.filter((p) => !(replace && p.sample === 'boss'))
+        addKikakuPaper: (replace = false) => {
+          const K = D.KIKAKU
+          const kept = get().papers.filter((p) => !(replace && p.sample === 'kikaku'))
           // ハルさんの例と同じく、作るたびに1日ずつ前の日付にする
-          const examples = kept.filter((p) => p.sample === 'boss').length
+          const examples = kept.filter((p) => p.sample === 'kikaku').length
           const now = Date.now()
           const created = now - examples * 24 * 3600_000
-          const at = nextMonday(B.hour, B.minute)
+          // 話は「土曜に全部書く」なので、聞くのは次の土曜の 10:00
+          const at = nextWeekday(K.weekday, K.hour, K.minute)
           const e = (text: string, q?: string) => ({ id: uid(), text, q })
           const sheet: Sheet = {
             ...emptySheet(),
             createdAt: created,
-            dump: [e(B.problem)],
-            problem: B.problem,
-            sceneAnswers: B.answers.map((a, i) => e(a, B.questions[i])),
-            scene: B.scene,
-            goalNotes: [e(B.goal)],
-            goal: B.goal,
-            ideas: B.ideas.map((i) => e(i)),
-            choice: { idea: B.choice },
-            plan: { when: toLocalInput(at), ...B.plan },
+            dump: [e(K.problem)],
+            problem: K.problem,
+            sceneAnswers: K.answers.map((a, i) => e(a, K.questions[i])),
+            scene: K.scene,
+            goalNotes: [e(K.goal)],
+            goal: K.goal,
+            ideas: K.ideas.map((i) => e(i)),
+            choice: { idea: K.choice },
+            plan: { when: toLocalInput(at), ...K.plan },
             // ②の問いは、もう答えたもの
-            asked: { 2: [...B.questions] },
+            asked: { 2: [...K.questions] },
           }
           const paper: Paper = {
             id: uid(),
@@ -335,7 +336,7 @@ export const usePapers = create<PaperState>()(
             updatedAt: now,
             status: 'waiting',
             notifyAt: at,
-            sample: 'boss',
+            sample: 'kikaku',
             sheets: [sheet],
           }
           set({ papers: [paper, ...kept] })

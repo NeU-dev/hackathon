@@ -56,20 +56,26 @@ function readResult(s: Sheet): { result?: StepResult; reason?: string } {
   return { result: 'skipped', reason }
 }
 
-/** 最初の一歩にかかる時間（分）。「30秒」「5分」と書いてあれば読む。なければ2分（最初の2分） */
+/** 最初の一歩にかかる時間（分）。「30秒」「5分」「3時間」と書いてあれば読む。なければ2分（最初の2分） */
 export function stepMinutes(s: Sheet): number {
   if (s.stepMin !== undefined) return s.stepMin
   const text = (s.plan?.first ?? '').replace(/[０-９]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xfee0))
   const sec = text.match(/(\d+)\s*秒/)
   if (sec) return Number(sec[1]) / 60
+  const hour = text.match(/(\d+(?:\.\d+)?)\s*時間/)
   const min = text.match(/(\d+)\s*分/)
+  if (hour) return Number(hour[1]) * 60 + (min ? Number(min[1]) : 0)
   if (min) return Number(min[1])
   return 2
 }
 
-/** 30秒 ／ 5分 */
+/** 30秒 ／ 5分 ／ 3時間 ／ 1時間30分 */
 export function formatMinutes(m: number): string {
-  return m < 1 ? `${Math.round(m * 60)}秒` : `${Math.round(m)}分`
+  if (m < 1) return `${Math.round(m * 60)}秒`
+  if (m < 60) return `${Math.round(m)}分`
+  const h = Math.floor(m / 60)
+  const rest = Math.round(m - h * 60)
+  return rest ? `${h}時間${rest}分` : `${h}時間`
 }
 
 const problemOf = (p: Paper) => p.sheets.find((s) => s.problem)?.problem?.trim()

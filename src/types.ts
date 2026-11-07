@@ -63,8 +63,8 @@ export interface Paper {
   lastRungAt?: number
   shelvedNote?: string
   /** ふりかえりのデモ用に、最初から入っている過去の紙 */
-  /** デモ用の紙：past＝ふりかえり用の過去の紙、boss＝上司への相談の例（?demo=boss で入れなおす） */
-  sample?: 'past' | 'boss'
+  /** デモ用の紙：past＝ふりかえり用の過去の紙、kikaku＝企画書の例（?demo=kikaku で入れなおす） */
+  sample?: 'past' | 'kikaku'
 }
 
 export interface ProblemCandidate {

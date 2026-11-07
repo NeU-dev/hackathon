@@ -33,10 +33,10 @@ export function defaultWhen(): string {
   return toLocalInput(d.getTime())
 }
 
-/** 次の月曜の hour:minute（今日が月曜なら、来週の月曜）。デモの例の紙の「いつ」 */
-export function nextMonday(hour: number, minute: number, now = Date.now()): number {
+/** 次の◯曜日（weekday：0＝日〜6＝土）の hour:minute。今日がその曜日なら、来週。デモの例の紙の「いつ」 */
+export function nextWeekday(weekday: number, hour: number, minute: number, now = Date.now()): number {
   const d = new Date(now)
-  d.setDate(d.getDate() + (((1 - d.getDay() + 7) % 7) || 7))
+  d.setDate(d.getDate() + (((weekday - d.getDay() + 7) % 7) || 7))
   d.setHours(hour, minute, 0, 0)
   return d.getTime()
 }

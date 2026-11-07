@@ -6,7 +6,7 @@ const params = new URLSearchParams(location.search)
 
 export const REC = params.has('rec')
 
-/** ?demo=boss：上司への相談の例の紙を入れなおした状態で始める（録画のたびに設定を開かなくて済むように） */
+/** ?demo=kikaku：企画書の例の紙を入れなおした状態で始める（録画のたびに設定を開かなくて済むように） */
 export const DEMO = params.get('demo')
 
 /** 録画モードで通知を出す合図を受ける：N キー、または画面の左上の端を長押し（iPhone） */
